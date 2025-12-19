@@ -6,11 +6,20 @@ use App\Http\Requests\StoreCustomerContactRequest;
 use App\Http\Requests\UpdateCustomerContactRequest;
 use App\Models\Contact;
 use App\Models\Customer;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CustomerContactController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:contacts.view')->only(['index', 'show']);
+        $this->middleware('permission:contacts.create')->only(['create', 'store']);
+        $this->middleware('permission:contacts.edit')->only(['edit', 'update']);
+        $this->middleware('permission:contacts.delete')->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -39,12 +48,19 @@ class CustomerContactController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCustomerContactRequest $request, Customer $customer): RedirectResponse
+    public function store(StoreCustomerContactRequest $request, Customer $customer): RedirectResponse|JsonResponse
     {
         $contact = $customer->contacts()->create($request->validated());
 
+        if ($request->wantsJson()) {
+            return response()->json([
+                'redirect' => route('customers.show', $customer),
+                'message' => 'Contact created.',
+            ]);
+        }
+
         return redirect()
-            ->route('customers.contacts.show', [$customer, $contact])
+            ->route('customers.show', $customer)
             ->with('success', 'Contact created.');
     }
 
@@ -73,24 +89,38 @@ class CustomerContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCustomerContactRequest $request, Customer $customer, Contact $contact): RedirectResponse
+    public function update(UpdateCustomerContactRequest $request, Customer $customer, Contact $contact): RedirectResponse|JsonResponse
     {
         $contact->update($request->validated());
 
+        if ($request->wantsJson()) {
+            return response()->json([
+                'redirect' => route('customers.show', $customer),
+                'message' => 'Contact updated.',
+            ]);
+        }
+
         return redirect()
-            ->route('customers.contacts.show', [$customer, $contact])
+            ->route('customers.show', $customer)
             ->with('success', 'Contact updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer, Contact $contact): RedirectResponse
+    public function destroy(Customer $customer, Contact $contact): RedirectResponse|JsonResponse
     {
         $contact->delete();
 
+        if (request()->wantsJson()) {
+            return response()->json([
+                'redirect' => route('customers.show', $customer),
+                'message' => 'Contact deleted.',
+            ]);
+        }
+
         return redirect()
-            ->route('customers.contacts.index', $customer)
+            ->route('customers.show', $customer)
             ->with('success', 'Contact deleted.');
     }
 }

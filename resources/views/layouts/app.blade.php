@@ -13,6 +13,27 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+        <style>
+            .choices__inner {
+                border-radius: 0.375rem;
+                border-color: rgb(209 213 219);
+                min-height: 2.5rem;
+                padding: 0.4rem 0.75rem;
+            }
+            .choices__list--single .choices__item {
+                color: #111827;
+            }
+            .choices__list--dropdown {
+                border-radius: 0.5rem;
+            }
+            .flatpickr-input {
+                background-color: #fff;
+                cursor: pointer;
+            }
+        </style>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -48,5 +69,32 @@
                 {{ $slot }}
             </main>
         </div>
+
+        @stack('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('select[data-enhance="choices"]').forEach((selectEl) => {
+                    if (selectEl.dataset.choicesAttached === '1') return;
+                    new Choices(selectEl, {
+                        searchEnabled: true,
+                        shouldSort: false,
+                        itemSelectText: '',
+                        removeItemButton: false,
+                    });
+                    selectEl.dataset.choicesAttached = '1';
+                });
+
+                if (window.flatpickr) {
+                    document.querySelectorAll('input[data-datepicker]').forEach((input) => {
+                        window.flatpickr(input, {
+                            dateFormat: 'Y-m-d',
+                            allowInput: true,
+                        });
+                    });
+                }
+            });
+        </script>
     </body>
 </html>

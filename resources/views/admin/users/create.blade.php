@@ -35,12 +35,13 @@
                             <select
                                 id="role"
                                 name="role"
+                                data-enhance="choices"
                                 class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                 required
                             >
                                 @foreach ($roles as $role)
                                     <option value="{{ $role }}" @selected(old('role', 'user') === $role)>
-                                        {{ __($role) }}
+                                        {{ $role }}
                                     </option>
                                 @endforeach
                             </select>

@@ -18,6 +18,10 @@ class Customer extends Model
      */
     protected $fillable = [
         'name',
+        'email',
+        'phone',
+        'address',
+        'pincode',
         'status',
         'notes',
     ];

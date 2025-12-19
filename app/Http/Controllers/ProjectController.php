@@ -6,12 +6,21 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Customer;
 use App\Models\Project;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:projects.view')->only(['index', 'show']);
+        $this->middleware('permission:projects.create')->only(['create', 'store']);
+        $this->middleware('permission:projects.edit')->only(['edit', 'update']);
+        $this->middleware('permission:projects.delete')->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -62,9 +71,16 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProjectRequest $request): RedirectResponse
+    public function store(StoreProjectRequest $request): RedirectResponse|JsonResponse
     {
         $project = Project::create($request->validated());
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'redirect' => route('projects.show', $project),
+                'message' => 'Project created.',
+            ]);
+        }
 
         return redirect()
             ->route('projects.show', $project)
@@ -98,9 +114,16 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProjectRequest $request, Project $project): RedirectResponse
+    public function update(UpdateProjectRequest $request, Project $project): RedirectResponse|JsonResponse
     {
         $project->update($request->validated());
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'redirect' => route('projects.show', $project),
+                'message' => 'Project updated.',
+            ]);
+        }
 
         return redirect()
             ->route('projects.show', $project)
@@ -110,9 +133,16 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project): RedirectResponse
+    public function destroy(Project $project): RedirectResponse|JsonResponse
     {
         $project->delete();
+
+        if (request()->wantsJson()) {
+            return response()->json([
+                'redirect' => route('projects.index'),
+                'message' => 'Project deleted.',
+            ]);
+        }
 
         return redirect()
             ->route('projects.index')

@@ -15,7 +15,7 @@
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form method="POST" action="{{ route('customers.contacts.store', $customer) }}" class="space-y-6">
+                    <form method="POST" action="{{ route('customers.contacts.store', $customer) }}" class="space-y-6 js-ajax-contact-create">
                         @csrf
 
                         <div>
@@ -51,4 +51,39 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            $(function () {
+                $('.js-ajax-contact-create').on('submit', function (e) {
+                    e.preventDefault();
+                    const $form = $(this);
+                    const submitBtn = $form.find('button[type="submit"]');
+                    submitBtn.prop('disabled', true).addClass('opacity-70');
+
+                    $.ajax({
+                        url: $form.attr('action'),
+                        method: 'POST',
+                        data: $form.serialize(),
+                        headers: {
+                            'Accept': 'application/json',
+                        },
+                        success: function (resp) {
+                            const target = resp.redirect || "{{ route('customers.show', $customer) }}";
+                            window.location.href = target;
+                        },
+                        error: function (xhr) {
+                            submitBtn.prop('disabled', false).removeClass('opacity-70');
+                            if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.errors) {
+                                let firstError = Object.values(xhr.responseJSON.errors)[0][0];
+                                alert(firstError);
+                            } else {
+                                alert('Unable to save contact right now. Please try again.');
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+    @endpush
 </x-app-layout>

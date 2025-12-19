@@ -13,6 +13,14 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:users.view')->only(['index', 'show']);
+        $this->middleware('permission:users.create')->only(['create', 'store']);
+        $this->middleware('permission:users.edit')->only(['edit', 'update']);
+        $this->middleware('permission:users.delete')->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -34,7 +42,7 @@ class UserController extends Controller
     public function create(): View
     {
         return view('admin.users.create', [
-            'roles' => ['admin', 'user'],
+            'roles' => Role::orderBy('name')->pluck('name')->toArray(),
         ]);
     }
 
@@ -81,7 +89,7 @@ class UserController extends Controller
 
         return view('admin.users.edit', [
             'user' => $user,
-            'roles' => ['admin', 'user'],
+            'roles' => Role::orderBy('name')->pluck('name')->toArray(),
         ]);
     }
 

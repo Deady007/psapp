@@ -25,11 +25,45 @@
                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
                         </div>
 
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <x-input-label for="email" :value="__('Email')" />
+                                <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $customer->email)" />
+                                <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="phone" :value="__('Phone')" />
+                                <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full" :value="old('phone', $customer->phone)" />
+                                <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <x-input-label for="address" :value="__('Address')" />
+                                <textarea
+                                    id="address"
+                                    name="address"
+                                    rows="2"
+                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                >{{ old('address', $customer->address) }}</textarea>
+                                <x-input-error class="mt-2" :messages="$errors->get('address')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="pincode" :value="__('Pincode')" />
+                                <x-text-input id="pincode" name="pincode" type="text" class="mt-1 block w-full" :value="old('pincode', $customer->pincode)" />
+                                <x-input-error class="mt-2" :messages="$errors->get('pincode')" />
+                            </div>
+                        </div>
+
                         <div>
                             <x-input-label for="status" :value="__('Status')" />
                             <select
                                 id="status"
                                 name="status"
+                                data-enhance="choices"
                                 class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                 required
                             >

@@ -5,11 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CustomerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:customers.view')->only(['index', 'show']);
+        $this->middleware('permission:customers.create')->only(['create', 'store']);
+        $this->middleware('permission:customers.edit')->only(['edit', 'update']);
+        $this->middleware('permission:customers.delete')->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -52,9 +61,11 @@ class CustomerController extends Controller
     public function show(Customer $customer): View
     {
         $customer->loadCount(['contacts', 'projects']);
+        $customer->load(['contacts' => fn ($query) => $query->orderBy('name')]);
 
         return view('customers.show', [
             'customer' => $customer,
+            'statuses' => Customer::STATUSES,
         ]);
     }
 
@@ -72,9 +83,16 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCustomerRequest $request, Customer $customer): RedirectResponse
+    public function update(UpdateCustomerRequest $request, Customer $customer): RedirectResponse|JsonResponse
     {
         $customer->update($request->validated());
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'redirect' => route('customers.show', $customer),
+                'message' => 'Customer updated.',
+            ]);
+        }
 
         return redirect()
             ->route('customers.show', $customer)

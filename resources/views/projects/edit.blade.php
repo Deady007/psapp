@@ -24,6 +24,7 @@
                             <select
                                 id="customer_id"
                                 name="customer_id"
+                                data-enhance="choices"
                                 class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                 required
                             >
@@ -54,6 +55,7 @@
                             <select
                                 id="status"
                                 name="status"
+                                data-enhance="choices"
                                 class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                 required
                             >
@@ -69,13 +71,13 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
                                 <x-input-label for="start_date" :value="__('Start Date')" />
-                                <x-text-input id="start_date" name="start_date" type="date" class="mt-1 block w-full" :value="old('start_date', $project->start_date?->toDateString())" />
+                                <x-text-input id="start_date" name="start_date" type="text" data-datepicker="1" class="mt-1 block w-full" :value="old('start_date', $project->start_date?->toDateString())" />
                                 <x-input-error class="mt-2" :messages="$errors->get('start_date')" />
                             </div>
 
                             <div>
                                 <x-input-label for="due_date" :value="__('Due Date')" />
-                                <x-text-input id="due_date" name="due_date" type="date" class="mt-1 block w-full" :value="old('due_date', $project->due_date?->toDateString())" />
+                                <x-text-input id="due_date" name="due_date" type="text" data-datepicker="1" class="mt-1 block w-full" :value="old('due_date', $project->due_date?->toDateString())" />
                                 <x-input-error class="mt-2" :messages="$errors->get('due_date')" />
                             </div>
                         </div>
