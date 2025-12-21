@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Jobs\CreateProjectDriveFolders;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Project;
@@ -77,6 +78,7 @@ class ProjectController extends Controller
     {
         $project = Project::create($request->safe()->except('products'));
         $project->products()->sync($request->input('products', []));
+        CreateProjectDriveFolders::dispatch($project->id, $request->user()?->id);
 
         if ($request->wantsJson()) {
             return response()->json([
@@ -96,7 +98,7 @@ class ProjectController extends Controller
     public function show(Project $project): View
     {
         $project->load(['customer', 'products', 'kickoff'])
-            ->loadCount(['requirements', 'documents', 'products']);
+            ->loadCount(['requirements', 'products']);
 
         return view('projects.show', [
             'project' => $project,

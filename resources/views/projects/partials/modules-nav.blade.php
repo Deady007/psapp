@@ -17,8 +17,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @if (request()->routeIs('projects.documents.*')) active @endif" href="{{ route('projects.documents.index', $project) }}">
-                    {{ __('Documents') }}
+                <a class="nav-link @if (request()->routeIs('projects.drive-documents.*')) active @endif" href="{{ route('projects.drive-documents.index', $project) }}">
+                    {{ __('Drive Documents') }}
                 </a>
             </li>
         </ul>

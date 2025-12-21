@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProjectDocument extends Model
+class Document extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProjectDocumentFactory> */
+    /** @use HasFactory<\Database\Factories\DocumentFactory> */
     use HasFactory, SoftDeletes;
 
     /**
@@ -17,15 +17,23 @@ class ProjectDocument extends Model
      */
     protected $fillable = [
         'project_id',
-        'category',
-        'original_name',
-        'path',
+        'folder_id',
+        'drive_file_id',
+        'name',
         'mime_type',
         'size',
-        'notes',
+        'source',
+        'received_from',
+        'received_at',
+        'version',
+        'checksum',
         'uploaded_by',
-        'collected_at',
     ];
+
+    public function folder(): BelongsTo
+    {
+        return $this->belongsTo(DocumentFolder::class, 'folder_id');
+    }
 
     public function project(): BelongsTo
     {
@@ -40,7 +48,9 @@ class ProjectDocument extends Model
     protected function casts(): array
     {
         return [
-            'collected_at' => 'date',
+            'received_at' => 'date',
+            'size' => 'integer',
+            'version' => 'integer',
         ];
     }
 }

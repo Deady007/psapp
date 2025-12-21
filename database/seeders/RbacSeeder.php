@@ -44,11 +44,11 @@ class RbacSeeder extends Seeder
             'project_requirements.create',
             'project_requirements.edit',
             'project_requirements.delete',
-            // Project Documents
-            'project_documents.view',
-            'project_documents.create',
-            'project_documents.edit',
-            'project_documents.delete',
+            // Drive Documents
+            'documents.view',
+            'documents.create',
+            'documents.edit',
+            'documents.delete',
             // Users
             'users.view',
             'users.create',
@@ -84,7 +84,7 @@ class RbacSeeder extends Seeder
                 || str_starts_with($permission->name, 'projects.')
                 || str_starts_with($permission->name, 'project_kickoffs.')
                 || str_starts_with($permission->name, 'project_requirements.')
-                || str_starts_with($permission->name, 'project_documents.');
+                || str_starts_with($permission->name, 'documents.');
         });
 
         $userRole->syncPermissions($userPermissions);

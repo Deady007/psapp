@@ -131,7 +131,7 @@ class RoleController extends Controller
             'projects' => ['label' => 'Projects', 'actions' => ['view', 'create', 'edit', 'delete']],
             'project_kickoffs' => ['label' => 'Project Kickoffs', 'actions' => ['view', 'create', 'edit', 'delete']],
             'project_requirements' => ['label' => 'Project Requirements', 'actions' => ['view', 'create', 'edit', 'delete']],
-            'project_documents' => ['label' => 'Project Documents', 'actions' => ['view', 'create', 'edit', 'delete']],
+            'documents' => ['label' => 'Drive Documents', 'actions' => ['view', 'create', 'edit', 'delete']],
             'users' => ['label' => 'Users', 'actions' => ['view', 'create', 'edit', 'delete']],
             'roles' => ['label' => 'Roles', 'actions' => ['view', 'create', 'edit', 'delete']],
             'permissions' => ['label' => 'Permissions', 'actions' => ['view', 'create', 'edit', 'delete']],

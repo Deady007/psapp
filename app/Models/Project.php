@@ -44,9 +44,14 @@ class Project extends Model
         return $this->hasMany(ProjectRequirement::class);
     }
 
-    public function documents(): HasMany
+    public function driveFolders(): HasMany
     {
-        return $this->hasMany(ProjectDocument::class);
+        return $this->hasMany(DocumentFolder::class);
+    }
+
+    public function driveDocuments(): HasMany
+    {
+        return $this->hasMany(Document::class);
     }
 
     public function products(): BelongsToMany

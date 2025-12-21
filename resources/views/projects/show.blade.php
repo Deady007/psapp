@@ -21,7 +21,7 @@
     @include('projects.partials.modules-nav', ['project' => $project])
 
     <div class="row">
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <x-adminlte-info-box
                 title="{{ __('Kick-off') }}"
                 text="{{ $project->kickoff?->status ? __($project->kickoff->status) : __('Not scheduled') }}"
@@ -30,7 +30,7 @@
                 url="{{ route('projects.kickoffs.show', $project) }}"
             />
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <x-adminlte-info-box
                 title="{{ __('Requirements') }}"
                 text="{{ $project->requirements_count }}"
@@ -39,16 +39,7 @@
                 url="{{ route('projects.requirements.index', $project) }}"
             />
         </div>
-        <div class="col-lg-3 col-md-6">
-            <x-adminlte-info-box
-                title="{{ __('Documents') }}"
-                text="{{ $project->documents_count }}"
-                icon="fas fa-folder-open"
-                theme="warning"
-                url="{{ route('projects.documents.index', $project) }}"
-            />
-        </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <x-adminlte-info-box
                 title="{{ __('Products') }}"
                 text="{{ $project->products_count }}"

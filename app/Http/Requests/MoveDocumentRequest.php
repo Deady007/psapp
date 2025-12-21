@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Project;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateProjectDocumentRequest extends FormRequest
+class MoveDocumentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,11 +23,18 @@ class UpdateProjectDocumentRequest extends FormRequest
      */
     public function rules(): array
     {
+        $project = $this->route('project');
+        $folderRule = Rule::exists('document_folders', 'id');
+
+        if ($project instanceof Project) {
+            $folderRule = $folderRule->where(function ($query) use ($project) {
+                $query->where('project_id', $project->id)
+                    ->where('kind', '!=', 'trash');
+            });
+        }
+
         return [
-            'category' => ['required', 'string', 'max:255'],
-            'file' => ['nullable', 'file', 'max:10240'],
-            'notes' => ['nullable', 'string'],
-            'collected_at' => ['nullable', 'date'],
+            'destination_folder_id' => ['nullable', 'integer', $folderRule],
         ];
     }
 
@@ -35,11 +44,7 @@ class UpdateProjectDocumentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'category.required' => 'Document category is required.',
-            'category.max' => 'Document category may not be greater than 255 characters.',
-            'file.file' => 'The document must be a valid file.',
-            'file.max' => 'The document may not be greater than 10 MB.',
-            'collected_at.date' => 'Collected at must be a valid date.',
+            'destination_folder_id.exists' => 'Destination folder is invalid.',
         ];
     }
 }
