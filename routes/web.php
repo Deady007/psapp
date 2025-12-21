@@ -1,12 +1,15 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\CustomerContactController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\Admin\RoleController as AdminRoleController;
 use App\Http\Controllers\Admin\PermissionController as AdminPermissionController;
+use App\Http\Controllers\Admin\RoleController as AdminRoleController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\CustomerContactController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectDocumentController;
+use App\Http\Controllers\ProjectKickoffController;
+use App\Http\Controllers\ProjectRequirementController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,6 +32,18 @@ Route::middleware(['auth', 'role:admin|user'])
         Route::resource('customers', CustomerController::class);
         Route::resource('customers.contacts', CustomerContactController::class);
         Route::resource('projects', ProjectController::class);
+        Route::prefix('projects/{project}/kickoff')->name('projects.kickoffs.')->group(function () {
+            Route::get('/', [ProjectKickoffController::class, 'show'])->name('show');
+            Route::get('create', [ProjectKickoffController::class, 'create'])->name('create');
+            Route::post('/', [ProjectKickoffController::class, 'store'])->name('store');
+            Route::get('edit', [ProjectKickoffController::class, 'edit'])->name('edit');
+            Route::put('/', [ProjectKickoffController::class, 'update'])->name('update');
+            Route::delete('/', [ProjectKickoffController::class, 'destroy'])->name('destroy');
+        });
+        Route::resource('projects.requirements', ProjectRequirementController::class)->except(['show']);
+        Route::resource('projects.documents', ProjectDocumentController::class)->except(['show']);
+        Route::get('projects/{project}/documents/{document}/download', [ProjectDocumentController::class, 'download'])
+            ->name('projects.documents.download');
     });
 
 Route::middleware(['auth', 'role:admin'])

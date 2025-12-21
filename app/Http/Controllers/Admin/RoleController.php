@@ -7,8 +7,6 @@ use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use Spatie\Permission\Models\Permission;
-use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -131,6 +129,9 @@ class RoleController extends Controller
             'customers' => ['label' => 'Customers', 'actions' => ['view', 'create', 'edit', 'delete']],
             'contacts' => ['label' => 'Contacts', 'actions' => ['view', 'create', 'edit', 'delete']],
             'projects' => ['label' => 'Projects', 'actions' => ['view', 'create', 'edit', 'delete']],
+            'project_kickoffs' => ['label' => 'Project Kickoffs', 'actions' => ['view', 'create', 'edit', 'delete']],
+            'project_requirements' => ['label' => 'Project Requirements', 'actions' => ['view', 'create', 'edit', 'delete']],
+            'project_documents' => ['label' => 'Project Documents', 'actions' => ['view', 'create', 'edit', 'delete']],
             'users' => ['label' => 'Users', 'actions' => ['view', 'create', 'edit', 'delete']],
             'roles' => ['label' => 'Roles', 'actions' => ['view', 'create', 'edit', 'delete']],
             'permissions' => ['label' => 'Permissions', 'actions' => ['view', 'create', 'edit', 'delete']],

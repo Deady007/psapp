@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\PermissionRegistrar;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class RbacSeeder extends Seeder
 {
@@ -34,6 +34,21 @@ class RbacSeeder extends Seeder
             'projects.create',
             'projects.edit',
             'projects.delete',
+            // Project Kickoffs
+            'project_kickoffs.view',
+            'project_kickoffs.create',
+            'project_kickoffs.edit',
+            'project_kickoffs.delete',
+            // Project Requirements
+            'project_requirements.view',
+            'project_requirements.create',
+            'project_requirements.edit',
+            'project_requirements.delete',
+            // Project Documents
+            'project_documents.view',
+            'project_documents.create',
+            'project_documents.edit',
+            'project_documents.delete',
             // Users
             'users.view',
             'users.create',
@@ -66,13 +81,16 @@ class RbacSeeder extends Seeder
         $userPermissions = $permissionModels->filter(function (Permission $permission) {
             return str_starts_with($permission->name, 'customers.')
                 || str_starts_with($permission->name, 'contacts.')
-                || str_starts_with($permission->name, 'projects.');
+                || str_starts_with($permission->name, 'projects.')
+                || str_starts_with($permission->name, 'project_kickoffs.')
+                || str_starts_with($permission->name, 'project_requirements.')
+                || str_starts_with($permission->name, 'project_documents.');
         });
 
         $userRole->syncPermissions($userPermissions);
 
         $admin = User::updateOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => 'parmarviral397@gmail.com'],
             [
                 'name' => 'Admin',
                 'password' => Hash::make('Admin@12345'),

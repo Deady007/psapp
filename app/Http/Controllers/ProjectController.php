@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Customer;
+use App\Models\Product;
 use App\Models\Project;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -64,6 +65,7 @@ class ProjectController extends Controller
     {
         return view('projects.create', [
             'customers' => Customer::query()->orderBy('name')->get(['id', 'name']),
+            'products' => Product::query()->orderBy('name')->get(['id', 'name']),
             'statuses' => Project::STATUSES,
         ]);
     }
@@ -73,7 +75,8 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request): RedirectResponse|JsonResponse
     {
-        $project = Project::create($request->validated());
+        $project = Project::create($request->safe()->except('products'));
+        $project->products()->sync($request->input('products', []));
 
         if ($request->wantsJson()) {
             return response()->json([
@@ -92,7 +95,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project): View
     {
-        $project->load('customer');
+        $project->load(['customer', 'products', 'kickoff'])
+            ->loadCount(['requirements', 'documents', 'products']);
 
         return view('projects.show', [
             'project' => $project,
@@ -104,9 +108,12 @@ class ProjectController extends Controller
      */
     public function edit(Project $project): View
     {
+        $project->load('products');
+
         return view('projects.edit', [
             'project' => $project,
             'customers' => Customer::query()->orderBy('name')->get(['id', 'name']),
+            'products' => Product::query()->orderBy('name')->get(['id', 'name']),
             'statuses' => Project::STATUSES,
         ]);
     }
@@ -116,7 +123,8 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project): RedirectResponse|JsonResponse
     {
-        $project->update($request->validated());
+        $project->update($request->safe()->except('products'));
+        $project->products()->sync($request->input('products', []));
 
         if ($request->wantsJson()) {
             return response()->json([
