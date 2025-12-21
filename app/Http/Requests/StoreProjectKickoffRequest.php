@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\ProjectKickoff;
+use App\Models\Contact;
+use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class StoreProjectKickoffRequest extends FormRequest
 {
@@ -25,13 +26,35 @@ class StoreProjectKickoffRequest extends FormRequest
     {
         return [
             'purchase_order_number' => ['nullable', 'string', 'max:255'],
-            'scheduled_at' => ['nullable', 'date'],
-            'meeting_mode' => ['nullable', 'string', 'max:255'],
-            'stakeholders' => ['nullable', 'string'],
-            'requirements_summary' => ['nullable', 'string'],
-            'timeline_summary' => ['nullable', 'string'],
             'notes' => ['nullable', 'string'],
-            'status' => ['required', Rule::in(ProjectKickoff::STATUSES)],
+            'stakeholders' => ['nullable', 'array'],
+            'stakeholders.*' => [
+                'string',
+                function (string $attribute, mixed $value, \Closure $fail): void {
+                    if (! is_string($value) || ! str_contains($value, ':')) {
+                        $fail('The selected stakeholder is invalid.');
+
+                        return;
+                    }
+
+                    [$type, $id] = explode(':', $value, 2);
+                    $map = [
+                        'customer' => Customer::class,
+                        'contact' => Contact::class,
+                        'user' => User::class,
+                    ];
+
+                    if (! array_key_exists($type, $map) || ! ctype_digit($id)) {
+                        $fail('The selected stakeholder is invalid.');
+
+                        return;
+                    }
+
+                    if (! $map[$type]::query()->whereKey((int) $id)->exists()) {
+                        $fail('The selected stakeholder is invalid.');
+                    }
+                },
+            ],
         ];
     }
 
@@ -42,10 +65,7 @@ class StoreProjectKickoffRequest extends FormRequest
     {
         return [
             'purchase_order_number.max' => 'Purchase order number may not be greater than 255 characters.',
-            'scheduled_at.date' => 'Kick-off date must be a valid date.',
-            'meeting_mode.max' => 'Meeting mode may not be greater than 255 characters.',
-            'status.required' => 'Please select a kick-off status.',
-            'status.in' => 'The selected kick-off status is invalid.',
+            'stakeholders.array' => 'Stakeholders must be an array.',
         ];
     }
 }

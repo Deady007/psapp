@@ -6,20 +6,32 @@
                 <div class="text-muted">{{ $project->name }}</div>
             </div>
             <div class="col-lg-4 text-lg-right mt-3 mt-lg-0">
-                @if ($project->kickoff)
-                    <a href="{{ route('projects.kickoffs.edit', $project) }}" class="btn btn-outline-secondary mr-2">
-                        {{ __('Edit') }}
+                @if (! $project->kickoff)
+                    <a href="{{ route('projects.kickoffs.plan', $project) }}" class="btn btn-primary">
+                        <i class="fas fa-clipboard-check mr-1"></i>
+                        {{ __('Plan Kick-off') }}
                     </a>
+                @else
+                    @if ($project->kickoff->status === 'planned')
+                        <a href="{{ route('projects.kickoffs.schedule', $project) }}" class="btn btn-primary mr-2">
+                            <i class="fas fa-calendar-alt mr-1"></i>
+                            {{ __('Schedule Call') }}
+                        </a>
+                    @elseif ($project->kickoff->status === 'scheduled')
+                        <a href="{{ route('projects.kickoffs.schedule', $project) }}" class="btn btn-outline-primary mr-2">
+                            <i class="fas fa-sync-alt mr-1"></i>
+                            {{ __('Reschedule Call') }}
+                        </a>
+                        <a href="{{ route('projects.kickoffs.complete', $project) }}" class="btn btn-primary mr-2">
+                            <i class="fas fa-check mr-1"></i>
+                            {{ __('Complete Call') }}
+                        </a>
+                    @endif
                     <form method="POST" action="{{ route('projects.kickoffs.destroy', $project) }}" class="d-inline" onsubmit="return confirm('{{ __('Delete this kick-off?') }}')">
                         @csrf
                         @method('DELETE')
                         <x-danger-button>{{ __('Delete') }}</x-danger-button>
                     </form>
-                @else
-                    <a href="{{ route('projects.kickoffs.create', $project) }}" class="btn btn-primary">
-                        <i class="fas fa-plus mr-1"></i>
-                        {{ __('Schedule Kick-off') }}
-                    </a>
                 @endif
             </div>
         </div>
@@ -30,15 +42,21 @@
     @if (! $project->kickoff)
         <div class="card">
             <div class="card-body">
-                <p class="text-muted mb-3">{{ __('No kick-off has been scheduled yet.') }}</p>
-                <a href="{{ route('projects.kickoffs.create', $project) }}" class="btn btn-primary">
-                    <i class="fas fa-calendar-plus mr-1"></i>
-                    {{ __('Schedule Kick-off') }}
+                <p class="text-muted mb-3">{{ __('No kick-off has been planned yet.') }}</p>
+                <a href="{{ route('projects.kickoffs.plan', $project) }}" class="btn btn-primary">
+                    <i class="fas fa-clipboard-check mr-1"></i>
+                    {{ __('Plan Kick-off') }}
                 </a>
             </div>
         </div>
     @else
-        @php($statusClasses = ['draft' => 'secondary', 'scheduled' => 'info', 'completed' => 'success'])
+        @php($statusClasses = ['planned' => 'secondary', 'scheduled' => 'info', 'completed' => 'success'])
+        @php($stakeholderLabels = [
+            App\Models\Customer::class => __('Customer'),
+            App\Models\Contact::class => __('Contact'),
+            App\Models\User::class => __('User'),
+        ])
+
         <div class="row">
             <div class="col-lg-8">
                 <div class="card">
@@ -61,12 +79,50 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th class="text-muted">{{ __('Planned At') }}</th>
+                                    <td>{{ $project->kickoff->planned_at?->format('Y-m-d H:i') ?: '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">{{ __('Scheduled At') }}</th>
+                                    <td>{{ $project->kickoff->scheduled_at?->format('Y-m-d H:i') ?: '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">{{ __('Completed At') }}</th>
+                                    <td>{{ $project->kickoff->completed_at?->format('Y-m-d H:i') ?: '-' }}</td>
+                                </tr>
+                                <tr>
                                     <th class="text-muted">{{ __('Meeting Mode') }}</th>
-                                    <td>{{ $project->kickoff->meeting_mode ?: '-' }}</td>
+                                    <td>
+                                        @php($modeLabels = [
+                                            'onsite' => __('Onsite'),
+                                            'virtual_meet' => __('Virtual - Meet'),
+                                            'virtual_teams' => __('Virtual - Teams'),
+                                        ])
+                                        {{ $modeLabels[$project->kickoff->meeting_mode] ?? $project->kickoff->meeting_mode ?? '-' }}
+                                        @if ($project->kickoff->meeting_mode === 'onsite' && $project->kickoff->site_location)
+                                            <div class="text-muted small">{{ $project->kickoff->site_location }}</div>
+                                        @endif
+                                        @if (in_array($project->kickoff->meeting_mode, ['virtual_meet', 'virtual_teams'], true) && $project->kickoff->meeting_link)
+                                            <div>
+                                                <a href="{{ $project->kickoff->meeting_link }}" target="_blank" rel="noopener">
+                                                    {{ __('Join link') }}
+                                                </a>
+                                            </div>
+                                        @endif
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th class="text-muted">{{ __('Stakeholders') }}</th>
-                                    <td style="white-space: pre-line;">{{ $project->kickoff->stakeholders ?: '-' }}</td>
+                                    <td>
+                                        @forelse ($project->kickoff->stakeholderLinks as $link)
+                                            <span class="badge badge-light mr-1">
+                                                &#64;{{ $link->stakeholder?->name ?? __('Unknown') }}
+                                                <span class="text-muted">({{ $stakeholderLabels[$link->stakeholder_type] ?? __('Stakeholder') }})</span>
+                                            </span>
+                                        @empty
+                                            -
+                                        @endforelse
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th class="text-muted">{{ __('Requirements Summary') }}</th>
@@ -89,17 +145,11 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">{{ __('Schedule') }}</h3>
+                        <h3 class="card-title">{{ __('Products') }}</h3>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <div class="text-muted">{{ __('Kick-off Date') }}</div>
-                            <div class="font-weight-bold">
-                                {{ $project->kickoff->scheduled_at?->format('Y-m-d H:i') ?: '-' }}
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="text-muted">{{ __('Products') }}</div>
+                            <div class="text-muted">{{ __('Assigned Products') }}</div>
                             <div>
                                 @forelse ($project->products as $product)
                                     <span class="badge badge-info mr-1">{{ $product->name }}</span>

@@ -313,6 +313,18 @@
         </div>
     </div>
 
+    @push('css')
+        <style>
+            #contact-modal {
+                z-index: 2050;
+            }
+
+            .contact-modal-backdrop {
+                z-index: 2040 !important;
+            }
+        </style>
+    @endpush
+
     @push('js')
         <script>
             $(function () {
@@ -384,6 +396,12 @@
                 const $methodInput = $modalForm.find('input[name="_method"]');
                 const $title = $('#contact-modal-title');
                 const $submit = $('#contact-modal-submit');
+
+                $modal.appendTo('body');
+                $modal.on('shown.bs.modal', function () {
+                    $('#modal_contact_name').trigger('focus');
+                    $('.modal-backdrop').addClass('contact-modal-backdrop');
+                });
 
                 function openModal(mode, action, data = {}) {
                     $modalForm.attr('action', action);

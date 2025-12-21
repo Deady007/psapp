@@ -7,7 +7,7 @@ use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProjectKickoffRequest extends FormRequest
+class CompleteProjectKickoffRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,9 @@ class UpdateProjectKickoffRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'scheduled_at' => ['required', 'date'],
-            'meeting_mode' => ['required', 'string', 'in:onsite,virtual_meet,virtual_teams'],
-            'site_location' => ['nullable', 'string', 'max:255', 'required_if:meeting_mode,onsite'],
-            'meeting_link' => ['nullable', 'url', 'max:255', 'required_unless:meeting_mode,onsite'],
+            'requirements_summary' => ['required', 'string'],
+            'timeline_summary' => ['nullable', 'string'],
+            'notes' => ['nullable', 'string'],
             'stakeholders' => ['nullable', 'array'],
             'stakeholders.*' => [
                 'string',
@@ -66,15 +65,7 @@ class UpdateProjectKickoffRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'scheduled_at.required' => 'Please select a schedule date and time.',
-            'scheduled_at.date' => 'Kick-off date must be a valid date.',
-            'meeting_mode.required' => 'Please specify the meeting mode.',
-            'meeting_mode.in' => 'Meeting mode must be Onsite, Virtual - Meet, or Virtual - Teams.',
-            'site_location.required_if' => 'Site location is required for onsite meetings.',
-            'site_location.max' => 'Site location may not be greater than 255 characters.',
-            'meeting_link.required_unless' => 'Meeting link is required for virtual meetings.',
-            'meeting_link.url' => 'Meeting link must be a valid URL.',
-            'meeting_link.max' => 'Meeting link may not be greater than 255 characters.',
+            'requirements_summary.required' => 'Please add a requirements summary.',
             'stakeholders.array' => 'Stakeholders must be an array.',
         ];
     }

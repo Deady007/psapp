@@ -34,10 +34,12 @@ Route::middleware(['auth', 'role:admin|user'])
         Route::resource('projects', ProjectController::class);
         Route::prefix('projects/{project}/kickoff')->name('projects.kickoffs.')->group(function () {
             Route::get('/', [ProjectKickoffController::class, 'show'])->name('show');
-            Route::get('create', [ProjectKickoffController::class, 'create'])->name('create');
-            Route::post('/', [ProjectKickoffController::class, 'store'])->name('store');
-            Route::get('edit', [ProjectKickoffController::class, 'edit'])->name('edit');
-            Route::put('/', [ProjectKickoffController::class, 'update'])->name('update');
+            Route::get('plan', [ProjectKickoffController::class, 'plan'])->name('plan');
+            Route::post('plan', [ProjectKickoffController::class, 'storePlan'])->name('plan.store');
+            Route::get('schedule', [ProjectKickoffController::class, 'schedule'])->name('schedule');
+            Route::put('schedule', [ProjectKickoffController::class, 'updateSchedule'])->name('schedule.update');
+            Route::get('complete', [ProjectKickoffController::class, 'complete'])->name('complete');
+            Route::put('complete', [ProjectKickoffController::class, 'updateComplete'])->name('complete.update');
             Route::delete('/', [ProjectKickoffController::class, 'destroy'])->name('destroy');
         });
         Route::resource('projects.requirements', ProjectRequirementController::class)->except(['show']);

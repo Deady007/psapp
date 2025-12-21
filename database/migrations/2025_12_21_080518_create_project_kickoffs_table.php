@@ -17,11 +17,10 @@ return new class extends Migration
             $table->string('purchase_order_number')->nullable();
             $table->dateTime('scheduled_at')->nullable();
             $table->string('meeting_mode')->nullable();
-            $table->text('stakeholders')->nullable();
             $table->text('requirements_summary')->nullable();
             $table->text('timeline_summary')->nullable();
             $table->text('notes')->nullable();
-            $table->string('status')->default('draft');
+            $table->string('status')->default('planned');
             $table->timestamps();
             $table->softDeletes();
 
