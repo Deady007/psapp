@@ -163,6 +163,52 @@
                         </a>
                     </div>
                 </div>
+
+                @can('project_requirements.create')
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h3 class="card-title">{{ __('Transcript to Requirements') }}</h3>
+                        </div>
+                        <div class="card-body">
+                            @if ($project->kickoff->status !== 'completed')
+                                <p class="text-muted mb-0">
+                                    {{ __('Complete the kick-off to import requirements from the transcript.') }}
+                                </p>
+                            @else
+                                <p class="text-muted small">
+                                    {{ __('Upload a .txt transcript to generate requirement drafts, then approve before import.') }}
+                                </p>
+
+                                @if ($project->kickoff->transcript_path)
+                                    <div class="text-muted small mb-2">
+                                        {{ __('Last transcript') }}: {{ basename($project->kickoff->transcript_path) }}
+                                        @if ($project->kickoff->transcript_uploaded_at)
+                                            <span class="ml-2">{{ $project->kickoff->transcript_uploaded_at->format('Y-m-d H:i') }}</span>
+                                        @endif
+                                    </div>
+                                @endif
+
+                                <form method="POST" action="{{ route('projects.requirements.import.preview', $project) }}" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="source" value="kickoff">
+
+                                    <div class="form-group">
+                                        <x-input-label for="kickoff_transcript" :value="__('Transcript (.txt)')" />
+                                        <input id="kickoff_transcript" name="transcript" type="file" class="form-control-file" accept=".txt,text/plain" required>
+                                        <x-input-error class="mt-2" :messages="$errors->get('transcript')" />
+                                    </div>
+
+                                    <div class="d-flex justify-content-end">
+                                        <x-primary-button class="mr-2">{{ __('Analyze & Preview') }}</x-primary-button>
+                                        <a href="{{ route('projects.requirements.index', $project) }}" class="btn btn-outline-secondary">
+                                            {{ __('View Requirements') }}
+                                        </a>
+                                    </div>
+                                </form>
+                            @endif
+                        </div>
+                    </div>
+                @endcan
             </div>
         </div>
     @endif

@@ -42,6 +42,11 @@ Route::middleware(['auth', 'role:admin|user'])
             Route::put('complete', [ProjectKickoffController::class, 'updateComplete'])->name('complete.update');
             Route::delete('/', [ProjectKickoffController::class, 'destroy'])->name('destroy');
         });
+        Route::prefix('projects/{project}/requirements')->name('projects.requirements.')->group(function () {
+            Route::get('import', [ProjectRequirementController::class, 'import'])->name('import');
+            Route::post('import/preview', [ProjectRequirementController::class, 'previewImport'])->name('import.preview');
+            Route::post('import', [ProjectRequirementController::class, 'storeImport'])->name('import.store');
+        });
         Route::resource('projects.requirements', ProjectRequirementController::class)->except(['show']);
         Route::prefix('projects/{project}/drive-documents')->name('projects.drive-documents.')->group(function () {
             Route::get('/', [DocumentController::class, 'index'])->name('index');
