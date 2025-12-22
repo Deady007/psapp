@@ -15,8 +15,6 @@
 
     @include('projects.partials.modules-nav', ['project' => $project])
 
-    @php($analysisMode = old('analysis_mode', $analysisMode ?? 'fast'))
-
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">{{ __('Upload transcript') }}</h3>
@@ -68,14 +66,6 @@
             </form>
         </div>
     </div>
-
-    @php
-        $drafts = $drafts ?? old('requirements', []);
-
-        if (! is_array($drafts)) {
-            $drafts = [];
-        }
-    @endphp
 
     @if (count($drafts) > 0)
         <div class="card mt-3">

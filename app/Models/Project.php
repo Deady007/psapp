@@ -54,6 +54,11 @@ class Project extends Model
         return $this->hasMany(Document::class);
     }
 
+    public function rfpDocuments(): HasMany
+    {
+        return $this->hasMany(RfpDocument::class);
+    }
+
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);

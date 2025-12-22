@@ -46,6 +46,8 @@ Route::middleware(['auth', 'role:admin|user'])
             Route::get('import', [ProjectRequirementController::class, 'import'])->name('import');
             Route::post('import/preview', [ProjectRequirementController::class, 'previewImport'])->name('import.preview');
             Route::post('import', [ProjectRequirementController::class, 'storeImport'])->name('import.store');
+            Route::post('rfp', [ProjectRequirementController::class, 'storeRfp'])->name('rfp.store');
+            Route::get('rfp/{rfp_document}', [ProjectRequirementController::class, 'downloadRfp'])->name('rfp.download');
         });
         Route::resource('projects.requirements', ProjectRequirementController::class)->except(['show']);
         Route::prefix('projects/{project}/drive-documents')->name('projects.drive-documents.')->group(function () {

@@ -4,29 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequirementImportRequest;
 use App\Http\Requests\StoreProjectRequirementRequest;
+use App\Http\Requests\StoreProjectRequirementRfpRequest;
 use App\Http\Requests\StoreProjectRequirementTranscriptRequest;
 use App\Http\Requests\UpdateProjectRequirementRequest;
+use App\Jobs\GenerateProjectRfpDocument;
 use App\Models\Project;
 use App\Models\ProjectRequirement;
+use App\Models\RfpDocument;
 use App\Services\GeminiClient;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 
 class ProjectRequirementController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:project_requirements.view')->only(['index']);
+        $this->middleware('permission:project_requirements.view')->only(['index', 'downloadRfp']);
         $this->middleware('permission:project_requirements.create')->only([
             'create',
             'store',
             'import',
             'previewImport',
             'storeImport',
+            'storeRfp',
         ]);
         $this->middleware('permission:project_requirements.edit')->only(['edit', 'update']);
         $this->middleware('permission:project_requirements.delete')->only(['destroy']);
@@ -75,6 +81,7 @@ class ProjectRequirementController extends Controller
         return view('projects.requirements.index', [
             ...$viewData,
             'modules' => $modules,
+            'rfpDocument' => $project->rfpDocuments()->latest()->first(),
         ]);
     }
 
@@ -90,12 +97,14 @@ class ProjectRequirementController extends Controller
     public function import(Project $project): View
     {
         $context = $this->importContext($project);
+        $analysisMode = old('analysis_mode', 'fast');
 
         return view('projects.requirements.import', [
             'project' => $project,
             'priorities' => ProjectRequirement::PRIORITIES,
             'statuses' => ProjectRequirement::STATUSES,
-            'analysisMode' => 'fast',
+            'analysisMode' => $analysisMode,
+            'drafts' => [],
             ...$context,
         ]);
     }
@@ -239,6 +248,53 @@ class ProjectRequirementController extends Controller
         return redirect()
             ->route('projects.requirements.index', $project)
             ->with('success', 'Requirement deleted.');
+    }
+
+    public function storeRfp(StoreProjectRequirementRfpRequest $request, Project $project): RedirectResponse
+    {
+        if (! $project->requirements()->exists()) {
+            return back()->with('error', 'Add at least one requirement before generating the RFP.');
+        }
+
+        $activeRfp = $project->rfpDocuments()
+            ->whereIn('status', ['queued', 'processing'])
+            ->latest()
+            ->first();
+
+        if ($activeRfp) {
+            return back()->with('warning', 'An RFP is already being generated for this project.');
+        }
+
+        $rfpDocument = RfpDocument::query()->create([
+            'project_id' => $project->id,
+            'requested_by' => $request->user()?->id,
+            'status' => 'queued',
+        ]);
+
+        GenerateProjectRfpDocument::dispatch($rfpDocument->id);
+
+        return back()->with('success', 'RFP generation queued.');
+    }
+
+    public function downloadRfp(Project $project, RfpDocument $rfpDocument): StreamedResponse|RedirectResponse
+    {
+        if ($rfpDocument->status !== 'completed') {
+            return back()->with('error', 'The RFP document is not ready yet.');
+        }
+
+        if (! $rfpDocument->file_path) {
+            return back()->with('error', 'The RFP document file is missing.');
+        }
+
+        $disk = Storage::disk('local');
+
+        if (! $disk->exists($rfpDocument->file_path)) {
+            return back()->with('error', 'The RFP document file is missing.');
+        }
+
+        $fileName = $rfpDocument->file_name ?: basename($rfpDocument->file_path);
+
+        return $disk->download($rfpDocument->file_path, $fileName);
     }
 
     /**

@@ -98,3 +98,564 @@ VIEW RECORDING - 63 mins (No highlights): https://fathom.video/share/xGp3XXsWXBq
 
 9:35 - Latish Menghani
   They're going to put it in a box for each person. Now they're going to go on the road. The field guys are going to come in the morning, okay?  The technician, the morning person is going to do all the equipment calibration. So there's equipment calibration for the pH meter and for the chlorine meter, okay?  Those two meters have to get calibrated every day. In the morning, before the field guys leave. They take the pH meter, they take the chlorine meter, they take the GPS meter with them, okay?  So these three meters are taken by the field guys with the two sheets, which are the field sheet and the chain of custody.  They go on the road. The first, suppose the first job is a private world testing act, like a sale of a home, okay?  They go to the property, okay? They'll run the kitchen sink for 15 minutes, okay? While they're running the water, they're going to do the GPS, okay, of the property, which is from the front door, okay?  They're going to go in the basement. They're going to see if there's a water treatment system, okay? If there is a water treatment system, they'll take a sample prior to the water treatment system, and then they'll take a sample after the water treatment system, okay?  So there'll be two samples taken, okay? They both can go on the same field sheet, okay? So there's a proper, there's a chain of custody has...  One section called raw, one section called treated, okay? Now, if there's no treatment, it's only going to be the top part, which is the raw sampling, okay?  The raw sampling is the one which goes to the state of New Jersey, okay? The treated sampling is for just own information, county information, and the CO information.  So any water test which fails need to get passed. So if we take only the raw sample, which is from the, before the treatment, it'll fail.  So we take raw and treated at the same time, so that when the customer gets the report, it's a passing report, they get a CO, they get done, okay?  So they don't have to do anything. Because they already have a system correcting certain stuff, you know, which they already know.
+
+11:45 - Vicrum V
+  So that's the procedure.
+
+11:46 - Latish Menghani
+  They go on the road, then they'll take a set of bottles for the raw and a set of bottles for the treated.  So that'll be two bags, okay? The one bag is going to have, suppose, seven bottles. The other one's going to have only three bottles.  Because it's not a full test. Full test is the raw test, okay? Like more parameters, right? The raw has the more parameters, okay?  Treated is only for the specific parameter which is treated by the system, okay? Okay. Okay. So in this area, right, which India is the same way, pH of the water is very low, acidic, always, okay?  So pH is going to fail, and then there's a treatment for the pH, and then they'll do another pH test after the treatment.  It passes, okay? So certain things, then what happens is after they collect the sample, they put it in the cooler with ice, okay?  They'll transport it. Once their jobs are done, they'll bring it to the lab, okay? The sample management is going to come and log in the samples, which they only have the sample number.  What they do is in the morning, right now, they actually log in the samples prior to going, so they have an ID, right?  Like a tracking information.
+
+13:00 - Vicrum V
+  All right.
+
+13:01 - Latish Menghani
+  So what they do is they have a login number, which is a tracking number. They take the tracking number.  They write it on each bottle right now. Okay. So that's why we wanted a printer where you can just print all the bottles and whoever does the bottle prep actually has the bottles ready.  You know, all they got to do is fill it up then, you know. So right now they write it on the field, sample number, address, date, and time they sampled.  Okay. Once they get to the lab, each test is distributed differently. So the bacteria test, it has to be run right away.  So when the guys come in in the evening, they'll take that sample and they'll give it to the technician to run the bacteria test.  Okay. The nitrate test is done the nitrate So they will put that in the refrigerator. Okay. So next morning, the guy comes in, technician comes in, he'll take the whole  So yesterday's sample for the nitrates, and then there is also in the evening when we're done with all the sampling is done and all that, we have a little Excel sheet.  You can make an Excel sheet on it. We have sample numbers according to tests, for example, nitrates, iron, manganese, lead, mercury.  So we write sample numbers on it, okay?
+
+14:27 - Vicrum V
+  So meets tracking numbers.
+
+14:28 - Latish Menghani
+  So then the technician goes in and says, oh, I need to run 10 nitrates, okay? So they'll go in the refrigerator, they'll compare it, say, are there 10 samples in that shelf?  So there's shelves, like Monday shelf, Tuesday shelf, Wednesday shelf, Thursday shelf, Friday shelf. So all the samples are accounted for, they'll take it, he'll run the nitrates, okay?  And then he'll report it in an Excel sheet, the nitrates, okay? Okay. The bacteria.
+
+14:57 - Vicrum V
+  Just one question, so when the field guys. Are they the sample in? Are they bringing like one sample or the exact amount that's needed?
+
+15:06 - Latish Menghani
+  No, they're bringing all the samples. Okay, so the exact amount that's needed for all of the tests.
+
+15:12 - Vicrum V
+  Okay, perfect.
+
+15:13 - Latish Menghani
+  Once they need it, and also they distribute it wherever it has to go. So the bacteria goes to one room, okay?  Okay, the VOC, the arsenic, and the 524, which goes to Pace, goes in a cooler, a different, like a separate, like a Pace cooler.  called a Pace cooler, okay? Then there is another one for PFAS, okay, which is a three-set bottle, and that goes in another Fairfield cooler, okay?  And then there is a 250cc red dot, and that goes in a box, goes to Florida, okay? And this one goes every day, every night, that happens, okay?  Now, the other samples are... Nitrates, which we do in the house, that goes in the refrigerator, and also the metal bottles, which is the nitric acid preserved bottles.  That goes also in one of the, you know, one of the areas there, okay, there's like a shell. And then that, somebody has to do turbidity on that, okay, in the evening, and then the next morning, they will have the, like the, remember I told you the, the, we have a yellow pad, which is an Excel sheet kind of thing, which has all the sample numbers.  So the technician will go in and say, okay, I got to do seven iron. Then you're going to, on that, because it's every day, right?  They do it the next day. For example, Monday sample is going to get done Tuesday.
+
+16:41 - Vicrum V
+  Tuesday samples are going to get done Wednesday. Wednesday is going to get done Thursday.
+
+16:45 - Latish Menghani
+  Thursday is Friday. So we have that accounted for. But if suppose we miss a day, then we just do the Wednesday sample, Monday and Tuesday sample on Wednesday.  You know, so, so like two day sample, but that's fine because we have a sheet where we. We put sample numbers for the technicians, for the field tech, for the lab technicians, okay?  Okay. So we have lab technicians know what to do, you know, so. Okay.
+
+17:09 - Vicrum V
+  Okay. Any questions? Yeah. That's one part of it, right?
+
+17:17 - Latish Menghani
+  Okay. So I had one question there.
+
+17:26 - Vicrum V
+  So when the field guys are taking the sample and they're also taking the pH readings, right, for example. Correct.  And chlorine. Yep. Are they writing anything down somewhere? are. They are. That's why the chain of custody. Oh, okay.  That's why. Okay. Right?
+
+17:41 - Latish Menghani
+  So they would write it in two places, okay? They'll write it on the field sheet, okay?
+
+17:48 - Vicrum V
+  Yeah.
+
+17:48 - Latish Menghani
+  And they'll write it on the chain of custody. Remember, there's two sheets which go side by side with the sample bottles, you know?
+
+17:55 - Vicrum V
+  Yes.
+
+17:56 - Latish Menghani
+  So that's the same sheet which is created by the secretary.
+
+18:00 - Vicrum V
+  Right? Okay. All right.
+
+18:02 - Latish Menghani
+  The secretary creates those sheets. I make the schedule. Give it to the sample prep guys. That whole, that two paper, right, two sheets go with the sample.
+
+18:12 - Vicrum V
+  Okay?
+
+18:13 - Latish Menghani
+  And then they write it the pH, chlorine, and they also write the GPS. So three things they do on site.  Okay? Before collecting the sample. Before collecting the sample, they'll do a GPS of the property location. They'll do a pH, and they'll do a chlorine.  No. Every four hours, they check the pH meter to make sure that it's calibrated. You know? Like, it's right.  It's on off calibration. And then they bring the sample.
+
+18:42 - Viral Parmar (Fiscal Ox)
+  They have the pH.
+
+18:43 - Latish Menghani
+  So pH and chlorine, we don't do it in the lab. But we do double-check the pH in the lab when we do the nitrate.  Can you give this to him? When we do the nitrate, we double-check the pH. If it's offline or something, then I will know.  You know what I mean? Like... Like, I can, so that gets reported in the lab too, the pH. Okay, okay.  Yeah, and that's only, that's done because the nitrate sample which we collect is an unpreserved sample, okay? So when they analyze the nitrate sample, they have to do a pH on it before they analyze the nitrate.  Okay, so each sample gets double checked, you know, so. Perfect, okay.
+
+19:28 - Vicrum V
+  Viral, do you have any questions on the chain of custody?
+
+19:33 - Viral Parmar (Fiscal Ox)
+  No, I have a question on sample collection frequency. Like, for each customer or client, do you have any frequency that I have to collect the sample on weekly or on bi-weekly or something like that?  And I, not for the PWTM, but I do.
+
+19:53 - Latish Menghani
+  So, so, so there is a, there's a sheet I sent you for total coliform at nitrate. We Bye. I don't know if you have that chain of custody.  So that chain of custody, that is a monthly, weekly, and testing we do. Okay. So monthly testing, actually. So there's a bi-weekly, which I have, and a monthly testing I have on that.  Okay. Now, the total call of form, has to be done once a month, once a week, depending on the client.  Now, those clients are contract basis. They don't, it's not a contract exactly, but they've been, they've been with me for almost 20 years.  So they, I just, they just, I don't even like, you know, we don't, we don't call them. We know, we go there straight.  You know what I mean? So we know these people and we know the hours, we know all that. So, you know, it's scheduled accordingly.  So what we do is the first week, we'll just go. Like, for example, Wawa, right? They're always open. And like, it's a convenience store.  Okay. Like in India, like, what do you call it? What's in India? Something like Wawa. Yeah, like McDonald's, okay?
+
+21:02 - Viral Parmar (Fiscal Ox)
+  Like McDonald's, right?
+
+21:03 - Latish Menghani
+  Like you go to a McDonald's, you don't have to, like, if you know the owner, right? And you know the manager, you go every day.
+
+21:11 - Vicrum V
+  You don't have to, like, tell them anything, right?
+
+21:14 - Latish Menghani
+  You just go there and say, hey, I'm from Vineland Environment, go here for the water test. Let me just go there and do it.
+
+21:18 - Vicrum V
+  So that's the procedure.
+
+21:20 - Latish Menghani
+  So we're going to go, we're going to do the testing, we're going to collect a sample. Now for that, we only have to do a chlorine test, okay?  Okay. And then sterilize the spigot. We have a procedure. And then we collect a sample. Now that bacteria sample will come back to the lab, get locked in, and that bacteria sample has to be analyzed the same day.  So that sample will go to the technician, okay? The technician is going to run the sample. Next day, the results are going to come in, okay?  And then the secretary is going to get the Excel sheet or book, okay? And then he'll pull the results.  She'll pull the results, type. Keep it up, okay, on the report and then send it to the client. Or there's another thing we have to do before we send it to the client.  Now, those contract jobs, monthly clients, we have to submit that data to the state of New Jersey, okay? So we have an Excel format, okay, which gets converted to an XML and then gets sent to the state, okay, via a website.  There's a website, which we have, we have, we have access to that. Nobody else has access to that. So once the XML is created, we, we put that, that in the, on the state website, we have a pin we have to put on there and then we send it in, okay?  Okay, sounds good.
+
+22:42 - Vicrum V
+  Any other questions?
+
+22:45 - Latish Menghani
+  So that's one part of it. So I, I told you like the client, right? So this is one part of the client is PWTA.  Okay, you call it PWTA, Private World Testing Act, okay? One of, one clientele would be, uh, They're actually considered public systems, okay?
+
+23:03 - Vicrum V
+  Okay.
+
+23:04 - Latish Menghani
+  So they're basically giving water to the public. That's why they have to get tested, okay? So the public water system can be a community water system, like big systems, like city water, okay?  Or it could be small systems, like daycares, convenience stores, like I told you. So we have some daycares, we have convenience stores, we have some, like, all kinds of clients on that.  And then, this is only the drinking water side, right? Then I got the wastewater side, which you probably are more aware of, like, you know, oil and grease and all.  But our lab is a very small lab, so we really, we subcontract a lot of those wastewater testing, okay?  So we will subcontract oil and grease. We would subcontract, you know, ammonia. Yeah, we would subcontract. subcontract. Everything. But we do analyze some of the testing.  Like, for example, we test for biological oxygen demand, BOD, COD, TSS. Now, our clientele for that one is 20%.  So it's not like a major, major, major. So right now, what I want to concentrate on is drinking water.  We can work on the wastewater a little bit later. If that's okay with you guys? That's completely fine.
+
+24:30 - Vicrum V
+  Because, you know, it's going to get confusing if we start all at once.
+
+24:36 - Latish Menghani
+  So I would say, let's do the primary right now and then worry about this later, you know?
+
+24:42 - Vicrum V
+  Sounds good, Latish. So, Latish, even in this drinking water, you do test some of the things in Florida, right?  Yeah.
+
+24:53 - Latish Menghani
+  So one of the things, one of the things is in Florida. Yeah.
+
+24:58 - Vicrum V
+  Three, three of the things things things things are... are... are...
+
+24:59 - Latish Menghani
+  are... in Barefield. Hold on one second. Hello? No, I'm not talking about I'm not talking not talking about it.  I'm talking about Hold on. That was my mom. I'm sorry for that. So basically what happens is, where was I?  Where was I? The subcontracting for drinking.
+
+25:28 - Vicrum V
+  Yeah. Yeah.
+
+25:29 - Latish Menghani
+  So one test which goes to Florida is called Gross Alpha. Okay. They're basically radiologicals. So Gross Alpha testing goes to Florida.  There's a test for organic chemicals like volatile organics, synthetic organics, and arsenic. Okay. Those three tests goes to Melville, New York.  Okay. Okay. And then I have a test called Perfluorinated Compound, which is PFAS. That's also organic chemistry. chemistry. That goes to  Two, Fairfield. Okay? Okay. And it's all on the field sheet. If you look at the field sheet, it's all on that.  Okay? And then all the other testing we do. So we do back total coliform, E. coli. We do iron, manganese, pH, nitrate, lead, mercury.
+
+26:19 - Vicrum V
+  We do that.
+
+26:20 - Latish Menghani
+  Okay? And all the others, we send it out.
+
+26:23 - Vicrum V
+  Okay?
+
+26:23 - Latish Menghani
+  So now it takes usually for us to do our testing, it takes two to three days. So basically the bacteria will be done next day, 24 hours, 48 hours.  Okay? And the iron, manganese will be done in 24 to 48 hours. Okay? Usually metals, everything else gets done in like three days.  Okay? The gross alpha test, they do it right away. It means they get the sample. For Monday sample, they'll get it on Tuesday.  I get the results either Wednesday night or Thursday morning.
+
+26:58 - Vicrum V
+  Okay.
+
+27:00 - Latish Menghani
+  for that okay now the base labs in New York the organic testing they get the samples the night which we take the sample Monday night okay they'll get they it'll get there by Tuesday morning okay for them they'll get me the sample results by Wednesday or Thursday for that one okay and then same thing for PFAS which is also Fairfield they'll take the samples at night Monday night okay it'll get to them okay there's a chain of custody which I had didn't send you the the chain of custody for the Florida lab I did not send you the chain of custody for uh Fairfield lab and I did not send the chain of custody for Melville lab I will send you those okay so those are the chain of custodies created from our chain so it's a sub chain right so our chain and then there's a sub chain which there's three sub chains two and those three sub chains go with the samples okay and they and they get results done um uh um  From the Monday results gets done by Friday. Okay.
+
+28:03 - Vicrum V
+  Okay.
+
+28:04 - Latish Menghani
+  So when we get all the, we get all the results and we compile it. Okay. On Friday. And then we send it to the client.
+
+28:11 - Vicrum V
+  Yeah. Okay.
+
+28:12 - Latish Menghani
+  And then we have five to seven days from Friday to submit that samples to the state. Okay. what we do is then we have, we have our guys, the guy who does the nitrate, if he has time, he'll do, or the secretary has time, he'll do.  She'll type the report, that whole report again on another Excel.
+
+28:35 - Vicrum V
+  Okay.
+
+28:36 - Latish Menghani
+  Which is, I sent that over to Viral and you guys. Okay. You'll see it. Yeah. It's called, it's called the PWT.  It's a, it has, that's where you put all the information in, which you get from all three labs. Okay.  Okay. And our lab for that. And then you compile it and then you send it to the state with an XML.  Okay. Okay.
+
+28:57 - Vicrum V
+  And that finishes the job.
+
+28:59 - Latish Menghani
+  So client. We the copy, then we submit the state, and then we file it. All right?
+
+29:09 - Vicrum V
+  Any questions? So, when the Florida lab is entering the results, for example, so do you want to just give them a login where they can just enter the results into the system?  No.
+
+29:33 - Latish Menghani
+  Okay. That's done by your team?
+
+29:36 - Vicrum V
+  Yes. So, they sent me a PDF. Okay.
+
+29:40 - Latish Menghani
+  It would be nice if I can create that PDF and then put that in the limbs. It would be nice, okay?  The problem is they can't, I don't know how they are going to be able to, they have a certain report, right?  They'll just create a report for me and give it to me like I'm a client. then. Okay, Hmm. So I can use that report any way I want because they have already given me that permission.  So I use that report in our report, right? So I do attach their report with the client, for the client.  So I'll attach their report, all three reports, okay?
+
+30:20 - Vicrum V
+  Our report and their report.
+
+30:22 - Latish Menghani
+  So there'll be four reports they'll have. And then that goes to the client, okay? But the thing is, all their data has to be inputted in our Excel sheet before we send it to the client.  Because it's like a compilation of the data. So they need the compilation for the client to understand it. They need the compilation of the data.  So it has to be converted to Excel?
+
+30:50 - Vicrum V
+  does it have to be filed with the state? Yes. So the X, we filed it to the state.
+
+31:00 - Latish Menghani
+  Even the Florida business. Yeah, we use that data which Florida gives us. We put it in that Excel sheet and then create an XML and send it to the state.  That XML has our information, Fairfield information, Melville information, and Florida information and creates an XML and send it. It's an all-one.  There's only one XML. You know, create it.
+
+31:26 - Vicrum V
+  Okay, okay, okay. What would be the easiest way?
+
+31:31 - Latish Menghani
+  Like, so, if we give them login and they will, they send it. But the thing is, like, their data will come in a, they can send me in any format I want.  They'll make the format. If you send, you if you tell them I need it in this format, we can do it, you know.  So right now, they're...
+
+31:51 - Vicrum V
+  I mean, like, if you have, like, a specific login for those guys, they can just log in. And they'll have, like, the same request.  And they can just open the request and it will show all the parameters they need to enter data for.  So once they just put in the data, that we can export, easily capture that into an Excel. That's very easy for us.  Versus if they send us a PDF, I think we can try. One option is to create an editable PDF, send it to them, they enter the results there also.  But giving them login is the easiest part. If it is something that is scanned and brought into the system, that is something that we'll have to use AI for.  So AI, very specific models in AI can do a good job in converting that into, so that you don't have to re-enter the data.  Got it, got it, got got it.
+
+32:46 - Latish Menghani
+  Okay. All right, we can work on that. Yeah. So once you start seeing these things, you'll have ideas.
+
+32:53 - Vicrum V
+  So, you know, you see how the QC results are entered. So you'll be like, you know, maybe this is something that can, so we.  can easily create sub-pages that others have access to, but you don't want others to have access to anything else, those kind of things, we can easily do that.
+
+33:11 - Latish Menghani
+  Viral, any questions on what you have heard so far?
+
+33:15 - Vicrum V
+  Yeah, have one question.
+
+33:20 - Viral Parmar (Fiscal Ox)
+  There is a chain of custodias. So each sample has a different chain of custodias? Yes, yes. Each sample, not each test, okay?  Each sample would be each location.
+
+33:34 - Latish Menghani
+  So there's one sample, it has one sample number, right? For example, one location will have a one sample number.  Now, one location could have two sample numbers when there's a raw and a treated. So if there's a raw and a treated, it's the same sample number, but I'd put a dash one and a dash two.  So it'll basically have the identification number. The for all the tests are going to be the same number. For bacteria, it's going to be, for example, Y1, okay?  Y1 is going to be for, suppose, address, you know, how would I give an address? Like 556 Main Street, okay?  506 Main Street, we went there, we collected Y1, okay? Now, Y1 is going to be for bacteria, Y1 is going to be for nitrates, Y1 is going to be for all that, okay?  Now, it would be nice to do Y1-TC for bacteria, Y1-NO3 for nitrate. It would be nice, okay? We don't have to, but it would be nice to really have different sample numbers for, like, different identification number for each test.  And you can designate it with the test itself, like TC, NO3, you know, FE, MN. it. Stuff like that.  But the problem happens is when we go into metals, right? We're going to have to, for example, we run iron, manganese, and mercury with one bottle.  So we might have to do just M on that. So we can do that. We can do designation on that.  Okay? So we can have different numbers for different testing. Okay.
+
+35:25 - Vicrum V
+  And should that number be auto-generated? Yes. Okay. Yeah. So those things can be auto-generated.
+
+35:34 - Latish Menghani
+  Like one sample number is going to be there. Okay? Main number. Okay? And then you can just auto-generate these, like TC, MN, or something.  You know what mean?
+
+35:43 - Vicrum V
+  So. Yeah. Yeah. That is possible. And one question on that. If the sample sequence is running, let's say, one, two, three, from the start of the year, let's say, and you're doing a request today, you're doing a request tomorrow.  Okay? Does it start? Different. No. Okay. No, I need different.
+
+36:04 - Latish Menghani
+  So for example, right now I am in, my sample number is Y9005 or something. Okay. All right. So I started with Y1 January 2025.
+
+36:16 - Vicrum V
+  So I'm at 9000. All right.
+
+36:18 - Latish Menghani
+  So, so right now my TC is Y9001. My nitrate is Y9001. My iron is 9001. Manganese is 9001. They're all same sample numbers right now, right now.  We can keep it that way. It's, if, if that works, you know, it's easier because what happens is when it, when it's going to the face, right?  And then going to all that people, it's the same sample number going to them.
+
+36:46 - Vicrum V
+  So it's identified same.
+
+36:48 - Latish Menghani
+  If we do it differently, then it's going to be a problem where, you know, okay, now we're going to have to designate PFAS as a separate, you know what I mean?  So yeah, because what it's on.
+
+37:00 - Vicrum V
+  Because it's all under one report, right? So it's all under one identification number. Yeah. So if you're creating a request today with five different samples for five different tests, like you said, you're on 9001.  So all of the samples will start with 9001, dash? No. 9001, 9002, 9003, 9004. Okay, got it. And tomorrow if you create, let's say you stop at 9005, tomorrow you create a new request, you start at 9006.  Yeah. Perfect. That's how it is. Yeah, that's how it is. So one sequence number runs just a little bit.  Yeah.
+
+37:39 - Latish Menghani
+  Now we do get, we do get triplanks from the client, means from the lab, sorry. So for example, Pace Melville sends us triplanks, okay?  Because that triplank has to be logged in by us. So for example, when you said 9005, right? So 9006 and 700.  Fathom would be the triplank I got for the next day. Like, you know, so I get it the day before.  So when I get the triplank at night, okay, we will log in 9006 and 7 for the next day, you know.  And then 9008 is going to be another client. 9 is going to be another client. 10 is going to be another client, you know.  But you're right. It goes by sample number. doesn't go 9-1-1-2-3, no. The only time it goes, the only time it goes dash 1-2-3 is if it's the same client and we're doing different location for the same client.  Okay. So for example, like for example, if you go to this property, right, and it has a treatment system, right, like I told you.  So raw is going to be dash 1 and the treater is going to be dash 2. Okay. Okay. All right.  Suppose we go to this place, a wastewater place, okay, and there is monitoring wells there. Test the wells, okay?  And those monitoring wells are basically done once a quarter, once every three months, okay? So there's three wells or four wells.  Then I will have same sample number, but it'll be first, well one is dash one, well two is dash two, well three is dash three, well four is dash four, well five is dash five, well six is dash.  So one sample number put dashes for the same property location, but different, okay? A different location in the same address.  Okay.
+
+39:32 - Vicrum V
+  that make sense? Yeah, it makes sense. So even in the case for raw and treated, if you have like another raw sample, it would be dash one for that guy.  Yes, a different sample number.
+
+39:43 - Latish Menghani
+  If it was supposed, there won't be any, suppose I go to a property and there's two wells, drinking water.  For example, suppose I go to a property, you know, it has a well serving A, okay, like a 546 Main Street.  Apartment A, okay, has one well. And then 556 Main Street, Apartment B has another well. I will have two field sheets created.
+
+40:08 - Vicrum V
+  It means I will have four.
+
+40:09 - Latish Menghani
+  One field sheet, one chain for 556 Main Street, Apartment A, 556 Main Street, Apartment B. Now, I'm going to do a raw from Main Street A, I'm going to do 9005, okay?  And Apartment B is going to be 9006, not 9005-1-2. It'll be two separate ones. Yes. Okay? Because they're two separate addresses or two separate apartments, okay?  But if I go to a property and then they have three systems, they have one water softener and then they have a reverse osmosis, okay?  And a well. For example.
+
+40:43 - Vicrum V
+  And a well, for example.
+
+40:45 - Latish Menghani
+  Yeah, they have a well, they have a treatment for the softener and then they have another spigot, it's called a reverse osmosis, underneath the kitchen.  Yeah.
+
+40:55 - Vicrum V
+  Okay? Let's just give you an example.
+
+40:57 - Latish Menghani
+  So now the dash one is going to be raw from the well. Okay? Dash 2 is going to be from the, after the treatment, okay, softener.  And then dash 3 is going to be from the reverse osmosis. Okay.
+
+41:09 - Vicrum V
+  Okay?
+
+41:10 - Latish Menghani
+  Now that rarely happens, but, you know, there is a possibility. But that's all in one address. Okay? One house.
+
+41:20 - Vicrum V
+  Okay?
+
+41:20 - Latish Menghani
+  If it was a separate house, I would make a whole separate sample. Okay?
+
+41:27 - Vicrum V
+  Does that make sense? Yeah. completely. Bill? Yeah, sure. It is.
+
+41:34 - Viral Parmar (Fiscal Ox)
+  sense. And I have another question. Like, each of us different, COC, and BWTA, for example, as well. So, each of us have different, I mean, how to explain you?  Like, there is different for Qualiform. Different from Nitrate? No. Oh, are you talking about a different chain?
+
+42:06 - Latish Menghani
+  So there's one project called PWTA, right? Let's keep that separate. Okay. Are you talking about that? Are you talking about just TC Nitrate?  No, I'm talking about different chains.
+
+42:21 - Viral Parmar (Fiscal Ox)
+  Different chains. Okay. All right.
+
+42:22 - Latish Menghani
+  So that, for example, that would be used for like a daycare or that would be used for a convenience store.  Okay. Those chains, right, are basically TC and Nitrate. So once a year, these people have to do Nitrate. Okay.  Once a year.
+
+42:39 - Viral Parmar (Fiscal Ox)
+  Okay.
+
+42:40 - Latish Menghani
+  Now, every month they would have to do TC or every quarter they would have to do TC, depending on what kind of place it is.  Okay. So when the chain goes out, it'll be disconnected.
+
+42:59 - Viral Parmar (Fiscal Ox)
+  So chain it's not not
+
+43:09 - Latish Menghani
+  Sorry about that. Can you hear me?
+
+43:11 - Vicrum V
+  No. Can you hear me, Viral?
+
+43:15 - Latish Menghani
+  Can you hear me? Yes, sir. Yes. Okay. So what happens is each – so we would have the option to say, okay, I want to just do bacteria tests, right?  So I would select that. They would do a chlorine test on it, okay? They would sterilize the area, and they would take a sample.  That's one test. And that would have one chain of calories, okay?
+
+43:35 - Viral Parmar (Fiscal Ox)
+  All right? Yeah. That would have one field sheet and one chain.
+
+43:38 - Latish Menghani
+  Now, the field sheet is a master field sheet for all clients. So, for example, if I want to select, you know, double tree, double tree, okay, hotel.  So I'll select double tree, Morristown, or double tree, you know, Vidyanagar, whatever, okay? So I select double tree, Vidyanagar, I put –  So field sheet, okay, which I have in my Excel sheet master, and then I have a chain of custody for that PC, remember?  I go to this hotel room and I said, okay, you know what, I got to take a sample from here, from any one of the rooms I have to take.  So I've marked, my field guide will say room number 228. They'll go to that room, they'll go to the bathroom, okay, they'll do a chlorine on it, okay?  If it has a chlorine, they'll report the chlorine value, okay? Then they will remove the screen on that. They'll sterilize it, they'll flush, you know, the thing, and then they will collect a water sample from there.  They'll cap it, they'll put it in the cooler, okay? They'll fill up the chain that they collected at this date and this time, okay, on the COC, okay, and on the field sheet, okay?  So there's always a field sheet and a COC. So then they'll bring that to the lab, I come in, I say, I log it in, I say, 3-3-Y-9007, okay?  Then I'll put that Y-9007 on the bottom. Okay, and then that bottle goes to testing for the total column, okay?  It gets analyzed from total column, okay? Then once the analysis is done, secretary is going to get the book.  They're going to write it on the field sheet now because the field sheet is considered like a rough paper, okay, where all the stuff goes in so somebody can type it up.  So it'll be a rough paper where they're going to say absent, okay? So it's like bacteria is absent. It also has a place where it says write date and time analyzed.  So it has to write date analyzed and time analyzed, okay? So then we go to the Excel sheet, we type the report, double three, main billing address, we write the property address, we write the total column, absent, date and time analyzed, sign, okay?  And then it comes to me, I review it, okay? then we, after it gets reviewed, I know it has to get submitted to the state, okay?
+
+45:58 - Vicrum V
+  So that thing.
+
+46:00 - Latish Menghani
+  Goes to another Excel, gets typed up, gets sent to the state, okay? After we send it to the state, we have to print a copy showing that we submitted it to the state, okay?  So the report, the chain of custody, the sheet from the state gets then emailed to the client. Okay. Double three, okay?  So with the invoice. Latish, one question there.
+
+46:29 - Vicrum V
+  So let's say that there is one location in one of the properties. So you need to pick a sample for multiple tests.  In that case, you'll be collecting multiple samples, multiple bottles.
+
+46:42 - Latish Menghani
+  Only, so that there would be, for PWTA, yes, not for this particular one, right? So this particular one, there might be either total caliform or nitrate, okay?  But there are places where we do collect multiple Multiple ones. But it's all going to be from one location.  So for example, for example, DoubleTree, right? Now the DoubleTree also has what's called a point of entry, means they have a treatment, okay?  When we took it from the room, right, that was a distribution sample, okay? So there's regulation on distribution sample.  For example, the bacteria and the nitrate, which I told you, are called distribution, the bacteria is called distribution sample, okay?  The nitrate, which I told you, is called point of entry. So there's two separate sample numbers. I mean, not sample numbers, like dash 1, dash 2 I'm talking about.  So the dash 1 would be the distribution sample, like the total caliform, okay? The dash 2 is going to be the nitrate, which is going to be the point of entry, okay?  What is a point of entry? Point of entry is still a treated sample, okay? It's after the treatment, there'll be a spigot.  There's Before it goes into the building, okay? Okay.
+
+48:03 - Vicrum V
+  All right.
+
+48:03 - Latish Menghani
+  Now, there are multiple tests sometimes done on the point of entry, okay? Okay. For example, nitrates, PFAS, volatile organics.  I did send you a chain on that, okay? If you look at a chain, those are multiple tests done on a point of entry sample, okay?  Right. So there would be PFAS, gross radionucleides, which are not just gross alpha. That's the same guy who does K&L, the Florida guys.  They do radionucleides. So there's five gross alpha bottles we collect, five of them. But they all get the same ID.
+
+48:39 - Vicrum V
+  They don't get dash one, dash two, dash three.
+
+48:41 - Latish Menghani
+  They all get the same ID. Means it would be, since it's point of entry, PFAS, nitrate, they can all get the same ID.  Got it? So in this case, right? Suppose I take my sky is... It's doing nitrate, but it's also doing the other chain, which is PFAS and all that, right?  He can write the same sample number, like 9007-2, on the other sheet. It means the PFAS, the VOCs, the radionucleides, the 524.3, they can all get dash 2s.  They can all get the same sample number, dash 2, okay? Hopefully. Because that's from the same location, you know?  So when the location is the same, the sample number is the same. Yeah.
+
+49:33 - Vicrum V
+  Perfect. That was exactly my question. They don't go by, yeah, we don't go by the test.
+
+49:38 - Latish Menghani
+  We go by the location, you know? Yes.
+
+49:43 - Vicrum V
+  Any questions? Latish, when you're writing the sample ID on-site, the field guys, are they actually giving that 9001? Yes.  Okay. No, no, they're giving it on the site. So when they're going...
+
+50:00 - Latish Menghani
+  On the road, they're actually logging the sample in before they go on the road. So when they go on the road, they will write that sample on the bottle, like Y9005-1 or Y900-2.  So we will have to assign that before they go on the road. And then we'll have to give them a pre-printed bottle with that sample number on it.  So when they go in, they just got to fill it up, you know, so like a barcode or yeah, yeah, yeah.
+
+50:38 - Vicrum V
+  We have enough information to build a flow out. And I think our next step would be to make sure that we build the flow out, the base flow, and give you access to it.  And I just want to ask Viril one more thing. Viril, do you have any questions on the master data?  That needs to be set up.
+
+51:02 - Viral Parmar (Fiscal Ox)
+  Yeah, there is a field called standard exceedance in the chain of custody. Yes, yes, yes, standard exceedance.
+
+51:15 - Latish Menghani
+  You can get rid of that. You don't need that. Now, on the field sheet, you don't need it. On the reporting, you do, okay?  But if you look at the reporting, that also has it, and we can keep that. Yeah. Okay, yeah.
+
+51:30 - Vicrum V
+  Okay? They're called maximum contaminant levels. They're standards.
+
+51:34 - Latish Menghani
+  They're not going to change. Yeah.
+
+51:36 - Viral Parmar (Fiscal Ox)
+  Okay?
+
+51:37 - Latish Menghani
+  But you can get rid of, you can get rid of on the field sheet. The field guys don't need it.  Yeah, sure.
+
+51:44 - Viral Parmar (Fiscal Ox)
+  You don't need it. Okay?
+
+51:48 - Vicrum V
+  And I have another question.
+
+51:51 - Viral Parmar (Fiscal Ox)
+  Those standard limits, does effect on the quality control, I mean, the QC data entry? No. No. No. No. That was something like when you are entering below or above your data limit.
+
+52:08 - Latish Menghani
+  Yeah, so there is, there is a, if you look at my report, right, on the, if you look at one of my reports, right, so did I send you that?  Did I send you a report? I don't know if I'd send you a report. Yeah, so if it's exceeded, so there are, I'm going to explain something to you.  So there is a, if suppose it exceeds total coliform, one test, okay, let's go by, let's go by the thing, BWD.  If it exceeded total coliform, I need it to say on the bottom that this water does not comply with the bacteriological limits, okay?  So I do need that if it's, if it's a body exceeded, okay? So for example, if it exceeded pH, iron, manganese, nitrate, lead, mercury, those are all chemical.  So if it exceeded any of that. Any one or more, it'll say this water does not comply with the chemical limit, okay?  Then if suppose the gross alpha is failing, like the radium, okay, then I need another one saying this water does not comply with the radiologicals, okay?  And then same thing for the volatile organics, the synthetic organics and arsenic, that's it. So the PFAS, I don't want that.  I don't want the exceedance to be shown for the PFAS right now. And the reason is, we are in the middle of the PFAS regulation.  So right now, I mean, we can write that. I can give you a wording what to write. So if you want to write that, that's fine.  It would be nice to have an exceedance on that and say, if it exceeded this level, this water does not comply.  If it is between these two levels, then this water complies with the NJ but has a funding for the NJ, okay?  And the third is going to be, if it complies, then it complies, basically. So there'll be like option to say does comply, does not comply, or, you know, in between, you know.  So if you can do that, then we should put that one too. You know, this way it's on the report, you know.  So right now it's on the report. If it does not comply, it says does not comply. If it does comply, it says does comply.  Viral noted? Yeah.
+
+54:28 - Vicrum V
+  Okay. And I'll send an email to you on that, on the exceedance and stuff, so this way you are familiar with it.
+
+54:36 - Latish Menghani
+  I'll send you one of the reports, so this way you have it, you know. So I'll send, what I got to do is I got to send you the chain of custody for all three, okay, labs, and I'm going to send you a report on this.  Okay, those are the three, I noted it down, what I got to send, okay? Okay.
+
+54:55 - Vicrum V
+  Let's on the chain of custody, the design, are you a little bit flexible?
+
+55:00 - Latish Menghani
+  Yes, yes, yes, yes, yeah, yeah, yeah, there's no, there's no hard and fast rule, you can just change things around, as long as all the information is in there, you know, absolutely, absolutely, yes, Any other questions?
+
+55:18 - Viral Parmar (Fiscal Ox)
+  No, I don't have. We do need information on the cooler, right?
+
+55:21 - Latish Menghani
+  So, like, cooler number, the ice, you know, like, the cooler number, the temperature, those are the ones when, when the guys come in the lab, they have to measure that when they come in after they bring the sample in, you know, so, that part, the bottom part.
+
+55:37 - Vicrum V
+  And the storage locations. Yes, yes, yes, yes, Like, the cooler.
+
+55:41 - Latish Menghani
+  Storage locations.
+
+55:44 - Viral Parmar (Fiscal Ox)
+  So, actually, what I want right now is, I want report formats for the PWTA and all those qualiform and nitrates.  Yes, I'll send you that, yeah. Report for that. Yeah. Second thing is I want a parameter master. Like what are the tests you are performing and what are the parameters should be there.  Okay. And what if you are implementing the calculations. So I want calculations for that parameter also. Calculation. Okay. Got it.
+
+56:25 - Latish Menghani
+  Okay. All right. You mean like.
+
+56:28 - Vicrum V
+  Yes.
+
+56:28 - Latish Menghani
+  You mean like the nitrates, like, like, you know, because nitrates are in like, you know, one section, I think they're in the milligrams per liter.  And then the other one, it's in micrograms per liter. So I don't know if you know, like that calculation is thousand multiplied by thousand or something, you know.  So, yeah, I can explain that. That's not a problem. Yeah.
+
+56:51 - Viral Parmar (Fiscal Ox)
+  Anything else?
+
+56:52 - Vicrum V
+  Because, you know, I'm thinking that the next call, we should actually walk through the system, live system. Live
+
+57:01 - Viral Parmar (Fiscal Ox)
+  Okay, so currently I have, you have, do you have a specific format for job documentation sheets? I mean, field documentation, field documentation.  send you that. chain of customer is different and the field sheet is different. Yeah, the field sheet is the document.
+
+57:28 - Latish Menghani
+  Yes, please. What do you need for that?
+
+57:31 - Vicrum V
+  I want a format for field sheet.
+
+57:34 - Viral Parmar (Fiscal Ox)
+  I gave you that.
+
+57:37 - Latish Menghani
+  Okay.
+
+57:38 - Viral Parmar (Fiscal Ox)
+  You didn't get it?
+
+57:40 - Vicrum V
+  No, it's there.
+
+57:42 - Viral Parmar (Fiscal Ox)
+  No, it's the one where, it's the one where it says PWTA on the bottom, you'll see it.
+
+57:48 - Latish Menghani
+  You see that? Total color, it has the total color form, iron, manganese, pH. Now, that field sheet is the job sheet, which they fill out in the field.  For pH and Chlorine, with the chain, okay? And then when it comes to the lab, that sheet is used to write results when the results come in.  For example, the bacteria comes in, then you write the bacteria result on that field sheet, you know?
+
+58:14 - Viral Parmar (Fiscal Ox)
+  That's the raw data sheet, you know? Yeah.
+
+58:20 - Vicrum V
+  Do you anticipate the field team to be inputting the data on a tablet or something? Yes, yes, yes. they're happy.  That's not for them. Oh, yeah.
+
+58:30 - Latish Menghani
+  They're, they're, they're, like, excited, yeah, you know? Okay, okay, awesome.
+
+58:35 - Vicrum V
+  Because we always want the data entry to be one time at any point in the system, yes. Okay. Yeah, yeah, yeah, that's fine.
+
+58:43 - Latish Menghani
+  I think we should be okay on that, you know, so. Yeah, and then, yeah, for now, yeah. And then we'll, I'll send you all the, like I said, I'll send you, I'll send you what, what, what, needed, what's needed, right?  One of the reports for PWTA, the chain of custody. Now, I didn't send you the three chains, you know, that's the thing.  I send you only my chain, but I didn't send you the three chains which are required, you know, which are sub-chains.
+
+59:14 - Vicrum V
+  So I have to send you that, you know, so make sure.
+
+59:16 - Latish Menghani
+  And then I'll send you, I also didn't send you the report, which like KNL sends me, the PACE sends me, and all that.  So I'll send you that too, you know, so that this way it's easier to know what, you know. How we get it, how we get it in the system, you know, so.
+
+59:33 - Vicrum V
+  Yeah, so Latish, what we're going to do is like, we're going to set up one developer to work on the changes and set up the process.  And one developer will be working on setting up the formats to be printed out. So once you give all of the formats, we'll give all of that to the developer and just work on that.  So I'm going to, I'm going to take like one of the job, right?
+
+59:55 - Latish Menghani
+  And I'm going to go, I'm going to go through the process from like start. Do the finish.
+
+1:00:02 - Vicrum V
+  Okay. And then this way you, for the PWTA.
+
+1:00:05 - Latish Menghani
+  And then I'll also do same thing, one job for like a public system. And then from one to other.  So those are the two main things you got to worry about is public systems.
+
+1:00:16 - Vicrum V
+  Okay.
+
+1:00:17 - Latish Menghani
+  And residentials. Right. So PWTA is all residentials. Okay. And then public systems is, is like the ones you contract basis.  Right. So, so those are the two main ones right now. Okay. Like 80% of that.
+
+1:00:31 - Vicrum V
+  Okay.
+
+1:00:32 - Latish Menghani
+  And then I got to, we also, I'm going to, we got to work on the wastewater side of it.  Okay. I mean, I'll try to, I'll try to send you that also.
+
+1:00:43 - Vicrum V
+  Okay.
+
+1:00:43 - Latish Menghani
+  So you'll have it, but you can put it in the back burner right now and then input it later on, you know, implement it later on, because I just don't want everything to go like that.  And then you get confused on the two, you know, so, so I want to try to keep it and then we can, keep it.  can do that later once we get this situated, you know, so. So, yes, all right.
+
+1:01:05 - Vicrum V
+  Thank you, guys.
+
+1:01:08 - Latish Menghani
+  Any other questions you have, let me know, you know, so.
+
+1:01:12 - Viral Parmar (Fiscal Ox)
+  Actually, I just want to, yeah, I just want to confirm that the pooling results mean calculation sheets, right? Yeah, yeah, I'll send you that too.
+
+1:01:24 - Latish Menghani
+  I'll send you that. Like I said, when I send that one job site, right, I'm going to send you, like, from top to bottom, like, how we pull the results and how we do that.  And I'll give you, like, a whole chain of command on that. So, from top to bottom, you'll know what we do, you know, so, all right?  And then if you have any questions, you email it to me, and then I'll email it back to you, okay?
+
+1:01:51 - Vicrum V
+  So, we'll go from there, Viral, okay? So, okay, sure.
+
+1:01:55 - Viral Parmar (Fiscal Ox)
+  All right, good, nice meeting you, Viral.
+
+1:01:57 - Latish Menghani
+  Good luck to you, man.
+
+1:01:58 - Vicrum V
+  You got your hands full. All right. Good. Vikram is nice.
+
+1:02:02 - Latish Menghani
+  He's just going to be on the sideline anyway.
+
+1:02:06 - Vicrum V
+  He did his part. Now you got to see him. He loves it. We all love it. That's good. Yeah.  Thanks, Guru. Thank you. Thank you. Thank you. so much.
+
+1:02:16 - Guru (fiscaloxpvtltd123.onmicrosoft.com)
+  Thank you. Yeah. Thank you.

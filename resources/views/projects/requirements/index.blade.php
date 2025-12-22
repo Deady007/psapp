@@ -21,6 +21,59 @@
         </div>
     </x-slot>
 
+    @php
+        $rfpStatusLabels = [
+            'queued' => __('Queued'),
+            'processing' => __('Generating'),
+            'completed' => __('Ready'),
+            'failed' => __('Failed'),
+        ];
+        $rfpStatusStyles = [
+            'queued' => 'warning',
+            'processing' => 'info',
+            'completed' => 'success',
+            'failed' => 'danger',
+        ];
+        $rfpStatus = $rfpDocument?->status;
+        $rfpStatusLabel = $rfpStatus && isset($rfpStatusLabels[$rfpStatus]) ? $rfpStatusLabels[$rfpStatus] : __('Not generated');
+        $rfpStatusStyle = $rfpStatus && isset($rfpStatusStyles[$rfpStatus]) ? $rfpStatusStyles[$rfpStatus] : 'secondary';
+        $isRfpRunning = $rfpStatus && in_array($rfpStatus, ['queued', 'processing'], true);
+    @endphp
+
+    <div class="card mb-3">
+        <div class="card-body d-flex flex-wrap align-items-center justify-content-between">
+            <div>
+                <div class="text-muted small">{{ __('RFP status') }}</div>
+                <div class="d-flex align-items-center flex-wrap">
+                    <span class="badge badge-{{ $rfpStatusStyle }} mr-2">{{ $rfpStatusLabel }}</span>
+                    @if ($rfpDocument?->updated_at)
+                        <span class="text-muted small">
+                            {{ __('Updated') }} {{ $rfpDocument->updated_at->toDateTimeString() }}
+                        </span>
+                    @endif
+                </div>
+                @if ($rfpDocument?->status === 'failed' && $rfpDocument->error_message)
+                    <div class="text-danger small mt-2">{{ $rfpDocument->error_message }}</div>
+                @endif
+            </div>
+            <div class="mt-3 mt-sm-0">
+                <form method="POST" action="{{ route('projects.requirements.rfp.store', $project) }}" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-success" @disabled($isRfpRunning)>
+                        <i class="fas fa-file-alt mr-1"></i>
+                        {{ __('Generate RFP') }}
+                    </button>
+                </form>
+                @if ($rfpDocument?->status === 'completed')
+                    <a href="{{ route('projects.requirements.rfp.download', [$project, $rfpDocument]) }}" class="btn btn-outline-success ml-2">
+                        <i class="fas fa-download mr-1"></i>
+                        {{ __('Download') }}
+                    </a>
+                @endif
+            </div>
+        </div>
+    </div>
+
     @include('projects.partials.modules-nav', ['project' => $project])
 
     <div class="card">

@@ -118,6 +118,56 @@ class GeminiClient
     }
 
     /**
+     * @param  array<int, array<string, string|null>>  $requirements
+     * @param  array<string, string>  $context
+     * @return array{
+     *   introduction: array{purpose: string, scope: string, overview: string},
+     *   system_overview: string,
+     *   non_functional: array{performance: string, security: string, availability: string, compliance: string},
+     *   technical_requirements: string,
+     *   user_interface: array<int, string>,
+     *   data_requirements: array{storage: string, backup: string, data_privacy: string},
+     *   assumptions: array<int, string>,
+     *   acceptance_criteria: array<int, array{criterion: string, validation_method: string}>,
+     *   appendices: array<int, string>
+     * }
+     */
+    public function generateRfpSections(array $requirements, array $context = []): array
+    {
+        $requirements = $this->normalizeRequirements($requirements);
+        $payload = json_encode($requirements);
+
+        if (! is_string($payload)) {
+            throw new RuntimeException('Unable to encode requirements for Gemini.');
+        }
+
+        $prompt = $this->rfpPrompt();
+        $contextBlock = $this->buildContextBlock($context);
+
+        if ($contextBlock !== '') {
+            $prompt .= "\n\n".$contextBlock;
+        }
+
+        $prompt .= "\n\nRequirements:\n".$payload;
+
+        $text = $this->generateText(
+            prompt: $prompt,
+            maxOutputTokens: 2048,
+            temperature: 0.2,
+            model: $this->model,
+            timeoutSeconds: $this->timeoutSeconds
+        );
+
+        $decoded = $this->decodeJson($text);
+
+        if (! is_array($decoded)) {
+            throw new RuntimeException('Gemini response did not include RFP sections.');
+        }
+
+        return $this->normalizeRfpSections($decoded);
+    }
+
+    /**
      * @return array{
      *   primaryModel: string,
      *   chunkModel: string,
@@ -658,14 +708,119 @@ PROMPT;
     }
 
     /**
+     * @return array{
+     *   introduction: array{purpose: string, scope: string, overview: string},
+     *   system_overview: string,
+     *   non_functional: array{performance: string, security: string, availability: string, compliance: string},
+     *   technical_requirements: string,
+     *   user_interface: array<int, string>,
+     *   data_requirements: array{storage: string, backup: string, data_privacy: string},
+     *   assumptions: array<int, string>,
+     *   acceptance_criteria: array<int, array{criterion: string, validation_method: string}>,
+     *   appendices: array<int, string>
+     * }
+     */
+    private function normalizeRfpSections(array $payload): array
+    {
+        return [
+            'introduction' => [
+                'purpose' => $this->normalizeRfpString($payload['introduction']['purpose'] ?? ''),
+                'scope' => $this->normalizeRfpString($payload['introduction']['scope'] ?? ''),
+                'overview' => $this->normalizeRfpString($payload['introduction']['overview'] ?? ''),
+            ],
+            'system_overview' => $this->normalizeRfpString($payload['system_overview'] ?? ''),
+            'non_functional' => [
+                'performance' => $this->normalizeRfpString($payload['non_functional']['performance'] ?? ''),
+                'security' => $this->normalizeRfpString($payload['non_functional']['security'] ?? ''),
+                'availability' => $this->normalizeRfpString($payload['non_functional']['availability'] ?? ''),
+                'compliance' => $this->normalizeRfpString($payload['non_functional']['compliance'] ?? ''),
+            ],
+            'technical_requirements' => $this->normalizeRfpString($payload['technical_requirements'] ?? ''),
+            'user_interface' => $this->normalizeRfpList($payload['user_interface'] ?? []),
+            'data_requirements' => [
+                'storage' => $this->normalizeRfpString($payload['data_requirements']['storage'] ?? ''),
+                'backup' => $this->normalizeRfpString($payload['data_requirements']['backup'] ?? ''),
+                'data_privacy' => $this->normalizeRfpString($payload['data_requirements']['data_privacy'] ?? ''),
+            ],
+            'assumptions' => $this->normalizeRfpList($payload['assumptions'] ?? []),
+            'acceptance_criteria' => $this->normalizeAcceptanceCriteria($payload['acceptance_criteria'] ?? []),
+            'appendices' => $this->normalizeRfpList($payload['appendices'] ?? []),
+        ];
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function normalizeRfpList(mixed $value): array
+    {
+        if (! is_array($value)) {
+            return [];
+        }
+
+        return collect($value)
+            ->map(fn ($item) => $this->normalizeRfpString($item))
+            ->filter()
+            ->values()
+            ->all();
+    }
+
+    /**
+     * @return array<int, array{criterion: string, validation_method: string}>
+     */
+    private function normalizeAcceptanceCriteria(mixed $value): array
+    {
+        if (! is_array($value)) {
+            return [];
+        }
+
+        return collect($value)
+            ->filter(fn ($item) => is_array($item))
+            ->map(function (array $item) {
+                $criterion = $this->normalizeRfpString($item['criterion'] ?? '');
+                $method = $this->normalizeRfpString($item['validation_method'] ?? '');
+
+                return [
+                    'criterion' => $criterion,
+                    'validation_method' => $method,
+                ];
+            })
+            ->filter(fn (array $item) => $item['criterion'] !== '' && $item['validation_method'] !== '')
+            ->values()
+            ->all();
+    }
+
+    private function normalizeRfpString(mixed $value): string
+    {
+        return trim((string) $value);
+    }
+
+    private function rfpPrompt(): string
+    {
+        return <<<'PROMPT'
+Create a requirements documentation outline for the project. Return only JSON with these keys:
+- introduction { purpose, scope, overview }
+- system_overview
+- non_functional { performance, security, availability, compliance }
+- technical_requirements
+- user_interface (array of 8 short lines)
+- data_requirements { storage, backup, data_privacy }
+- assumptions (array of 3 short lines)
+- acceptance_criteria (array of 3 objects with criterion and validation_method)
+- appendices (array of 3 lines)
+
+Guidelines:
+- Use concise, professional sentences.
+- Use ASCII characters only.
+- Do not include markdown or code fences.
+PROMPT;
+    }
+
+    /**
      * @return array<mixed>
      */
     private function decodeJson(string $text): array
     {
-        $clean = trim($text);
-        $clean = preg_replace('/^```(?:json)?|```$/m', '', $clean) ?? $clean;
-        $clean = trim($clean);
-
+        $clean = $this->sanitizeJsonPayload($text);
         $decoded = json_decode($clean, true);
 
         if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
@@ -673,15 +828,38 @@ PROMPT;
         }
 
         if (preg_match('/(\{[\s\S]*\}|\[[\s\S]*\])/', $clean, $matches) !== 1) {
-            throw new RuntimeException('Unable to parse Gemini response.');
+            throw $this->invalidJsonException($text);
         }
 
-        $decoded = json_decode($matches[0], true);
+        $candidate = $this->sanitizeJsonPayload($matches[0]);
+        $decoded = json_decode($candidate, true);
 
         if (json_last_error() !== JSON_ERROR_NONE || ! is_array($decoded)) {
-            throw new RuntimeException('Unable to parse Gemini response.');
+            throw $this->invalidJsonException($text);
         }
 
         return $decoded;
+    }
+
+    private function sanitizeJsonPayload(string $text): string
+    {
+        $clean = trim($text);
+        $clean = preg_replace('/^```(?:json)?\s*|```$/m', '', $clean) ?? $clean;
+        $clean = str_replace(
+            ["\u{2018}", "\u{2019}", "\u{201C}", "\u{201D}"],
+            ["'", "'", '"', '"'],
+            $clean
+        );
+        $clean = preg_replace('/,\s*(?=[}\]])/', '', $clean) ?? $clean;
+
+        return trim($clean);
+    }
+
+    private function invalidJsonException(string $text): RuntimeException
+    {
+        $preview = preg_replace('/\s+/', ' ', trim($text)) ?? '';
+        $preview = Str::limit($preview, 500, '...');
+
+        return new RuntimeException(sprintf('Unable to parse Gemini response. %s', $preview));
     }
 }
