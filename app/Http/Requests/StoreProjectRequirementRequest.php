@@ -23,6 +23,18 @@ class StoreProjectRequirementRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->has('requirements')) {
+            return [
+                'requirements' => ['required', 'array', 'min:1'],
+                'requirements.*.module_name' => ['required', 'string', 'max:255'],
+                'requirements.*.page_name' => ['nullable', 'string', 'max:255'],
+                'requirements.*.title' => ['required', 'string', 'max:255'],
+                'requirements.*.details' => ['nullable', 'string'],
+                'requirements.*.priority' => ['required', Rule::in(ProjectRequirement::PRIORITIES)],
+                'requirements.*.status' => ['required', Rule::in(ProjectRequirement::STATUSES)],
+            ];
+        }
+
         return [
             'module_name' => ['required', 'string', 'max:255'],
             'page_name' => ['nullable', 'string', 'max:255'],
@@ -39,6 +51,18 @@ class StoreProjectRequirementRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'requirements.required' => 'Please add at least one requirement.',
+            'requirements.array' => 'Please add at least one requirement.',
+            'requirements.min' => 'Please add at least one requirement.',
+            'requirements.*.module_name.required' => 'Module name is required.',
+            'requirements.*.module_name.max' => 'Module name may not be greater than 255 characters.',
+            'requirements.*.page_name.max' => 'Page name may not be greater than 255 characters.',
+            'requirements.*.title.required' => 'Requirement title is required.',
+            'requirements.*.title.max' => 'Requirement title may not be greater than 255 characters.',
+            'requirements.*.priority.required' => 'Please select a priority.',
+            'requirements.*.priority.in' => 'The selected priority is invalid.',
+            'requirements.*.status.required' => 'Please select a status.',
+            'requirements.*.status.in' => 'The selected status is invalid.',
             'module_name.required' => 'Module name is required.',
             'module_name.max' => 'Module name may not be greater than 255 characters.',
             'page_name.max' => 'Page name may not be greater than 255 characters.',

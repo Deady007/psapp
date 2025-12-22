@@ -30,6 +30,8 @@ class ProjectKickoff extends Model
         'requirements_summary',
         'timeline_summary',
         'notes',
+        'transcript_path',
+        'transcript_uploaded_at',
         'status',
     ];
 
@@ -49,6 +51,7 @@ class ProjectKickoff extends Model
             'scheduled_at' => 'datetime',
             'planned_at' => 'datetime',
             'completed_at' => 'datetime',
+            'transcript_uploaded_at' => 'datetime',
         ];
     }
 }

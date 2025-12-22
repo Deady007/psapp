@@ -8,7 +8,11 @@
             <div class="col-sm-5 text-sm-right mt-3 mt-sm-0">
                 <a href="{{ route('projects.requirements.create', $project) }}" class="btn btn-primary mr-2">
                     <i class="fas fa-plus mr-1"></i>
-                    {{ __('New Requirement') }}
+                    {{ __('Add Requirements') }}
+                </a>
+                <a href="{{ route('projects.requirements.import', $project) }}" class="btn btn-outline-primary mr-2">
+                    <i class="fas fa-file-upload mr-1"></i>
+                    {{ __('Import from Transcript') }}
                 </a>
                 <a href="{{ route('projects.show', $project) }}" class="btn btn-outline-secondary">
                     {{ __('Back to Project') }}
@@ -19,75 +23,110 @@
 
     @include('projects.partials.modules-nav', ['project' => $project])
 
-    @php($priorityClasses = ['low' => 'secondary', 'medium' => 'info', 'high' => 'danger'])
-    @php($statusClasses = ['todo' => 'secondary', 'in_progress' => 'warning', 'done' => 'success'])
-
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">{{ __('Requirement list') }}</h3>
-            <div class="card-tools text-muted">
-                {{ __('Showing') }} {{ $requirements->firstItem() ?? 0 }}-{{ $requirements->lastItem() ?? 0 }} {{ __('of') }} {{ $requirements->total() }}
+            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <h3 class="card-title">{{ __('Requirement list') }}</h3>
+                @if ($modules->isNotEmpty())
+                    <div class="text-muted small">
+                        {{ __('Select a module to view its requirements.') }}
+                    </div>
+                @endif
             </div>
+            @if ($modules->isNotEmpty())
+                <ul class="nav nav-pills mt-3" id="requirements-module-tabs">
+                    @foreach ($modules as $module)
+                        <li class="nav-item">
+                            <a href="{{ route('projects.requirements.index', [$project, 'module' => $module->module_name]) }}"
+                                class="nav-link js-module-tab @if ($selectedModule === $module->module_name) active @endif"
+                                data-module="{{ $module->module_name }}">
+                                {{ $module->module_name }}
+                                <span class="badge badge-light ml-1">{{ $module->total }}</span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
         </div>
 
-        @if ($requirements->count() === 0)
+        @if ($modules->isEmpty())
             <div class="card-body">
                 <p class="text-muted mb-0">{{ __('No requirements found.') }}</p>
             </div>
         @else
-            <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
-                    <thead>
-                        <tr>
-                            <th>{{ __('Module / Page') }}</th>
-                            <th>{{ __('Title') }}</th>
-                            <th>{{ __('Priority') }}</th>
-                            <th>{{ __('Status') }}</th>
-                            <th class="text-right">{{ __('Actions') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($requirements as $requirement)
-                            <tr>
-                                <td>
-                                    <div class="font-weight-bold">{{ $requirement->module_name }}</div>
-                                    <div class="text-muted small">{{ $requirement->page_name ?: '-' }}</div>
-                                </td>
-                                <td>
-                                    <div class="font-weight-bold">{{ $requirement->title }}</div>
-                                    <div class="text-muted small">{{ $requirement->details ?: '-' }}</div>
-                                </td>
-                                <td>
-                                    <span class="badge badge-{{ $priorityClasses[$requirement->priority] ?? 'secondary' }}">
-                                        {{ __($requirement->priority) }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge badge-{{ $statusClasses[$requirement->status] ?? 'secondary' }}">
-                                        {{ __($requirement->status) }}
-                                    </span>
-                                </td>
-                                <td class="text-right">
-                                    <a href="{{ route('projects.requirements.edit', [$project, $requirement]) }}" class="btn btn-sm btn-outline-secondary">
-                                        {{ __('Edit') }}
-                                    </a>
-                                    <form method="POST" action="{{ route('projects.requirements.destroy', [$project, $requirement]) }}" class="d-inline" onsubmit="return confirm('{{ __('Delete this requirement?') }}')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">
-                                            {{ __('Delete') }}
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="card-footer">
-                {{ $requirements->links() }}
+            <div id="requirements-panel">
+                @include('projects.requirements.partials.list', [
+                    'project' => $project,
+                    'requirements' => $requirements,
+                    'selectedModule' => $selectedModule,
+                ])
             </div>
         @endif
     </div>
+
+    @if ($modules->isNotEmpty())
+        @push('js')
+            <script>
+                $(function () {
+                    const $panel = $('#requirements-panel');
+                    const $tabs = $('#requirements-module-tabs');
+
+                    if (! $panel.length || ! $tabs.length) {
+                        return;
+                    }
+
+                    const loadingText = @json(__('Loading requirements...'));
+                    const errorText = @json(__('Unable to load requirements right now. Please try again.'));
+                    const loadingMarkup = `<div class="card-body text-center text-muted py-5"><i class="fas fa-spinner fa-spin mr-1"></i>${loadingText}</div>`;
+                    const errorMarkup = `<div class="card-body"><div class="alert alert-danger mb-0">${errorText}</div></div>`;
+
+                    const setActiveTab = (moduleName) => {
+                        $tabs.find('.nav-link').removeClass('active');
+                        $tabs.find('.nav-link').filter(function () {
+                            return $(this).data('module') === moduleName;
+                        }).addClass('active');
+                    };
+
+                    const getModuleFromUrl = (url) => {
+                        const parsed = new URL(url, window.location.origin);
+                        return parsed.searchParams.get('module');
+                    };
+
+                    const loadModule = (url, moduleName = null) => {
+                        $panel.html(loadingMarkup);
+
+                        $.ajax({
+                            url: url,
+                            method: 'GET',
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                            },
+                            success: function (html) {
+                                $panel.html(html);
+                                window.history.replaceState({}, '', url);
+                                const resolvedModule = moduleName || getModuleFromUrl(url);
+                                if (resolvedModule) {
+                                    setActiveTab(resolvedModule);
+                                }
+                            },
+                            error: function () {
+                                $panel.html(errorMarkup);
+                            }
+                        });
+                    };
+
+                    $tabs.on('click', '.js-module-tab', function (e) {
+                        e.preventDefault();
+                        const $link = $(this);
+                        loadModule($link.attr('href'), $link.data('module'));
+                    });
+
+                    $panel.on('click', '.pagination a', function (e) {
+                        e.preventDefault();
+                        loadModule($(this).attr('href'));
+                    });
+                });
+            </script>
+        @endpush
+    @endif
 </x-app-layout>

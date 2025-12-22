@@ -76,6 +76,8 @@ class ProjectKickoffController extends Controller
             'meeting_link' => null,
             'requirements_summary' => null,
             'timeline_summary' => null,
+            'transcript_path' => null,
+            'transcript_uploaded_at' => null,
         ]);
 
         if ($existing !== null && $existing->trashed()) {

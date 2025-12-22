@@ -35,4 +35,21 @@ return [
         ],
     ],
 
+    'gemini' => [
+        'key' => env('GEMINI_API_KEY'),
+        'model' => env('GEMINI_MODEL', 'gemini-2.5-flash'),
+        'chunk_model' => env('GEMINI_CHUNK_MODEL', 'gemini-2.0-flash-lite'),
+        'merge_model' => env('GEMINI_MERGE_MODEL', 'gemini-2.0-flash'),
+        'refine_model' => env('GEMINI_REFINE_MODEL', 'gemini-2.5-flash-lite'),
+        'heavy_model' => env('GEMINI_HEAVY_MODEL', 'gemini-2.5-pro'),
+        'chunk_size' => env('GEMINI_CHUNK_SIZE', 12000),
+        'max_chunks' => env('GEMINI_MAX_CHUNKS', 3),
+        'refine_passes' => env('GEMINI_REFINE_PASSES', 1),
+        'heavy_min_chars' => env('GEMINI_HEAVY_MIN_CHARS', 120000),
+        'heavy_min_requirements' => env('GEMINI_HEAVY_MIN_REQUIREMENTS', 60),
+        'endpoint' => env('GEMINI_ENDPOINT', 'https://generativelanguage.googleapis.com/v1beta'),
+        'timeout' => env('GEMINI_TIMEOUT', 20),
+        'verify' => env('GEMINI_SSL_VERIFY', storage_path('certs/cacert.pem')),
+    ],
+
 ];
