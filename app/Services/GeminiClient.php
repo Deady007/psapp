@@ -29,32 +29,46 @@ class GeminiClient
      * @param  array<string, string>  $context
      * @return array<int, array<string, string|null>>
      */
-    public function extractRequirementsFromTranscript(string $transcript, array $context = []): array
-    {
+    public function extractRequirementsFromTranscript(
+        string $transcript,
+        array $context = [],
+        string $analysisMode = 'fast'
+    ): array {
         $transcript = trim($transcript);
 
         if ($transcript === '') {
             return [];
         }
 
+        $profile = $this->analysisProfile($analysisMode);
         $contextBlock = $this->buildContextBlock($context);
         $transcriptLength = Str::length($transcript);
-        $chunkSize = $this->chunkSize;
-        $maxChunks = max(1, $this->maxChunks);
+        $chunkSize = $profile['chunkSize'];
+        $maxChunks = max(1, $profile['maxChunks']);
 
         if ($transcriptLength > $chunkSize) {
             $chunkSize = max($chunkSize, (int) ceil($transcriptLength / $maxChunks));
         }
 
         if ($transcriptLength <= $chunkSize) {
-            $payload = $this->extractFromTranscript($transcript, $contextBlock);
+            $payload = $this->extractFromTranscript(
+                $transcript,
+                $contextBlock,
+                $profile['primaryModel'],
+                $profile['timeoutSeconds']
+            );
 
             return $this->normalizeRequirements($payload);
         }
 
         $chunks = $this->splitTranscript($transcript, $chunkSize);
         if (count($chunks) <= 1) {
-            $payload = $this->extractFromTranscript($transcript, $contextBlock);
+            $payload = $this->extractFromTranscript(
+                $transcript,
+                $contextBlock,
+                $profile['primaryModel'],
+                $profile['timeoutSeconds']
+            );
 
             return $this->normalizeRequirements($payload);
         }
@@ -62,28 +76,113 @@ class GeminiClient
         $drafts = [];
 
         foreach ($chunks as $chunk) {
-            $drafts = array_merge($drafts, $this->extractFromChunk($chunk, $contextBlock));
+            $drafts = array_merge(
+                $drafts,
+                $this->extractFromChunk(
+                    $chunk,
+                    $contextBlock,
+                    $profile['chunkModel'],
+                    $profile['timeoutSeconds']
+                )
+            );
         }
 
         $drafts = $this->normalizeRequirements($drafts);
         $drafts = $this->dedupeRequirements($drafts);
 
-        $passes = max(0, $this->refinePasses);
+        $passes = max(0, $profile['refinePasses']);
         $refined = $drafts;
 
         for ($pass = 0; $pass < $passes; $pass++) {
-            $model = $pass === 0 ? $this->mergeModel : $this->refineModel;
-            $refined = $this->refineRequirements($refined, $contextBlock, $model, false);
+            $model = $pass === 0 ? $profile['mergeModel'] : $profile['refineModel'];
+            $refined = $this->refineRequirements(
+                $refined,
+                $contextBlock,
+                $model,
+                false,
+                $profile['timeoutSeconds']
+            );
         }
 
-        if ($this->shouldUseHeavyModel($transcript, $refined)) {
-            $refined = $this->refineRequirements($refined, $contextBlock, $this->heavyModel, true);
+        if ($this->shouldUseHeavyModel($transcript, $refined, $profile)) {
+            $refined = $this->refineRequirements(
+                $refined,
+                $contextBlock,
+                $profile['heavyModel'],
+                true,
+                $profile['heavyTimeoutSeconds']
+            );
         }
 
         return $this->normalizeRequirements($refined);
     }
 
-    private function extractFromTranscript(string $transcript, string $contextBlock): array
+    /**
+     * @return array{
+     *   primaryModel: string,
+     *   chunkModel: string,
+     *   mergeModel: string,
+     *   refineModel: string,
+     *   heavyModel: string,
+     *   chunkSize: int,
+     *   maxChunks: int,
+     *   refinePasses: int,
+     *   timeoutSeconds: int,
+     *   heavyTimeoutSeconds: int,
+     *   allowHeavy: bool,
+     *   heavyMinChars: int,
+     *   heavyMinRequirements: int
+     * }
+     */
+    private function analysisProfile(string $analysisMode): array
+    {
+        $mode = Str::lower(trim($analysisMode)) === 'deep' ? 'deep' : 'fast';
+        $fallbackModel = $this->model;
+        $chunkModel = $this->chunkModel !== '' ? $this->chunkModel : $fallbackModel;
+        $mergeModel = $this->mergeModel !== '' ? $this->mergeModel : $fallbackModel;
+        $refineModel = $this->refineModel !== '' ? $this->refineModel : $fallbackModel;
+        $heavyModel = $this->heavyModel;
+
+        if ($mode === 'fast') {
+            $timeoutSeconds = max(45, $this->timeoutSeconds);
+
+            return [
+                'primaryModel' => $chunkModel,
+                'chunkModel' => $chunkModel,
+                'mergeModel' => $mergeModel,
+                'refineModel' => $refineModel,
+                'heavyModel' => '',
+                'chunkSize' => max(12000, $this->chunkSize),
+                'maxChunks' => max(1, min(2, $this->maxChunks)),
+                'refinePasses' => 0,
+                'timeoutSeconds' => $timeoutSeconds,
+                'heavyTimeoutSeconds' => $timeoutSeconds,
+                'allowHeavy' => false,
+                'heavyMinChars' => PHP_INT_MAX,
+                'heavyMinRequirements' => PHP_INT_MAX,
+            ];
+        }
+
+        $timeoutSeconds = max(90, $this->timeoutSeconds);
+
+        return [
+            'primaryModel' => $fallbackModel,
+            'chunkModel' => $refineModel,
+            'mergeModel' => $mergeModel,
+            'refineModel' => $refineModel,
+            'heavyModel' => $heavyModel,
+            'chunkSize' => min($this->chunkSize, 8000),
+            'maxChunks' => max(3, $this->maxChunks),
+            'refinePasses' => max(1, $this->refinePasses),
+            'timeoutSeconds' => $timeoutSeconds,
+            'heavyTimeoutSeconds' => max(120, $timeoutSeconds),
+            'allowHeavy' => $heavyModel !== '',
+            'heavyMinChars' => $this->heavyMinChars,
+            'heavyMinRequirements' => $this->heavyMinRequirements,
+        ];
+    }
+
+    private function extractFromTranscript(string $transcript, string $contextBlock, string $model, int $timeoutSeconds): array
     {
         $prompt = $this->baseExtractionPrompt();
 
@@ -97,7 +196,8 @@ class GeminiClient
             prompt: $prompt,
             maxOutputTokens: 2048,
             temperature: 0.2,
-            model: $this->model,
+            model: $model,
+            timeoutSeconds: $timeoutSeconds,
         );
 
         $payload = $this->decodeJson($text);
@@ -113,7 +213,7 @@ class GeminiClient
         return $payload;
     }
 
-    private function extractFromChunk(string $chunk, string $contextBlock): array
+    private function extractFromChunk(string $chunk, string $contextBlock, string $model, int $timeoutSeconds): array
     {
         $prompt = $this->chunkExtractionPrompt();
 
@@ -127,7 +227,8 @@ class GeminiClient
             prompt: $prompt,
             maxOutputTokens: 1536,
             temperature: 0.2,
-            model: $this->chunkModel,
+            model: $model,
+            timeoutSeconds: $timeoutSeconds,
         );
 
         $payload = $this->decodeJson($text);
@@ -143,8 +244,13 @@ class GeminiClient
         return $payload;
     }
 
-    private function refineRequirements(array $requirements, string $contextBlock, string $model, bool $heavy): array
-    {
+    private function refineRequirements(
+        array $requirements,
+        string $contextBlock,
+        string $model,
+        bool $heavy,
+        int $timeoutSeconds
+    ): array {
         if ($requirements === []) {
             return [];
         }
@@ -168,6 +274,7 @@ class GeminiClient
             maxOutputTokens: $heavy ? 4096 : 2048,
             temperature: $heavy ? 0.2 : 0.15,
             model: $model,
+            timeoutSeconds: $timeoutSeconds,
         );
 
         $decoded = $this->decodeJson($text);
@@ -351,17 +458,29 @@ Guidelines:
 PROMPT;
     }
 
-    private function shouldUseHeavyModel(string $transcript, array $requirements): bool
+    /**
+     * @param  array{
+     *   heavyModel: string,
+     *   allowHeavy: bool,
+     *   heavyMinChars: int,
+     *   heavyMinRequirements: int
+     * }  $profile
+     */
+    private function shouldUseHeavyModel(string $transcript, array $requirements, array $profile): bool
     {
-        if ($this->heavyModel === '') {
+        if (! $profile['allowHeavy']) {
             return false;
         }
 
-        if (Str::length($transcript) < $this->heavyMinChars) {
+        if (($profile['heavyModel'] ?? '') === '') {
             return false;
         }
 
-        return count($requirements) >= $this->heavyMinRequirements;
+        if (Str::length($transcript) < $profile['heavyMinChars']) {
+            return false;
+        }
+
+        return count($requirements) >= $profile['heavyMinRequirements'];
     }
 
     /**
@@ -397,8 +516,13 @@ PROMPT;
         return $unique;
     }
 
-    private function generateText(string $prompt, int $maxOutputTokens, float $temperature, ?string $model = null): string
-    {
+    private function generateText(
+        string $prompt,
+        int $maxOutputTokens,
+        float $temperature,
+        ?string $model = null,
+        ?int $timeoutSeconds = null
+    ): string {
         $apiKey = trim($this->apiKey);
 
         if ($apiKey === '') {
@@ -409,7 +533,9 @@ PROMPT;
         $modelName = $model ?: $this->model;
         $url = sprintf('%s/models/%s:generateContent?key=%s', $endpoint, $modelName, $apiKey);
 
-        $response = Http::timeout($this->timeoutSeconds)
+        $timeout = $timeoutSeconds ?? $this->timeoutSeconds;
+
+        $response = Http::timeout($timeout)
             ->acceptJson()
             ->asJson()
             ->withOptions(['verify' => $this->sslVerifyOption()])

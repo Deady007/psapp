@@ -48,7 +48,7 @@ return [
         'heavy_min_chars' => env('GEMINI_HEAVY_MIN_CHARS', 120000),
         'heavy_min_requirements' => env('GEMINI_HEAVY_MIN_REQUIREMENTS', 60),
         'endpoint' => env('GEMINI_ENDPOINT', 'https://generativelanguage.googleapis.com/v1beta'),
-        'timeout' => env('GEMINI_TIMEOUT', 20),
+        'timeout' => env('GEMINI_TIMEOUT', 45),
         'verify' => env('GEMINI_SSL_VERIFY', storage_path('certs/cacert.pem')),
     ],
 

@@ -95,6 +95,7 @@ class ProjectRequirementController extends Controller
             'project' => $project,
             'priorities' => ProjectRequirement::PRIORITIES,
             'statuses' => ProjectRequirement::STATUSES,
+            'analysisMode' => 'fast',
             ...$context,
         ]);
     }
@@ -105,14 +106,20 @@ class ProjectRequirementController extends Controller
         GeminiClient $client
     ): View|RedirectResponse {
         $context = $this->importContext($project, $request->string('source')->trim()->toString());
+        $analysisMode = $request->string('analysis_mode')->lower()->toString() === 'deep' ? 'deep' : 'fast';
+        $timeLimit = $analysisMode === 'deep' ? 300 : 180;
 
         if (function_exists('set_time_limit')) {
-            set_time_limit(120);
+            set_time_limit($timeLimit);
         }
 
         try {
             $transcript = $request->file('transcript')->get();
-            $drafts = $client->extractRequirementsFromTranscript($transcript, $this->transcriptContext($project));
+            $drafts = $client->extractRequirementsFromTranscript(
+                $transcript,
+                $this->transcriptContext($project),
+                $analysisMode
+            );
         } catch (Throwable $exception) {
             report($exception);
 
@@ -137,6 +144,7 @@ class ProjectRequirementController extends Controller
             'statuses' => ProjectRequirement::STATUSES,
             'drafts' => $drafts,
             'transcriptName' => $request->file('transcript')->getClientOriginalName(),
+            'analysisMode' => $analysisMode,
             ...$context,
         ]);
     }

@@ -179,6 +179,8 @@
                                     {{ __('Upload a .txt transcript to generate requirement drafts, then approve before import.') }}
                                 </p>
 
+                                @php($analysisMode = old('analysis_mode', 'fast'))
+
                                 @if ($project->kickoff->transcript_path)
                                     <div class="text-muted small mb-2">
                                         {{ __('Last transcript') }}: {{ basename($project->kickoff->transcript_path) }}
@@ -196,6 +198,23 @@
                                         <x-input-label for="kickoff_transcript" :value="__('Transcript (.txt)')" />
                                         <input id="kickoff_transcript" name="transcript" type="file" class="form-control-file" accept=".txt,text/plain" required>
                                         <x-input-error class="mt-2" :messages="$errors->get('transcript')" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <x-input-label :value="__('Analysis Mode')" />
+                                        <div class="custom-control custom-radio">
+                                            <input class="custom-control-input" type="radio" id="kickoff-analysis-fast" name="analysis_mode" value="fast" @checked($analysisMode === 'fast')>
+                                            <label class="custom-control-label" for="kickoff-analysis-fast">
+                                                {{ __('Fast') }} <span class="text-muted small">- {{ __('quicker results, fewer passes') }}</span>
+                                            </label>
+                                        </div>
+                                        <div class="custom-control custom-radio mt-2">
+                                            <input class="custom-control-input" type="radio" id="kickoff-analysis-deep" name="analysis_mode" value="deep" @checked($analysisMode === 'deep')>
+                                            <label class="custom-control-label" for="kickoff-analysis-deep">
+                                                {{ __('Deep') }} <span class="text-muted small">- {{ __('slower, more thorough extraction') }}</span>
+                                            </label>
+                                        </div>
+                                        <x-input-error class="mt-2" :messages="$errors->get('analysis_mode')" />
                                     </div>
 
                                     <div class="d-flex justify-content-end">

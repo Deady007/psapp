@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProjectRequirementTranscriptRequest extends FormRequest
 {
@@ -23,7 +24,17 @@ class StoreProjectRequirementTranscriptRequest extends FormRequest
     {
         return [
             'transcript' => ['required', 'file', 'mimes:txt', 'mimetypes:text/plain', 'max:1024'],
+            'analysis_mode' => ['required', Rule::in(['fast', 'deep'])],
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $mode = $this->input('analysis_mode');
+
+        if (! is_string($mode) || trim($mode) === '') {
+            $this->merge(['analysis_mode' => 'fast']);
+        }
     }
 
     /**
@@ -37,6 +48,8 @@ class StoreProjectRequirementTranscriptRequest extends FormRequest
             'transcript.mimes' => 'The transcript must be a .txt file.',
             'transcript.mimetypes' => 'The transcript must be a plain text file.',
             'transcript.max' => 'The transcript may not be greater than 1 MB.',
+            'analysis_mode.required' => 'Please choose an analysis mode.',
+            'analysis_mode.in' => 'Analysis mode must be fast or deep.',
         ];
     }
 }
