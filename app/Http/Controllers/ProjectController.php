@@ -6,10 +6,8 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Jobs\CreateProjectDriveFolders;
 use App\Models\Customer;
-use App\Models\Document;
 use App\Models\Product;
 use App\Models\Project;
-use App\Models\ProjectRequirement;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -102,22 +100,8 @@ class ProjectController extends Controller
         $project->load(['customer', 'products', 'kickoff'])
             ->loadCount(['requirements', 'products']);
 
-        $recentRequirements = ProjectRequirement::query()
-            ->where('project_id', $project->id)
-            ->latest()
-            ->limit(5)
-            ->get(['id', 'project_id', 'module_name', 'title', 'priority', 'status', 'created_at']);
-
-        $recentDocuments = Document::query()
-            ->where('project_id', $project->id)
-            ->latest()
-            ->limit(5)
-            ->get(['id', 'project_id', 'name', 'received_from', 'received_at', 'created_at']);
-
         return view('projects.show', [
             'project' => $project,
-            'recentRequirements' => $recentRequirements,
-            'recentDocuments' => $recentDocuments,
         ]);
     }
 

@@ -44,18 +44,16 @@
             <form method="POST" action="{{ route('password.confirm') }}"
                   class="lockscreen-credentials @if(!config('adminlte.usermenu_image'))ml-0 @endif">
                 @csrf
-                <div class="form-group mb-0">
-                    <label for="password" class="d-block text-muted mb-2">{{ __('adminlte::adminlte.password') }}</label>
-                    <div class="input-group">
-                        <input id="password" type="password" name="password"
-                               class="form-control @error('password') is-invalid @enderror"
-                               placeholder="{{ __('adminlte::adminlte.password') }}" required autofocus>
 
-                        <div class="input-group-append">
-                            <button type="submit" class="btn">
-                                <i class="fas fa-arrow-right text-muted"></i>
-                            </button>
-                        </div>
+                <div class="input-group">
+                    <input id="password" type="password" name="password"
+                           class="form-control @error('password') is-invalid @enderror"
+                           placeholder="{{ __('adminlte::adminlte.password') }}" required autofocus>
+
+                    <div class="input-group-append">
+                        <button type="submit" class="btn">
+                            <i class="fas fa-arrow-right text-muted"></i>
+                        </button>
                     </div>
                 </div>
 

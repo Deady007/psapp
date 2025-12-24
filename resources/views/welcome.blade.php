@@ -32,100 +32,50 @@
         </nav>
 
         <div class="content-wrapper">
-            <div class="content" id="main-content">
-                <div class="container">
-                    <div class="landing-hero mb-4">
-                        <div class="row align-items-center">
-                            <div class="col-lg-6">
-                                <div class="eyebrow mb-3">
-                                    <i class="fas fa-wave-square"></i>
-                                    {{ __('Project delivery workspace') }}
-                                </div>
-                                <h1 class="display-4 font-weight-bold">
-                                    {{ __('Operational clarity for project teams.') }}
-                                </h1>
-                                <p class="hero-subtext lead mb-0">
-                                    {{ __('Plan kickoffs, capture requirements, and keep documents, clients, and approvals together without losing context.') }}
-                                </p>
-                                <div class="hero-actions mt-4">
-                                    @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="btn btn-primary btn-lg">
-                                            <i class="fas fa-rocket"></i>
-                                            {{ __('Start free') }}
-                                        </a>
-                                    @endif
-                                    <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-lg">
-                                        <i class="fas fa-sign-in-alt"></i>
-                                        {{ __('Sign in') }}
-                                    </a>
-                                    <span class="text-muted small d-inline-flex align-items-center">
-                                        <i class="fas fa-check-circle text-success mr-2"></i>
-                                        {{ __('No credit card. Ready in minutes.') }}
-                                    </span>
-                                </div>
-                                <div class="hero-pills">
-                                    <span class="hero-pill">{{ __('Kickoff playbooks') }}</span>
-                                    <span class="hero-pill">{{ __('Requirements workspace') }}</span>
-                                    <span class="hero-pill">{{ __('Drive documents') }}</span>
-                                    <span class="hero-pill">{{ __('Customer + contacts in one view') }}</span>
-                                </div>
+            <div class="content">
+                <div class="container py-5">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <h1 class="display-4 font-weight-bold">
+                                {{ __('Plan, track, and deliver with confidence.') }}
+                            </h1>
+                            <p class="lead text-muted">
+                                {{ __('Give your team a premium workspace for customers, projects, and execution clarity.') }}
+                            </p>
+                            <div class="mt-4">
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="btn btn-primary btn-lg mr-2">{{ __('Start free') }}</a>
+                                @endif
+                                <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-lg">{{ __('Sign in') }}</a>
                             </div>
-                            <div class="col-lg-6 mt-4 mt-lg-0">
-                                <div class="row">
-                                    <div class="col-sm-6 mb-3">
-                                        <div class="metric-card">
-                                            <div class="metric-title">
-                                                <span>{{ __('Active clients') }}</span>
-                                                <span class="metric-delta">
-                                                    <i class="fas fa-arrow-up"></i>
-                                                    12%
-                                                </span>
-                                            </div>
-                                            <div class="metric-value" data-countup="18">18</div>
-                                            <div class="text-muted small">
-                                                {{ __('Engaged accounts this quarter') }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 mb-3">
-                                        <div class="metric-card">
-                                            <div class="metric-title">
-                                                <span>{{ __('Live projects') }}</span>
-                                                <span class="metric-delta">
-                                                    <i class="fas fa-check"></i>
-                                                    96%
-                                                </span>
-                                            </div>
-                                            <div class="metric-value" data-countup="12">12</div>
-                                            <div class="text-muted small">
-                                                {{ __('On-track milestones this month') }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="card mt-2">
-                                            <div class="card-body">
-                                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                                    <div>
-                                                        <span class="badge badge-info mr-2">{{ __('Today') }}</span>
-                                                        <span class="font-weight-bold">{{ __('Kickoff call readiness') }}</span>
-                                                    </div>
-                                                    <span class="text-muted small">{{ __('Shared workspace') }}</span>
+                        </div>
+                        <div class="col-lg-6 mt-4 mt-lg-0">
+                            <div class="card card-outline card-primary">
+                                <div class="card-body">
+                                    <h5 class="card-title d-block mb-3">{{ __('Workspace Snapshot') }}</h5>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="info-box bg-info">
+                                                <span class="info-box-icon"><i class="fas fa-users"></i></span>
+                                                <div class="info-box-content">
+                                                    <span class="info-box-text">{{ __('Active Clients') }}</span>
+                                                    <span class="info-box-number">18</span>
                                                 </div>
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="d-flex align-items-center mb-2">
-                                                        <span class="badge badge-success mr-2"><i class="fas fa-check"></i></span>
-                                                        <span class="text-muted">{{ __('Stakeholders confirmed and invited.') }}</span>
-                                                    </li>
-                                                    <li class="d-flex align-items-center mb-2">
-                                                        <span class="badge badge-success mr-2"><i class="fas fa-check"></i></span>
-                                                        <span class="text-muted">{{ __('Requirements collection room is live.') }}</span>
-                                                    </li>
-                                                    <li class="d-flex align-items-center">
-                                                        <span class="badge badge-warning mr-2"><i class="fas fa-clock"></i></span>
-                                                        <span class="text-muted">{{ __('Approval package ready for review.') }}</span>
-                                                    </li>
-                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-box bg-success">
+                                                <span class="info-box-icon"><i class="fas fa-briefcase"></i></span>
+                                                <div class="info-box-content">
+                                                    <span class="info-box-text">{{ __('Live Projects') }}</span>
+                                                    <span class="info-box-number">12</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="callout callout-info mb-0">
+                                                <h6 class="mb-1">{{ __('Delivery Pulse') }}</h6>
+                                                <p class="mb-0 text-muted">{{ __('Milestones hitting forecast and approvals moving faster.') }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -134,41 +84,32 @@
                         </div>
                     </div>
 
-                    <div class="row mb-4">
-                        <div class="col-md-3">
-                            <div class="feature-card">
-                                <div class="feature-icon">
-                                    <i class="fas fa-users-cog"></i>
+                    <div class="row mt-5">
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="text-primary mb-3"><i class="fas fa-layer-group fa-2x"></i></div>
+                                    <h5>{{ __('Portfolio clarity') }}</h5>
+                                    <p class="text-muted mb-0">{{ __('Group programs, surface dependencies, and keep context visible.') }}</p>
                                 </div>
-                                <h5 class="mb-2">{{ __('Kickoff calls, simplified') }}</h5>
-                                <p class="mb-0 text-muted">{{ __('Prep, schedule, and capture outcomes in one space with stakeholders already visible.') }}</p>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="feature-card">
-                                <div class="feature-icon">
-                                    <i class="fas fa-clipboard-list"></i>
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="text-primary mb-3"><i class="fas fa-bolt fa-2x"></i></div>
+                                    <h5>{{ __('Momentum tracking') }}</h5>
+                                    <p class="text-muted mb-0">{{ __('Spot blockers early with health scoring and smart reminders.') }}</p>
                                 </div>
-                                <h5 class="mb-2">{{ __('Requirements room') }}</h5>
-                                <p class="mb-0 text-muted">{{ __('Capture, prioritize, and export ready-to-share requirements without switching tabs.') }}</p>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="feature-card">
-                                <div class="feature-icon">
-                                    <i class="fas fa-folder-open"></i>
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="text-primary mb-3"><i class="fas fa-file-alt fa-2x"></i></div>
+                                    <h5>{{ __('Client-ready reports') }}</h5>
+                                    <p class="text-muted mb-0">{{ __('Publish stakeholder-ready briefings in seconds.') }}</p>
                                 </div>
-                                <h5 class="mb-2">{{ __('Drive documents, organized') }}</h5>
-                                <p class="mb-0 text-muted">{{ __('Versioned folders, rename, move, copy, and approvals with calm, consistent UX.') }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="feature-card">
-                                <div class="feature-icon">
-                                    <i class="fas fa-briefcase"></i>
-                                </div>
-                                <h5 class="mb-2">{{ __('Customers + contacts together') }}</h5>
-                                <p class="mb-0 text-muted">{{ __('Keep customer context, contacts, and linked projects in one view—no page reloads.') }}</p>
                             </div>
                         </div>
                     </div>
