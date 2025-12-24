@@ -25,40 +25,36 @@
         @csrf
 
         {{-- Email field --}}
-        <div class="form-group">
-            <label for="login_email">{{ __('adminlte::adminlte.email') }}</label>
-            <div class="input-group">
-                <input id="login_email" type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                       value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus aria-describedby="login-email-help">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
-                    </div>
+        <div class="input-group mb-3">
+            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
+
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
                 </div>
             </div>
-            <small id="login-email-help" class="form-text text-muted">{{ __('Use the email tied to your workspace.') }}</small>
+
             @error('email')
-                <span class="invalid-feedback d-block" role="alert">
+                <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
 
         {{-- Password field --}}
-        <div class="form-group">
-            <label for="login_password">{{ __('adminlte::adminlte.password') }}</label>
-            <div class="input-group">
-                <input id="login_password" type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                       placeholder="{{ __('adminlte::adminlte.password') }}" aria-describedby="login-password-help">
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
-                    </div>
+        <div class="input-group mb-3">
+            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+                   placeholder="{{ __('adminlte::adminlte.password') }}">
+
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
                 </div>
             </div>
-            <small id="login-password-help" class="form-text text-muted">{{ __('Keep this secure and unique to your account.') }}</small>
+
             @error('password')
-                <span class="invalid-feedback d-block" role="alert">
+                <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror

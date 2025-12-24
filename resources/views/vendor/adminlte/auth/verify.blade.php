@@ -10,16 +10,14 @@
         </div>
     @endif
 
-    <p class="text-muted mb-3">
-        {{ __('adminlte::adminlte.verify_check_your_email') }}
-        {{ __('adminlte::adminlte.verify_if_not_recieved') }}
-    </p>
+    {{ __('adminlte::adminlte.verify_check_your_email') }}
+    {{ __('adminlte::adminlte.verify_if_not_recieved') }},
 
     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
         @csrf
-        <button type="submit" class="btn btn-outline-primary">
+        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">
             {{ __('adminlte::adminlte.verify_request_another') }}
-        </button>
+        </button>.
     </form>
 
 @stop
