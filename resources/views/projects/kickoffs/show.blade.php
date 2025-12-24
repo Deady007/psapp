@@ -42,11 +42,14 @@
     @if (! $project->kickoff)
         <div class="card">
             <div class="card-body">
-                <p class="text-muted mb-3">{{ __('No kick-off has been planned yet.') }}</p>
-                <a href="{{ route('projects.kickoffs.plan', $project) }}" class="btn btn-primary">
-                    <i class="fas fa-clipboard-check mr-1"></i>
-                    {{ __('Plan Kick-off') }}
-                </a>
+                <div class="empty-state">
+                    <div class="empty-title mb-2">{{ __('No kick-off planned yet') }}</div>
+                    <p class="text-muted mb-3">{{ __('Create the kick-off plan and invite stakeholders to align early.') }}</p>
+                    <a href="{{ route('projects.kickoffs.plan', $project) }}" class="btn btn-primary">
+                        <i class="fas fa-clipboard-check mr-1"></i>
+                        {{ __('Plan Kick-off') }}
+                    </a>
+                </div>
             </div>
         </div>
     @else

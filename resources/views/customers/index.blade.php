@@ -36,7 +36,14 @@
 
         @if ($customers->count() === 0)
             <div class="card-body">
-                <p class="text-muted mb-0">{{ __('No customers found.') }}</p>
+                <div class="empty-state">
+                    <div class="empty-title mb-2">{{ __('No customers yet') }}</div>
+                    <p class="text-muted mb-3">{{ __('Start by adding your first customer to track projects and contacts.') }}</p>
+                    <a href="{{ route('customers.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus mr-1"></i>
+                        {{ __('Add Customer') }}
+                    </a>
+                </div>
             </div>
         @else
             <div class="card-body table-responsive p-0">

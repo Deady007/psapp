@@ -66,7 +66,14 @@
 
         @if ($projects->count() === 0)
             <div class="card-body">
-                <p class="text-muted mb-0">{{ __('No projects found.') }}</p>
+                <div class="empty-state">
+                    <div class="empty-title mb-2">{{ __('No projects yet') }}</div>
+                    <p class="text-muted mb-3">{{ __('Create a project to start scheduling kickoffs, requirements, and documents.') }}</p>
+                    <a href="{{ route('projects.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus mr-1"></i>
+                        {{ __('New Project') }}
+                    </a>
+                </div>
             </div>
         @else
             <div class="card-body table-responsive p-0">

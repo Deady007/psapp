@@ -65,6 +65,7 @@
     {{-- Custom Stylesheets (post AdminLTE) --}}
     @yield('adminlte_css')
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/jarvis.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
 
     {{-- Favicon --}}
     @if(config('adminlte.use_ico_only'))
@@ -92,6 +93,8 @@
 </head>
 
 <body class="@yield('classes_body')" @yield('body_data')>
+
+    <a href="#main-content" class="skip-link">{{ __('Skip to main content') }}</a>
 
     {{-- Body Content --}}
     @yield('body')
@@ -132,6 +135,7 @@
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
     <script src="{{ asset('vendor/adminlte/dist/js/jarvis.js') }}"></script>
+    <script src="{{ asset('js/theme.js') }}"></script>
 
 </body>
 

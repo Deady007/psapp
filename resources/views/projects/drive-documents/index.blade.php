@@ -137,7 +137,34 @@
 
                 @if (! $hasItems)
                     <div class="card-body">
-                        <p class="text-muted mb-0">{{ __('No folders or files found.') }}</p>
+                        <div class="empty-state">
+                            <div class="empty-title mb-2">{{ __('No files yet') }}</div>
+                            <p class="text-muted mb-3">{{ __('Create a folder or upload a file to start organizing this project.') }}</p>
+                            <div class="d-flex flex-wrap justify-content-center">
+                                @can('create', \App\Models\DocumentFolder::class)
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-primary mr-2 mb-2"
+                                        data-toggle="modal"
+                                        data-target="#drive-folder-modal"
+                                    >
+                                        <i class="far fa-folder mr-1"></i>
+                                        {{ __('New Folder') }}
+                                    </button>
+                                @endcan
+                                @can('create', \App\Models\Document::class)
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary mb-2"
+                                        data-toggle="modal"
+                                        data-target="#drive-upload-modal"
+                                    >
+                                        <i class="fas fa-upload mr-1"></i>
+                                        {{ __('Upload File') }}
+                                    </button>
+                                @endcan
+                            </div>
+                        </div>
                     </div>
                 @else
                     <div class="list-group list-group-flush">

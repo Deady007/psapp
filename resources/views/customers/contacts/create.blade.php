@@ -76,9 +76,18 @@
                             submitBtn.prop('disabled', false);
                             if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.errors) {
                                 let firstError = Object.values(xhr.responseJSON.errors)[0][0];
-                                alert(firstError);
+                                if (window.showToast) {
+                                    window.showToast(firstError, 'error');
+                                } else {
+                                    alert(firstError);
+                                }
                             } else {
-                                alert('Unable to save contact right now. Please try again.');
+                                const message = 'Unable to save contact right now. Please try again.';
+                                if (window.showToast) {
+                                    window.showToast(message, 'error');
+                                } else {
+                                    alert(message);
+                                }
                             }
                         }
                     });
