@@ -104,7 +104,20 @@
 
         @if ($modules->isEmpty())
             <div class="card-body">
-                <p class="text-muted mb-0">{{ __('No requirements found.') }}</p>
+                <div class="empty-state">
+                    <div class="empty-title mb-2">{{ __('No requirements captured yet') }}</div>
+                    <p class="text-muted mb-3">{{ __('Add requirements or import a kickoff transcript to get started.') }}</p>
+                    <div class="d-flex flex-wrap justify-content-center">
+                        <a href="{{ route('projects.requirements.create', $project) }}" class="btn btn-primary mr-2 mb-2">
+                            <i class="fas fa-plus mr-1"></i>
+                            {{ __('Add Requirements') }}
+                        </a>
+                        <a href="{{ route('projects.requirements.import', $project) }}" class="btn btn-outline-primary mb-2">
+                            <i class="fas fa-file-upload mr-1"></i>
+                            {{ __('Import Transcript') }}
+                        </a>
+                    </div>
+                </div>
             </div>
         @else
             <div id="requirements-panel">
@@ -128,9 +141,15 @@
                         return;
                     }
 
-                    const loadingText = @json(__('Loading requirements...'));
                     const errorText = @json(__('Unable to load requirements right now. Please try again.'));
-                    const loadingMarkup = `<div class="card-body text-center text-muted py-5"><i class="fas fa-spinner fa-spin mr-1"></i>${loadingText}</div>`;
+                    const loadingMarkup = `
+                        <div class="card-body">
+                            <div class="skeleton mb-3" style="height: 18px;"></div>
+                            <div class="skeleton mb-2" style="height: 14px;"></div>
+                            <div class="skeleton mb-2" style="height: 14px;"></div>
+                            <div class="skeleton" style="height: 14px; width: 60%;"></div>
+                        </div>
+                    `;
                     const errorMarkup = `<div class="card-body"><div class="alert alert-danger mb-0">${errorText}</div></div>`;
 
                     const setActiveTab = (moduleName) => {

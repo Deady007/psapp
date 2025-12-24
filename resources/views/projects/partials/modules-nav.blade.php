@@ -1,6 +1,6 @@
-<div class="card card-outline card-primary">
-    <div class="card-body">
-        <ul class="nav nav-pills">
+<div class="card module-nav">
+    <div class="card-body py-2">
+        <ul class="nav nav-pills flex-wrap" role="tablist" aria-label="{{ __('Project modules') }}">
             <li class="nav-item">
                 <a class="nav-link @if (request()->routeIs('projects.show')) active @endif" href="{{ route('projects.show', $project) }}">
                     {{ __('Overview') }}

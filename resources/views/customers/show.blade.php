@@ -212,55 +212,67 @@
                         </button>
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Email') }}</th>
-                                    <th>{{ __('Phone') }}</th>
-                                    <th>{{ __('Designation') }}</th>
-                                    <th class="text-right">{{ __('Actions') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($customer->contacts as $contact)
-                                    <tr data-row-id="contact-{{ $contact->id }}">
-                                        <td class="font-weight-bold">{{ $contact->name }}</td>
-                                        <td>{{ $contact->email ?: __('Not provided') }}</td>
-                                        <td>{{ $contact->phone ?: __('Not provided') }}</td>
-                                        <td>{{ $contact->designation ?: __('Not provided') }}</td>
-                                        <td class="text-right">
-                                            <button
-                                                type="button"
-                                                class="btn btn-sm btn-outline-secondary js-open-contact-modal"
-                                                data-mode="edit"
-                                                data-action="{{ route('customers.contacts.update', [$customer, $contact]) }}"
-                                                data-name="{{ $contact->name }}"
-                                                data-email="{{ $contact->email }}"
-                                                data-phone="{{ $contact->phone }}"
-                                                data-designation="{{ $contact->designation }}"
-                                            >
-                                                {{ __('Edit') }}
-                                            </button>
-
-                                            <form method="POST" action="{{ route('customers.contacts.destroy', [$customer, $contact]) }}" class="d-inline js-ajax-delete" data-row="contact-{{ $contact->id }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                    {{ __('Delete') }}
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @empty
+                    @if ($customer->contacts->isEmpty())
+                        <div class="empty-state">
+                            <div class="empty-title mb-2">{{ __('No contacts yet') }}</div>
+                            <p class="text-muted mb-3">{{ __('Add the primary stakeholders so communication stays in one place.') }}</p>
+                            <button
+                                type="button"
+                                class="btn btn-primary js-open-contact-modal"
+                                data-mode="create"
+                                data-action="{{ route('customers.contacts.store', $customer) }}"
+                            >
+                                <i class="fas fa-plus mr-1"></i>
+                                {{ __('Add Contact') }}
+                            </button>
+                        </div>
+                    @else
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
                                     <tr>
-                                        <td colspan="5" class="text-center text-muted">{{ __('No contacts yet.') }}</td>
+                                        <th>{{ __('Name') }}</th>
+                                        <th>{{ __('Email') }}</th>
+                                        <th>{{ __('Phone') }}</th>
+                                        <th>{{ __('Designation') }}</th>
+                                        <th class="text-right">{{ __('Actions') }}</th>
                                     </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    @foreach ($customer->contacts as $contact)
+                                        <tr data-row-id="contact-{{ $contact->id }}">
+                                            <td class="font-weight-bold">{{ $contact->name }}</td>
+                                            <td>{{ $contact->email ?: __('Not provided') }}</td>
+                                            <td>{{ $contact->phone ?: __('Not provided') }}</td>
+                                            <td>{{ $contact->designation ?: __('Not provided') }}</td>
+                                            <td class="text-right">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-sm btn-outline-secondary js-open-contact-modal"
+                                                    data-mode="edit"
+                                                    data-action="{{ route('customers.contacts.update', [$customer, $contact]) }}"
+                                                    data-name="{{ $contact->name }}"
+                                                    data-email="{{ $contact->email }}"
+                                                    data-phone="{{ $contact->phone }}"
+                                                    data-designation="{{ $contact->designation }}"
+                                                >
+                                                    {{ __('Edit') }}
+                                                </button>
+
+                                                <form method="POST" action="{{ route('customers.contacts.destroy', [$customer, $contact]) }}" class="d-inline js-ajax-delete" data-row="contact-{{ $contact->id }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                        {{ __('Delete') }}
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -386,7 +398,12 @@
                             });
                         },
                         error: function () {
-                            alert('Unable to delete contact right now. Please try again.');
+                            const message = 'Unable to delete contact right now. Please try again.';
+                            if (window.showToast) {
+                                window.showToast(message, 'error');
+                            } else {
+                                alert(message);
+                            }
                         }
                     });
                 });
@@ -444,9 +461,18 @@
                             $submit.prop('disabled', false);
                             if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.errors) {
                                 let firstError = Object.values(xhr.responseJSON.errors)[0][0];
-                                alert(firstError);
+                                if (window.showToast) {
+                                    window.showToast(firstError, 'error');
+                                } else {
+                                    alert(firstError);
+                                }
                             } else {
-                                alert('Unable to save contact right now. Please try again.');
+                                const message = 'Unable to save contact right now. Please try again.';
+                                if (window.showToast) {
+                                    window.showToast(message, 'error');
+                                } else {
+                                    alert(message);
+                                }
                             }
                         }
                     });
@@ -470,9 +496,18 @@
                             submitBtn.prop('disabled', false);
                             if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.errors) {
                                 let firstError = Object.values(xhr.responseJSON.errors)[0][0];
-                                alert(firstError);
+                                if (window.showToast) {
+                                    window.showToast(firstError, 'error');
+                                } else {
+                                    alert(firstError);
+                                }
                             } else {
-                                alert('Unable to update customer right now. Please try again.');
+                                const message = 'Unable to update customer right now. Please try again.';
+                                if (window.showToast) {
+                                    window.showToast(message, 'error');
+                                } else {
+                                    alert(message);
+                                }
                             }
                         }
                     });

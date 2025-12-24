@@ -9,25 +9,28 @@
 @endisset
 
 @section('content')
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('Close') }}">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            {{ session('success') }}
-        </div>
-    @endif
+    <main id="main-content" class="container-fluid px-lg-4">
+        <div class="toast-stack" aria-live="polite" aria-atomic="true">
+            @if (session('success'))
+                <div class="toast-card toast-success" role="status" data-autodismiss="true">
+                    <div class="toast-message">{{ session('success') }}</div>
+                    <button type="button" class="toast-close" aria-label="{{ __('Close') }}">&times;</button>
+                </div>
+            @endif
 
-    @if (session('error'))
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('Close') }}">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            {{ session('error') }}
+            @if (session('error'))
+                <div class="toast-card toast-error" role="status" data-autodismiss="true">
+                    <div class="toast-message">{{ session('error') }}</div>
+                    <button type="button" class="toast-close" aria-label="{{ __('Close') }}">&times;</button>
+                </div>
+            @endif
         </div>
-    @endif
 
-    {{ $slot }}
+        <div class="page-shell">
+
+            {{ $slot }}
+        </div>
+    </main>
 @endsection
 
 @section('css')
