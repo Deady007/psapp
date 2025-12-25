@@ -64,6 +64,10 @@ class RbacSeeder extends Seeder
             'permissions.create',
             'permissions.edit',
             'permissions.delete',
+            // Kanban
+            'kanban.view',
+            'kanban.create',
+            'kanban.edit',
         ];
 
         $permissionModels = collect($permissions)->map(function (string $permission) {
@@ -75,6 +79,8 @@ class RbacSeeder extends Seeder
 
         $adminRole = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
         $userRole = Role::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
+        $developerRole = Role::firstOrCreate(['name' => 'developer', 'guard_name' => 'web']);
+        $testerRole = Role::firstOrCreate(['name' => 'tester', 'guard_name' => 'web']);
 
         $adminRole->syncPermissions($permissionModels);
 
@@ -87,7 +93,16 @@ class RbacSeeder extends Seeder
                 || str_starts_with($permission->name, 'documents.');
         });
 
-        $userRole->syncPermissions($userPermissions);
+        $kanbanPermissions = $permissionModels->filter(function (Permission $permission) {
+            return str_starts_with($permission->name, 'kanban.');
+        });
+
+        $userRole->syncPermissions($userPermissions->merge(
+            $kanbanPermissions->filter(fn (Permission $permission) => $permission->name === 'kanban.view')
+        ));
+
+        $developerRole->syncPermissions($userPermissions->merge($kanbanPermissions));
+        $testerRole->syncPermissions($userPermissions->merge($kanbanPermissions));
 
         $admin = User::updateOrCreate(
             ['email' => 'parmarviral397@gmail.com'],

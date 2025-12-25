@@ -12,6 +12,8 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
+use function Pest\Laravel\mock;
+
 beforeEach(function () {
     $this->seed(RbacSeeder::class);
     $this->withoutMiddleware(ValidateCsrfToken::class);
@@ -188,6 +190,30 @@ it('validates transcript uploads', function () {
             'transcript' => UploadedFile::fake()->create('transcript.pdf', 10, 'application/pdf'),
         ])
         ->assertSessionHasErrors(['transcript']);
+});
+
+it('logs transcript analysis errors in debug mode', function () {
+    $user = createRequirementUser();
+    $project = Project::factory()->create();
+
+    config()->set('app.debug', true);
+
+    mock(GeminiClient::class)
+        ->shouldReceive('extractRequirementsFromTranscript')
+        ->andThrow(new RuntimeException('Gemini service unavailable.'));
+
+    $this->actingAs($user)
+        ->from(route('projects.requirements.import', $project))
+        ->post(route('projects.requirements.import.preview', $project), [
+            'transcript' => UploadedFile::fake()->create('transcript.txt', 10, 'text/plain'),
+        ])
+        ->assertRedirect(route('projects.requirements.import', $project))
+        ->assertSessionHas('error_details');
+
+    $this->actingAs($user)
+        ->get(route('projects.requirements.import', $project))
+        ->assertSuccessful()
+        ->assertSee('console.error', false);
 });
 
 it('parses requirements from a transcript using gemini', function () {

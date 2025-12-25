@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\ProjectBoardProvisioner;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,6 +24,8 @@ class Project extends Model
         'customer_id',
         'name',
         'code',
+        'issue_prefix',
+        'issue_sequence',
         'description',
         'status',
         'start_date',
@@ -64,11 +67,34 @@ class Project extends Model
         return $this->belongsToMany(Product::class);
     }
 
+    public function boards(): HasMany
+    {
+        return $this->hasMany(ProjectBoard::class);
+    }
+
+    public function developmentBoard(): HasOne
+    {
+        return $this->hasOne(ProjectBoard::class)->where('type', ProjectBoard::TYPE_DEVELOPMENT);
+    }
+
+    public function testingBoard(): HasOne
+    {
+        return $this->hasOne(ProjectBoard::class)->where('type', ProjectBoard::TYPE_TESTING);
+    }
+
     protected function casts(): array
     {
         return [
             'start_date' => 'date',
             'due_date' => 'date',
+            'issue_sequence' => 'integer',
         ];
+    }
+
+    protected static function booted(): void
+    {
+        static::created(function (Project $project) {
+            app(ProjectBoardProvisioner::class)->ensureBoards($project);
+        });
     }
 }

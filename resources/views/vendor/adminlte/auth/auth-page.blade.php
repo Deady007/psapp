@@ -13,13 +13,13 @@
     @yield('css')
 @stop
 
-@section('classes_body'){{ ($auth_type ?? 'login') . '-page' }}@stop
+@section('classes_body'){{ 'terminal-auth ' . ($auth_type ?? 'login') . '-page' }}@stop
 
 @section('body')
-    <div class="{{ $auth_type ?? 'login' }}-box">
+    <div class="{{ $auth_type ?? 'login' }}-box terminal-auth-box">
 
         {{-- Logo --}}
-        <div class="{{ $auth_type ?? 'login' }}-logo">
+        <div class="{{ $auth_type ?? 'login' }}-logo terminal-auth-logo">
             <a href="{{ $dashboard_url }}">
 
                 {{-- Logo Image --}}
@@ -46,8 +46,13 @@
             </a>
         </div>
 
+        <div class="terminal-auth-intro">
+            <p class="terminal-auth-kicker">{{ config('branding.name', config('app.name', 'Laravel')) }}</p>
+            <p class="terminal-auth-subtitle">Secure access to your workspace.</p>
+        </div>
+
         {{-- Card Box --}}
-        <div class="card {{ config('adminlte.classes_auth_card', 'card-outline card-primary') }}">
+        <div class="card terminal-auth-card {{ config('adminlte.classes_auth_card', 'card-outline card-primary') }}">
 
             {{-- Card Header --}}
             @hasSection('auth_header')
@@ -59,13 +64,18 @@
             @endif
 
             {{-- Card Body --}}
-            <div class="card-body {{ $auth_type ?? 'login' }}-card-body {{ config('adminlte.classes_auth_body', '') }}">
+            <div class="card-body {{ $auth_type ?? 'login' }}-card-body terminal-auth-body {{ config('adminlte.classes_auth_body', '') }}">
+                @hasSection('auth_description')
+                    <p class="terminal-auth-description">
+                        @yield('auth_description')
+                    </p>
+                @endif
                 @yield('auth_body')
             </div>
 
             {{-- Card Footer --}}
             @hasSection('auth_footer')
-                <div class="card-footer {{ config('adminlte.classes_auth_footer', '') }}">
+                <div class="card-footer terminal-auth-footer {{ config('adminlte.classes_auth_footer', '') }}">
                     @yield('auth_footer')
                 </div>
             @endif

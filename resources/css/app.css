@@ -11,7 +11,7 @@
     --color-ember-dark: #02230b;
     --color-ember: #00ff75;
     --color-ember-bright: #7cff9c;
-    --color-gold: #b6ff6a;
+    --color-gold: #7cff9c;
     --color-ink: #000000;
     --color-nocturne: #050807;
 
@@ -30,6 +30,39 @@
 @layer base {
     html {
         scroll-behavior: smooth;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    textarea:-webkit-autofill:active,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus,
+    select:-webkit-autofill:active {
+        -webkit-text-fill-color: #00ff75 !important;
+        color: #00ff75 !important;
+        caret-color: #00ff75 !important;
+        box-shadow: 0 0 0 1000px #000000 inset !important;
+        -webkit-box-shadow: 0 0 0 1000px #000000 inset !important;
+        transition: background-color 9999s ease-in-out 0s;
+    }
+
+    input:-moz-autofill,
+    textarea:-moz-autofill,
+    select:-moz-autofill {
+        box-shadow: 0 0 0 1000px #000000 inset !important;
+        -moz-text-fill-color: #00ff75 !important;
+        color: #00ff75 !important;
+        caret-color: #00ff75 !important;
     }
 }
 
@@ -143,14 +176,14 @@
     }
 
     .soft-cta {
-        @apply relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-ember-dark via-ember to-gold px-5 py-2 text-sm font-semibold uppercase tracking-wide text-emerald-50 shadow-lg shadow-emerald-500/40 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-emerald-300/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/70;
+        @apply relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-ember-dark via-ember to-ember-bright px-5 py-2 text-sm font-semibold uppercase tracking-wide text-emerald-50 shadow-lg shadow-emerald-500/40 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-emerald-300/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/70;
     }
 
     .soft-cta::after {
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.25) 45%, transparent 70%);
+        background: linear-gradient(120deg, transparent 0%, rgba(124, 255, 156, 0.3) 45%, transparent 70%);
         transform: translateX(-120%);
         opacity: 0;
         transition: transform 0.6s ease-out, opacity 0.6s ease-out;
@@ -162,7 +195,39 @@
     }
 
     .soft-badge {
-        @apply inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs font-semibold text-emerald-100 ring-1 ring-emerald-300/40 shadow-sm;
+        @apply inline-flex items-center gap-2 rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-semibold text-emerald-100 ring-1 ring-emerald-300/40 shadow-sm;
+    }
+
+    .kanban-input {
+        @apply w-full rounded-2xl border border-emerald-400/30 bg-black/70 px-3 py-2 text-xs text-emerald-100 placeholder-emerald-300/60 shadow-[inset_0_0_0_1px_rgba(0,255,117,0.08)] focus:border-emerald-300/70 focus:ring-1 focus:ring-emerald-300/60;
+    }
+
+    .kanban-textarea {
+        @apply w-full rounded-2xl border border-emerald-400/30 bg-black/70 px-3 py-2 text-xs text-emerald-100 placeholder-emerald-300/60 focus:border-emerald-300/70 focus:ring-1 focus:ring-emerald-300/60;
+    }
+
+    .kanban-select {
+        @apply w-full rounded-2xl border border-emerald-400/30 bg-black/70 px-3 py-2 text-xs text-emerald-100 focus:border-emerald-300/70 focus:ring-1 focus:ring-emerald-300/60;
+    }
+
+    .kanban-chip {
+        @apply inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-black/70 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-emerald-200 transition hover:border-emerald-300/70 hover:text-emerald-100;
+    }
+
+    .kanban-chip-active {
+        @apply border-emerald-300/80 bg-emerald-400/15 text-emerald-100 shadow-[0_0_14px_rgba(0,255,117,0.35)];
+    }
+
+    .kanban-button {
+        @apply inline-flex items-center justify-center gap-2 rounded-full border border-emerald-400/35 bg-black/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100 transition hover:border-emerald-300/70 hover:text-emerald-200;
+    }
+
+    .kanban-button-primary {
+        @apply border-emerald-300/80 bg-emerald-400/15 text-emerald-100 shadow-[0_0_16px_rgba(0,255,117,0.35)];
+    }
+
+    .kanban-button-ghost {
+        @apply border-transparent bg-black/40 text-emerald-200 hover:border-emerald-400/40 hover:text-emerald-100;
     }
 
     .soft-glow {
@@ -249,6 +314,13 @@
 
     .reveal-delay-5 {
         animation-delay: 0.4s;
+    }
+
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
     }
 }
 

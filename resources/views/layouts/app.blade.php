@@ -73,5 +73,11 @@
                 });
             }
         });
+
+        @if (session('error_details'))
+        console.error('Request failed', @json(session('error_details')));
+        @elseif (session('error'))
+        console.error('Request failed', @json(session('error')));
+        @endif
     </script>
 @endsection

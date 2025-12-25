@@ -6,6 +6,11 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\CustomerContactController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\Kanban\KanbanBoardController;
+use App\Http\Controllers\Kanban\KanbanBoardDocumentController;
+use App\Http\Controllers\Kanban\KanbanBugController;
+use App\Http\Controllers\Kanban\KanbanStoryController;
+use App\Http\Controllers\Kanban\KanbanTestingCardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectKickoffController;
@@ -26,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'role:admin|user'])
+Route::middleware(['auth', 'role:admin|user|developer|tester'])
     ->scopeBindings()
     ->group(function () {
         Route::resource('customers', CustomerController::class);
@@ -59,6 +64,27 @@ Route::middleware(['auth', 'role:admin|user'])
             Route::patch('{drive_document}/move', [DocumentController::class, 'move'])->name('move');
             Route::post('{drive_document}/copy', [DocumentController::class, 'copy'])->name('copy');
             Route::delete('{drive_document}', [DocumentController::class, 'destroy'])->name('destroy');
+        });
+        Route::prefix('projects/{project}/kanban')->name('projects.kanban.')->group(function () {
+            Route::get('/', [KanbanBoardController::class, 'index'])->name('index');
+            Route::get('boards/{board}', [KanbanBoardController::class, 'show'])->name('boards.show');
+            Route::post('boards/{board}/stories', [KanbanStoryController::class, 'store'])->name('boards.stories.store');
+            Route::post('boards/{board}/stories/{story}/assign', [KanbanStoryController::class, 'assign'])->name('boards.stories.assign');
+            Route::patch('boards/{board}/stories/{story}', [KanbanStoryController::class, 'update'])->name('boards.stories.update');
+            Route::post('boards/{board}/stories/{story}/move', [KanbanStoryController::class, 'move'])->name('boards.stories.move');
+            Route::post('boards/{board}/stories/{story}/send-to-testing', [KanbanStoryController::class, 'sendToTesting'])
+                ->name('boards.stories.send-to-testing');
+            Route::post('boards/{board}/testing-cards/{testing_card}/assign', [KanbanTestingCardController::class, 'assign'])
+                ->name('boards.testing-cards.assign');
+            Route::post('boards/{board}/testing-cards/{testing_card}/move', [KanbanTestingCardController::class, 'move'])
+                ->name('boards.testing-cards.move');
+            Route::post('boards/{board}/testing-cards/{testing_card}/result', [KanbanTestingCardController::class, 'result'])
+                ->name('boards.testing-cards.result');
+            Route::post('boards/{board}/bugs', [KanbanBugController::class, 'store'])->name('boards.bugs.store');
+            Route::patch('boards/{board}/bugs/{bug}', [KanbanBugController::class, 'update'])->name('boards.bugs.update');
+            Route::post('boards/{board}/documents', [KanbanBoardDocumentController::class, 'store'])->name('boards.documents.store');
+            Route::get('boards/{board}/documents/{document}', [KanbanBoardDocumentController::class, 'download'])
+                ->name('boards.documents.download');
         });
     });
 

@@ -8,7 +8,7 @@
     @yield('css')
 @stop
 
-@section('classes_body', $layoutHelper->makeBodyClasses())
+@section('classes_body', trim($layoutHelper->makeBodyClasses().' terminal-body'))
 
 @section('body_data', $layoutHelper->makeBodyData())
 

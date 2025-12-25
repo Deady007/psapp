@@ -132,9 +132,23 @@ class ProjectRequirementController extends Controller
         } catch (Throwable $exception) {
             report($exception);
 
-            return back()
+            $response = back()
                 ->withInput()
                 ->with('error', 'Unable to analyze the transcript right now. Please try again.');
+
+            if (config('app.debug')) {
+                $traceLines = explode(PHP_EOL, $exception->getTraceAsString());
+
+                $response->with('error_details', [
+                    'message' => $exception->getMessage(),
+                    'type' => $exception::class,
+                    'file' => $exception->getFile(),
+                    'line' => $exception->getLine(),
+                    'trace' => implode(PHP_EOL, array_slice($traceLines, 0, 12)),
+                ]);
+            }
+
+            return $response;
         }
 
         if ($drafts === []) {

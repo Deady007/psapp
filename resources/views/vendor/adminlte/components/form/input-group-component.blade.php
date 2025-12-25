@@ -57,7 +57,7 @@
 
     .adminlte-invalid-igroup > .input-group-prepend > *,
     .adminlte-invalid-igroup > .input-group-append > * {
-        border-color: #dc3545 !important;
+        border-color: #00ff75 !important;
     }
 
 </style>

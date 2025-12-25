@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             RbacSeeder::class,
             DemoCustomerProjectSeeder::class,
+            KanbanSeeder::class,
         ]);
     }
 }

@@ -19,15 +19,17 @@
 @endif
 
 @section('auth_header', __('adminlte::adminlte.login_message'))
+@section('auth_description', 'Sign in to access your projects, boards, and releases.')
 
 @section('auth_body')
-    <form action="{{ $login_url }}" method="post">
+    <form action="{{ $login_url }}" method="post" class="terminal-auth-form">
         @csrf
 
         {{-- Email field --}}
-        <div class="input-group mb-3">
+        <div class="input-group mb-3 terminal-auth-field">
             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
+                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus
+                   autocomplete="email" inputmode="email">
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -43,9 +45,9 @@
         </div>
 
         {{-- Password field --}}
-        <div class="input-group mb-3">
+        <div class="input-group mb-3 terminal-auth-field">
             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                   placeholder="{{ __('adminlte::adminlte.password') }}">
+                   placeholder="{{ __('adminlte::adminlte.password') }}" autocomplete="current-password">
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -63,7 +65,7 @@
         {{-- Login field --}}
         <div class="row">
             <div class="col-7">
-                <div class="icheck-primary" title="{{ __('adminlte::adminlte.remember_me_hint') }}">
+                <div class="icheck-primary terminal-auth-remember" title="{{ __('adminlte::adminlte.remember_me_hint') }}">
                     <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                     <label for="remember">
@@ -73,7 +75,7 @@
             </div>
 
             <div class="col-5">
-                <button type=submit class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
+                <button type="submit" class="btn btn-block terminal-btn terminal-auth-submit {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
                     <span class="fas fa-sign-in-alt"></span>
                     {{ __('adminlte::adminlte.sign_in') }}
                 </button>
@@ -84,21 +86,23 @@
 @stop
 
 @section('auth_footer')
-    {{-- Password reset link --}}
-    @if($password_reset_url)
-        <p class="my-0">
-            <a href="{{ $password_reset_url }}">
-                {{ __('adminlte::adminlte.i_forgot_my_password') }}
-            </a>
-        </p>
-    @endif
+    <div class="terminal-auth-links">
+        {{-- Password reset link --}}
+        @if($password_reset_url)
+            <p class="my-0">
+                <a href="{{ $password_reset_url }}">
+                    {{ __('adminlte::adminlte.i_forgot_my_password') }}
+                </a>
+            </p>
+        @endif
 
-    {{-- Register link --}}
-    @if($register_url)
-        <p class="my-0">
-            <a href="{{ $register_url }}">
-                {{ __('adminlte::adminlte.register_a_new_membership') }}
-            </a>
-        </p>
-    @endif
+        {{-- Register link --}}
+        @if($register_url)
+            <p class="my-0">
+                <a href="{{ $register_url }}">
+                    {{ __('adminlte::adminlte.register_a_new_membership') }}
+                </a>
+            </p>
+        @endif
+    </div>
 @stop
