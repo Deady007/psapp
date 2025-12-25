@@ -64,6 +64,18 @@
         color: #00ff75 !important;
         caret-color: #00ff75 !important;
     }
+
+    body.kanban-admin::before,
+    body.kanban-admin::after {
+        content: none;
+        display: none;
+    }
+
+    body.kanban-admin .content-wrapper,
+    body.kanban-admin .content-header,
+    body.kanban-admin .content {
+        background-color: #f4f6f9;
+    }
 }
 
 @layer components {

@@ -1,6 +1,8 @@
 @extends('adminlte::page')
+@inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 
 @section('title', config('branding.name', config('app.name', 'Laravel')))
+@section('classes_body', trim($layoutHelper->makeBodyClasses().' terminal-body '.($bodyClass ?? '')))
 
 @isset($header)
     @section('content_header')

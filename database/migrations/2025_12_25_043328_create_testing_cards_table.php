@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('project_board_column_id')->constrained('project_board_columns')->cascadeOnDelete();
             $table->foreignId('story_id')->constrained()->cascadeOnDelete();
             $table->foreignId('tester_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('completed_at')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->string('result')->nullable();
             $table->timestamp('tested_at')->nullable();

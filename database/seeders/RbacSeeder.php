@@ -71,10 +71,7 @@ class RbacSeeder extends Seeder
         ];
 
         $permissionModels = collect($permissions)->map(function (string $permission) {
-            return Permission::firstOrCreate(
-                ['name' => $permission, 'guard_name' => 'web'],
-                ['name' => $permission, 'guard_name' => 'web'],
-            );
+            return Permission::firstOrCreate(['name' => $permission, 'guard_name' => 'web']);
         });
 
         $adminRole = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);

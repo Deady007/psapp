@@ -15,8 +15,16 @@ class ProjectRequirementSeeder extends Seeder
     {
         $project = Project::query()->first() ?? Project::factory()->create();
 
-        ProjectRequirement::factory()
-            ->count(3)
-            ->create(['project_id' => $project->id]);
+        $existingCount = ProjectRequirement::query()
+            ->where('project_id', $project->id)
+            ->count();
+
+        $remaining = 3 - $existingCount;
+
+        if ($remaining > 0) {
+            ProjectRequirement::factory()
+                ->count($remaining)
+                ->create(['project_id' => $project->id]);
+        }
     }
 }

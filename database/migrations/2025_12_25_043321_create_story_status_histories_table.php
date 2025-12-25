@@ -17,10 +17,10 @@ return new class extends Migration
             $table->foreignId('from_column_id')->nullable()->constrained('project_board_columns')->nullOnDelete();
             $table->foreignId('to_column_id')->constrained('project_board_columns')->cascadeOnDelete();
             $table->foreignId('moved_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->timestamp('moved_at')->nullable();
+            $table->string('reason')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
-
-            $table->index('story_id');
-            $table->index('moved_by');
         });
     }
 

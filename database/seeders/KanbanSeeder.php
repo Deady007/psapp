@@ -19,6 +19,10 @@ class KanbanSeeder extends Seeder
             ['status' => 'active']
         );
 
+        if ($customer->status !== 'active') {
+            $customer->update(['status' => 'active']);
+        }
+
         Project::query()->firstOrCreate(
             ['name' => 'Beach'],
             [
@@ -31,10 +35,10 @@ class KanbanSeeder extends Seeder
 
         $provisioner = app(ProjectBoardProvisioner::class);
 
-        Project::query()
-            ->get()
-            ->each(function (Project $project) use ($provisioner) {
+        Project::query()->chunkById(100, function ($projects) use ($provisioner) {
+            $projects->each(function (Project $project) use ($provisioner) {
                 $provisioner->ensureBoards($project);
             });
+        });
     }
 }

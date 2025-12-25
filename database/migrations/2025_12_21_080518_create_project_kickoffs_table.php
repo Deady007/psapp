@@ -15,11 +15,17 @@ return new class extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained()->cascadeOnDelete();
             $table->string('purchase_order_number')->nullable();
+            $table->dateTime('planned_at')->nullable();
             $table->dateTime('scheduled_at')->nullable();
+            $table->dateTime('completed_at')->nullable();
             $table->string('meeting_mode')->nullable();
+            $table->string('site_location')->nullable();
+            $table->string('meeting_link')->nullable();
             $table->text('requirements_summary')->nullable();
             $table->text('timeline_summary')->nullable();
             $table->text('notes')->nullable();
+            $table->string('transcript_path')->nullable();
+            $table->timestamp('transcript_uploaded_at')->nullable();
             $table->string('status')->default('planned');
             $table->timestamps();
             $table->softDeletes();

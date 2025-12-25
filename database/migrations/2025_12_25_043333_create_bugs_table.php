@@ -16,15 +16,23 @@ return new class extends Migration
             $table->foreignId('project_board_id')->constrained('project_boards')->cascadeOnDelete();
             $table->foreignId('story_id')->constrained()->cascadeOnDelete();
             $table->foreignId('testing_card_id')->nullable()->constrained('testing_cards')->nullOnDelete();
+            $table->string('issue_key')->nullable();
+            $table->unsignedInteger('issue_number')->nullable();
             $table->string('title');
             $table->text('description')->nullable();
+            $table->string('severity')->default('Medium');
+            $table->text('steps_to_reproduce')->nullable();
             $table->string('status')->default('Open');
+            $table->timestamp('found_at')->nullable();
+            $table->timestamp('resolved_at')->nullable();
+            $table->timestamp('closed_at')->nullable();
             $table->foreignId('assignee_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('reported_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
 
             $table->index(['project_board_id', 'status']);
-            $table->index('assignee_id');
+            $table->unique('issue_key');
+            $table->index('severity');
         });
     }
 

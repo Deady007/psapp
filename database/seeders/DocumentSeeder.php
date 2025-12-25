@@ -24,6 +24,10 @@ class DocumentSeeder extends Seeder
                 'kind' => 'root',
             ]);
 
+        if (Document::query()->where('project_id', $project->id)->exists()) {
+            return;
+        }
+
         Document::factory()->create([
             'project_id' => $project->id,
             'folder_id' => $folder->id,

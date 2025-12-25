@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('document_folders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
+            $table->string('kind')->default('folder');
             $table->foreignId('parent_id')->nullable()->constrained('document_folders')->nullOnDelete();
             $table->string('name');
             $table->string('drive_folder_id');
@@ -21,6 +23,8 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->index(['parent_id', 'name']);
+            $table->index(['project_id', 'kind']);
+            $table->index(['project_id', 'parent_id']);
             $table->unique('drive_folder_id');
         });
     }

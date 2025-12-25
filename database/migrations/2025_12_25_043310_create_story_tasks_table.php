@@ -19,9 +19,6 @@ return new class extends Migration
             $table->boolean('is_completed')->default(false);
             $table->foreignId('assignee_id')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
-
-            $table->index('story_id');
-            $table->index('assignee_id');
         });
     }
 

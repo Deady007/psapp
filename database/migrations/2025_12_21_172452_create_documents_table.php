@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('project_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('folder_id')->nullable()->constrained('document_folders')->nullOnDelete();
             $table->string('drive_file_id');
             $table->string('name');

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->unique(['project_id', 'type']);
-            $table->index('project_id');
         });
     }
 

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Project;
 use Illuminate\Database\Seeder;
@@ -14,10 +13,16 @@ class DemoCustomerProjectSeeder extends Seeder
      */
     public function run(): void
     {
-        $customer = Customer::factory()->create([
-            'name' => 'Demo Customer',
-            'status' => 'active',
-        ]);
+        $today = now();
+
+        $customer = Customer::query()->firstOrCreate(
+            ['name' => 'Demo Customer'],
+            ['status' => 'active'],
+        );
+
+        if ($customer->status !== 'active') {
+            $customer->update(['status' => 'active']);
+        }
 
         $contacts = [
             ['name' => 'Project Lead', 'designation' => 'Lead'],
@@ -26,20 +31,31 @@ class DemoCustomerProjectSeeder extends Seeder
         ];
 
         foreach ($contacts as $contactData) {
-            Contact::query()->create([
-                'customer_id' => $customer->id,
-                'name' => $contactData['name'],
-                'email' => fake()->unique()->safeEmail(),
-                'phone' => fake()->phoneNumber(),
-                'designation' => $contactData['designation'],
-            ]);
+            $contact = $customer->contacts()
+                ->where('name', $contactData['name'])
+                ->first();
+
+            if ($contact === null) {
+                $contact = $customer->contacts()->create([
+                    'name' => $contactData['name'],
+                    'email' => fake()->safeEmail(),
+                    'phone' => fake()->phoneNumber(),
+                    'designation' => $contactData['designation'],
+                ]);
+            }
+
+            if ($contact->designation !== $contactData['designation']) {
+                $contact->update(['designation' => $contactData['designation']]);
+            }
         }
 
-        Project::factory()->create([
-            'customer_id' => $customer->id,
-            'status' => 'active',
-            'start_date' => now()->toDateString(),
-            'due_date' => now()->addWeeks(6)->toDateString(),
-        ]);
+        if ($customer->projects()->doesntExist()) {
+            Project::factory()->create([
+                'customer_id' => $customer->id,
+                'status' => 'active',
+                'start_date' => $today->toDateString(),
+                'due_date' => $today->copy()->addWeeks(6)->toDateString(),
+            ]);
+        }
     }
 }

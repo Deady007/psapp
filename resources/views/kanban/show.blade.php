@@ -6,8 +6,6 @@
     use App\Models\TestingCard;
     use Illuminate\Support\Str;
 
-    $developmentBoard = $project->developmentBoard;
-    $testingBoard = $project->testingBoard;
     $isDevelopmentBoard = $board->isDevelopment();
     $isTestingBoard = $board->isTesting();
     $tabClass = fn (bool $active) => $active ? 'kanban-chip kanban-chip-active' : 'kanban-chip';
@@ -38,50 +36,23 @@
     };
 @endphp
 
-<x-kanban-layout>
+<x-app-layout bodyClass="kanban-admin">
     <x-slot name="header">
-        <div class="flex flex-col gap-6">
-            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                <div class="flex flex-col gap-2">
-                    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/70">{{ __('Project') }}</p>
-                    <h1 class="text-2xl font-semibold text-emerald-100">{{ $project->name }}</h1>
-                    <p class="text-sm text-emerald-200/80">
-                        {{ $board->type }} {{ __('board for development and testing flow.') }}
-                    </p>
-                </div>
-                <div class="flex flex-wrap gap-2">
-                    <a href="{{ route('projects.show', $project) }}" class="kanban-button kanban-button-ghost">
-                        {{ __('Back to Project') }}
-                    </a>
-                    <a href="{{ route('projects.kanban.index', $project) }}" class="kanban-button kanban-button-ghost">
-                        {{ __('All Boards') }}
-                    </a>
-                </div>
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div class="flex flex-col gap-2">
+                <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300/70">{{ __('Project') }}</p>
+                <h1 class="text-2xl font-semibold text-emerald-100">{{ $project->name }}</h1>
+                <p class="text-sm text-emerald-200/80">
+                    {{ $board->type }} {{ __('board for development and testing flow.') }}
+                </p>
             </div>
-
             <div class="flex flex-wrap gap-2">
-                <a class="{{ $tabClass(request()->routeIs('projects.show')) }}" href="{{ route('projects.show', $project) }}">
-                    {{ __('Overview') }}
+                <a href="{{ route('projects.show', $project) }}" class="kanban-button kanban-button-ghost">
+                    {{ __('Back to Project') }}
                 </a>
-                <a class="{{ $tabClass(request()->routeIs('projects.kickoffs.*')) }}" href="{{ route('projects.kickoffs.show', $project) }}">
-                    {{ __('Kick-off') }}
+                <a href="{{ route('projects.kanban.index', $project) }}" class="kanban-button kanban-button-ghost">
+                    {{ __('All Boards') }}
                 </a>
-                <a class="{{ $tabClass(request()->routeIs('projects.requirements.*')) }}" href="{{ route('projects.requirements.index', $project) }}">
-                    {{ __('Requirements') }}
-                </a>
-                <a class="{{ $tabClass(request()->routeIs('projects.drive-documents.*')) }}" href="{{ route('projects.drive-documents.index', $project) }}">
-                    {{ __('Drive Documents') }}
-                </a>
-                <a class="{{ $tabClass($isDevelopmentBoard) }}" href="{{ $developmentBoard ? route('projects.kanban.boards.show', [$project, $developmentBoard]) : route('projects.kanban.index', $project) }}">
-                    {{ __('Development') }}
-                </a>
-                <a class="{{ $tabClass($isTestingBoard) }}" href="{{ $testingBoard ? route('projects.kanban.boards.show', [$project, $testingBoard]) : route('projects.kanban.index', $project) }}">
-                    {{ __('Testing') }}
-                </a>
-            </div>
-
-            <div class="flex flex-wrap gap-2">
-                <span class="kanban-chip kanban-chip-active">{{ __('Kanban') }}</span>
             </div>
         </div>
     </x-slot>
@@ -114,6 +85,13 @@
         x-on:keydown.escape.window="drawerOpen = false; showCreateStory = false; showCreateBug = false"
         class="flex flex-col gap-6"
     >
+        @include('projects.partials.modules-nav', ['project' => $project])
+
+        <div class="soft-card p-3">
+            <div class="flex flex-wrap gap-2">
+                <span class="kanban-chip kanban-chip-active">{{ __('Kanban') }}</span>
+            </div>
+        </div>
         <div class="soft-card p-4">
             <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div class="flex flex-wrap gap-2">
@@ -1276,4 +1254,4 @@
             </div>
         </div>
     </div>
-</x-kanban-layout>
+</x-app-layout>

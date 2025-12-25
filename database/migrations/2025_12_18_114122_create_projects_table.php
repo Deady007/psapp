@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('code')->nullable()->unique();
+            $table->string('issue_prefix')->nullable();
+            $table->unsignedInteger('issue_sequence')->default(0);
             $table->text('description')->nullable();
             $table->string('status')->default('draft');
             $table->date('start_date')->nullable();

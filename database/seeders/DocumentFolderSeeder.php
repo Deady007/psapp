@@ -18,26 +18,47 @@ class DocumentFolderSeeder extends Seeder
 
         $project = Project::query()->first() ?? Project::factory()->create();
 
-        $root = DocumentFolder::factory()->create([
-            'project_id' => $project->id,
-            'parent_id' => null,
-            'name' => 'Project Root',
-            'owner_id' => $owner->id,
-            'kind' => 'root',
-        ]);
+        $root = DocumentFolder::query()
+            ->where('project_id', $project->id)
+            ->where('kind', 'root')
+            ->first();
 
-        DocumentFolder::factory()->count(2)->create([
-            'project_id' => $project->id,
-            'parent_id' => $root->id,
-            'owner_id' => $owner->id,
-        ]);
+        if ($root === null) {
+            $root = DocumentFolder::factory()->create([
+                'project_id' => $project->id,
+                'parent_id' => null,
+                'name' => 'Project Root',
+                'owner_id' => $owner->id,
+                'kind' => 'root',
+            ]);
+        }
 
-        DocumentFolder::factory()->create([
-            'project_id' => $project->id,
-            'parent_id' => null,
-            'name' => 'Project Trash',
-            'owner_id' => $owner->id,
-            'kind' => 'trash',
-        ]);
+        $childCount = DocumentFolder::query()
+            ->where('project_id', $project->id)
+            ->where('parent_id', $root->id)
+            ->count();
+
+        if ($childCount < 2) {
+            DocumentFolder::factory()->count(2 - $childCount)->create([
+                'project_id' => $project->id,
+                'parent_id' => $root->id,
+                'owner_id' => $owner->id,
+            ]);
+        }
+
+        $trash = DocumentFolder::query()
+            ->where('project_id', $project->id)
+            ->where('kind', 'trash')
+            ->first();
+
+        if ($trash === null) {
+            DocumentFolder::factory()->create([
+                'project_id' => $project->id,
+                'parent_id' => null,
+                'name' => 'Project Trash',
+                'owner_id' => $owner->id,
+                'kind' => 'trash',
+            ]);
+        }
     }
 }
