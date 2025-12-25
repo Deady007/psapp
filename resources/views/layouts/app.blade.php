@@ -1,6 +1,10 @@
 @extends('adminlte::page')
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 
+@inject('layoutHelper', 'JeroenNoten\\LaravelAdminLte\\Helpers\\LayoutHelper')
+
+@section('body_data', trim($layoutHelper->makeBodyData().' data-theme="glass" data-density="comfortable" data-motion="1"'))
+
 @section('title', config('branding.name', config('app.name', 'Laravel')))
 @section('classes_body', trim($layoutHelper->makeBodyClasses().' terminal-body '.($bodyClass ?? '')))
 

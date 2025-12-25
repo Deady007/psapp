@@ -1,0 +1,19 @@
+[data-theme="softui"] {
+    --bg: #0f1220;
+    --surface: rgba(16, 19, 36, 0.9);
+    --surface-2: rgba(18, 22, 40, 0.78);
+    --text: #e4e7ff;
+    --muted: #b8c2ff;
+    --border: rgba(161, 184, 255, 0.38);
+    --shadow: 0 18px 50px rgba(143, 175, 255, 0.32);
+    --radius: 1.5rem;
+    --accent: #8fafff;
+    --accent-2: #c0d4ff;
+    --focus: rgba(143, 175, 255, 0.5);
+    --danger: #ff6b6b;
+    --success: #2ee59d;
+    --warning: #f6c453;
+    --blur: 30px;
+    --noise: none;
+    --glow: 0 0 24px rgba(143, 175, 255, 0.32);
+}

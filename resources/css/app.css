@@ -1,23 +1,53 @@
 @import "tailwindcss";
+@import "./themes/glass.css";
+@import "./themes/softui.css";
+@import "./themes/terminalwm.css";
+@import "./themes/quickx.css";
+@import "./themes/custom.css";
+
 @plugin "@tailwindcss/forms";
 @source "../views/**/*.blade.php";
 @source "../js/**/*.js";
 @source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
 
+:root,
+body {
+    --bg: #030504;
+    --surface: rgba(0, 0, 0, 0.7);
+    --surface-2: rgba(0, 0, 0, 0.55);
+    --text: #d7ffe4;
+    --muted: #9ae8c3;
+    --border: rgba(0, 255, 117, 0.35);
+    --shadow: 0 18px 50px rgba(0, 255, 117, 0.35);
+    --radius: 1.5rem;
+    --accent: #00ff75;
+    --accent-2: #7cff9c;
+    --focus: rgba(0, 255, 117, 0.5);
+    --danger: #ff6b6b;
+    --success: #2ee59d;
+    --warning: #f6c453;
+    --blur: 32px;
+    --noise: none;
+    --glow: 0 0 24px rgba(0, 255, 117, 0.35);
+
+    --surface-3: color-mix(in srgb, var(--accent) 12%, var(--surface-2));
+    --border-soft: color-mix(in srgb, var(--border) 65%, transparent);
+    --shadow-soft: 0 14px 36px color-mix(in srgb, var(--accent) 22%, transparent);
+    --shadow-elevated: 0 30px 60px color-mix(in srgb, var(--bg) 70%, transparent);
+    --input-surface: color-mix(in srgb, var(--surface) 88%, transparent);
+    --input-surface-strong: color-mix(in srgb, var(--surface) 94%, transparent);
+    --input-surface-muted: color-mix(in srgb, var(--bg) 94%, transparent);
+    --input-border: color-mix(in srgb, var(--border) 80%, transparent);
+    --input-placeholder: color-mix(in srgb, var(--muted) 75%, transparent);
+    --select-background: color-mix(in srgb, var(--surface) 92%, transparent);
+    --select-dropdown: color-mix(in srgb, var(--bg) 90%, transparent);
+    --select-highlight: color-mix(in srgb, var(--accent) 14%, transparent);
+    --accent-contrast: color-mix(in srgb, var(--bg) 85%, var(--text));
+}
+
 @theme {
     --font-sans: "JetBrains Mono", "Share Tech Mono", monospace;
     --font-display: "JetBrains Mono", "Share Tech Mono", monospace;
-
-    --color-ember-dark: #02230b;
-    --color-ember: #00ff75;
-    --color-ember-bright: #7cff9c;
-    --color-gold: #7cff9c;
-    --color-ink: #000000;
-    --color-nocturne: #050807;
-
-    --shadow-ember: 0 18px 50px rgba(0, 255, 117, 0.35);
-    --shadow-ember-soft: 0 14px 36px rgba(0, 255, 117, 0.22);
-    --shadow-elevated: 0 30px 60px rgba(0, 0, 0, 0.6);
 
     --animate-reveal: reveal 0.7s ease-out both;
     --animate-rise: rise 0.85s ease-out both;
@@ -30,6 +60,11 @@
 @layer base {
     html {
         scroll-behavior: smooth;
+    }
+
+    body {
+        background-color: var(--bg);
+        color: var(--text);
     }
 
     [x-cloak] {
@@ -48,21 +83,21 @@
     select:-webkit-autofill:hover,
     select:-webkit-autofill:focus,
     select:-webkit-autofill:active {
-        -webkit-text-fill-color: #00ff75 !important;
-        color: #00ff75 !important;
-        caret-color: #00ff75 !important;
-        box-shadow: 0 0 0 1000px #000000 inset !important;
-        -webkit-box-shadow: 0 0 0 1000px #000000 inset !important;
+        -webkit-text-fill-color: var(--accent) !important;
+        color: var(--accent) !important;
+        caret-color: var(--accent) !important;
+        box-shadow: 0 0 0 1000px var(--bg) inset !important;
+        -webkit-box-shadow: 0 0 0 1000px var(--bg) inset !important;
         transition: background-color 9999s ease-in-out 0s;
     }
 
     input:-moz-autofill,
     textarea:-moz-autofill,
     select:-moz-autofill {
-        box-shadow: 0 0 0 1000px #000000 inset !important;
-        -moz-text-fill-color: #00ff75 !important;
-        color: #00ff75 !important;
-        caret-color: #00ff75 !important;
+        box-shadow: 0 0 0 1000px var(--bg) inset !important;
+        -moz-text-fill-color: var(--accent) !important;
+        color: var(--accent) !important;
+        caret-color: var(--accent) !important;
     }
 
     body.kanban-admin {
@@ -101,10 +136,10 @@
         isolation: isolate;
         overflow: hidden;
         background:
-            radial-gradient(circle at 15% 15%, rgba(0, 255, 117, 0.18), transparent 45%),
-            radial-gradient(circle at 82% 8%, rgba(124, 255, 156, 0.12), transparent 45%),
-            radial-gradient(circle at 50% 85%, rgba(0, 255, 117, 0.12), transparent 50%),
-            linear-gradient(140deg, #000000 0%, #020a05 50%, #000000 100%);
+            radial-gradient(circle at 15% 15%, color-mix(in srgb, var(--accent) 18%, transparent) 0%, transparent 45%),
+            radial-gradient(circle at 82% 8%, color-mix(in srgb, var(--accent-2) 12%, transparent) 0%, transparent 45%),
+            radial-gradient(circle at 50% 85%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 50%),
+            linear-gradient(140deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 80%, var(--surface)) 50%, var(--bg) 100%);
     }
 
     .app-shell::before {
@@ -112,10 +147,10 @@
         position: absolute;
         inset: -20%;
         background:
-            radial-gradient(circle at 20% 20%, rgba(0, 255, 117, 0.25), transparent 45%),
-            radial-gradient(circle at 80% 30%, rgba(124, 255, 156, 0.2), transparent 50%),
-            radial-gradient(circle at 45% 80%, rgba(0, 255, 117, 0.18), transparent 55%);
-        filter: blur(40px);
+            radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 45%),
+            radial-gradient(circle at 80% 30%, color-mix(in srgb, var(--accent-2) 22%, transparent), transparent 50%),
+            radial-gradient(circle at 45% 80%, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent 55%);
+        filter: blur(var(--blur));
         opacity: 0.9;
         animation: pan-slow 26s ease-in-out infinite;
         pointer-events: none;
@@ -125,7 +160,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background-image: linear-gradient(rgba(0, 0, 0, 0.45) 1px, transparent 1px);
+        background-image: linear-gradient(color-mix(in srgb, var(--text) 12%, transparent) 1px, transparent 1px);
         background-size: 100% 3px;
         opacity: 0.3;
         mix-blend-mode: screen;
@@ -145,20 +180,24 @@
         pointer-events: none;
         opacity: 0.65;
         mix-blend-mode: screen;
-        filter: drop-shadow(0 0 24px rgba(0, 255, 117, 0.25));
+        filter: drop-shadow(0 0 24px color-mix(in srgb, var(--accent) 25%, transparent));
         z-index: 0;
     }
 
     .soft-panel {
-        @apply relative overflow-hidden rounded-3xl bg-black/70 ring-1 ring-emerald-400/25 backdrop-blur-xl;
+        @apply relative overflow-hidden backdrop-blur-xl;
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
         box-shadow: var(--shadow-elevated);
+        color: var(--text);
     }
 
     .soft-panel::before {
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(135deg, rgba(0, 255, 117, 0.12), transparent 40%, rgba(124, 255, 156, 0.1));
+        background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, transparent), transparent 40%, color-mix(in srgb, var(--accent-2) 18%, transparent));
         opacity: 0.8;
         pointer-events: none;
     }
@@ -169,8 +208,12 @@
     }
 
     .soft-card {
-        @apply relative overflow-hidden rounded-3xl bg-black/55 ring-1 ring-emerald-400/20 backdrop-blur-2xl;
-        box-shadow: var(--shadow-ember-soft);
+        @apply relative overflow-hidden backdrop-blur-2xl;
+        background-color: var(--surface-2);
+        border: 1px solid var(--border-soft);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-soft);
+        color: var(--text);
     }
 
     .soft-card::before {
@@ -179,7 +222,7 @@
         inset: -35% 10% auto auto;
         width: 65%;
         aspect-ratio: 1 / 1;
-        background: radial-gradient(circle, rgba(0, 255, 117, 0.25), transparent 55%);
+        background: radial-gradient(circle, color-mix(in srgb, var(--accent) 28%, transparent), transparent 55%);
         filter: blur(30px);
         opacity: 0.9;
         pointer-events: none;
@@ -192,7 +235,7 @@
         inset: auto auto -35% -10%;
         width: 70%;
         aspect-ratio: 1 / 1;
-        background: radial-gradient(circle, rgba(124, 255, 156, 0.2), transparent 55%);
+        background: radial-gradient(circle, color-mix(in srgb, var(--accent-2) 22%, transparent), transparent 55%);
         filter: blur(36px);
         opacity: 0.85;
         pointer-events: none;
@@ -204,14 +247,22 @@
     }
 
     .soft-cta {
-        @apply relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-ember-dark via-ember to-ember-bright px-5 py-2 text-sm font-semibold uppercase tracking-wide text-emerald-50 shadow-lg shadow-emerald-500/40 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-emerald-300/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/70;
+        @apply relative inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold uppercase tracking-wide transition-all duration-300 ease-out hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2;
+        background: linear-gradient(120deg, var(--accent), var(--accent-2));
+        border: 1px solid var(--border);
+        border-radius: calc(var(--radius) * 2);
+        box-shadow: var(--glow);
+        color: var(--accent-contrast);
+        --tw-ring-color: var(--focus);
+        --tw-ring-offset-color: transparent;
+        --tw-ring-offset-width: 0px;
     }
 
     .soft-cta::after {
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(120deg, transparent 0%, rgba(124, 255, 156, 0.3) 45%, transparent 70%);
+        background: linear-gradient(120deg, transparent 0%, color-mix(in srgb, var(--accent-2) 35%, transparent) 45%, transparent 70%);
         transform: translateX(-120%);
         opacity: 0;
         transition: transform 0.6s ease-out, opacity 0.6s ease-out;
@@ -223,43 +274,93 @@
     }
 
     .soft-badge {
-        @apply inline-flex items-center gap-2 rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-semibold text-emerald-100 ring-1 ring-emerald-300/40 shadow-sm;
+        @apply inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold shadow-sm;
+        background-color: var(--surface-3);
+        border: 1px solid var(--border-soft);
+        border-radius: calc(var(--radius) * 2);
+        color: var(--text);
     }
 
     .kanban-input {
-        @apply w-full rounded-2xl border border-emerald-400/30 bg-black/70 px-3 py-2 text-xs text-emerald-100 placeholder-emerald-300/60 shadow-[inset_0_0_0_1px_rgba(0,255,117,0.08)] focus:border-emerald-300/70 focus:ring-1 focus:ring-emerald-300/60;
+        @apply w-full px-3 py-2 text-xs transition focus:ring-1;
+        background-color: var(--input-surface);
+        border: 1px solid var(--input-border);
+        border-radius: calc(var(--radius) - 0.25rem);
+        color: var(--text);
+        box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 8%, transparent);
+        --tw-ring-color: var(--focus);
+        --tw-ring-offset-width: 0px;
+        --tw-ring-offset-color: transparent;
+    }
+
+    .kanban-input::placeholder {
+        color: var(--input-placeholder);
     }
 
     .kanban-textarea {
-        @apply w-full rounded-2xl border border-emerald-400/30 bg-black/70 px-3 py-2 text-xs text-emerald-100 placeholder-emerald-300/60 focus:border-emerald-300/70 focus:ring-1 focus:ring-emerald-300/60;
+        @apply w-full px-3 py-2 text-xs transition focus:ring-1;
+        background-color: var(--input-surface);
+        border: 1px solid var(--input-border);
+        border-radius: calc(var(--radius) - 0.25rem);
+        color: var(--text);
+        --tw-ring-color: var(--focus);
+        --tw-ring-offset-width: 0px;
+        --tw-ring-offset-color: transparent;
+    }
+
+    .kanban-textarea::placeholder {
+        color: var(--input-placeholder);
     }
 
     .kanban-select {
-        @apply w-full rounded-2xl border border-emerald-400/30 bg-black/70 px-3 py-2 text-xs text-emerald-100 focus:border-emerald-300/70 focus:ring-1 focus:ring-emerald-300/60;
+        @apply w-full px-3 py-2 text-xs transition focus:ring-1;
+        background-color: var(--input-surface);
+        border: 1px solid var(--input-border);
+        border-radius: calc(var(--radius) - 0.25rem);
+        color: var(--text);
+        --tw-ring-color: var(--focus);
+        --tw-ring-offset-width: 0px;
+        --tw-ring-offset-color: transparent;
     }
 
     .kanban-chip {
-        @apply inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-black/70 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-emerald-200 transition hover:border-emerald-300/70 hover:text-emerald-100;
+        @apply inline-flex items-center gap-2 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] transition;
+        background-color: var(--surface-2);
+        border: 1px solid var(--border-soft);
+        border-radius: calc(var(--radius) * 2);
+        color: var(--muted);
     }
 
     .kanban-chip-active {
-        @apply border-emerald-300/80 bg-emerald-400/15 text-emerald-100 shadow-[0_0_14px_rgba(0,255,117,0.35)];
+        border-color: var(--border);
+        background-color: var(--surface-3);
+        color: var(--text);
+        box-shadow: var(--glow);
     }
 
     .kanban-button {
-        @apply inline-flex items-center justify-center gap-2 rounded-full border border-emerald-400/35 bg-black/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100 transition hover:border-emerald-300/70 hover:text-emerald-200;
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition;
+        background-color: var(--surface);
+        border: 1px solid var(--border-soft);
+        border-radius: calc(var(--radius) * 2);
+        color: var(--text);
     }
 
     .kanban-button-primary {
-        @apply border-emerald-300/80 bg-emerald-400/15 text-emerald-100 shadow-[0_0_16px_rgba(0,255,117,0.35)];
+        background-color: color-mix(in srgb, var(--accent) 18%, var(--surface-2));
+        border-color: var(--border);
+        color: var(--accent-contrast);
+        box-shadow: var(--glow);
     }
 
     .kanban-button-ghost {
-        @apply border-transparent bg-black/40 text-emerald-200 hover:border-emerald-400/40 hover:text-emerald-100;
+        background-color: color-mix(in srgb, var(--surface) 55%, transparent);
+        border-color: transparent;
+        color: var(--muted);
     }
 
     .soft-glow {
-        box-shadow: var(--shadow-ember);
+        box-shadow: var(--glow);
     }
 
     .float-slow {
@@ -267,59 +368,59 @@
     }
 
     .choices__inner {
-        border-radius: 0.85rem;
-        border-color: rgba(0, 255, 117, 0.35);
+        border: 1px solid var(--input-border);
         min-height: 2.85rem;
         padding: 0.6rem 0.9rem;
-        background: rgba(0, 0, 0, 0.75);
-        color: #d7ffe4;
-        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+        background: var(--select-background);
+        border-radius: calc(var(--radius) - 0.25rem);
+        color: var(--text);
+        box-shadow: 0 10px 24px color-mix(in srgb, var(--bg) 55%, transparent);
     }
 
     .choices__list--single .choices__item {
-        color: #d7ffe4;
+        color: var(--text);
         font-weight: 600;
     }
 
     .choices__list--dropdown {
-        border-radius: 1rem;
-        background: rgba(0, 0, 0, 0.92);
-        border-color: rgba(0, 255, 117, 0.25);
-        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
-        color: #d7ffe4;
+        background: var(--select-dropdown);
+        border: 1px solid var(--border-soft);
+        border-radius: calc(var(--radius) - 0.15rem);
+        box-shadow: 0 18px 45px color-mix(in srgb, var(--bg) 70%, transparent);
+        color: var(--text);
     }
 
     .choices__list--dropdown .choices__item--selectable.is-highlighted {
-        background: rgba(0, 255, 117, 0.12);
+        background: var(--select-highlight);
     }
 
     .flatpickr-input {
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: var(--input-surface-strong);
         cursor: pointer;
-        border-radius: 0.85rem;
-        border-color: rgba(0, 255, 117, 0.35);
-        color: #d7ffe4;
-        box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.5);
+        border: 1px solid var(--input-border);
+        border-radius: calc(var(--radius) - 0.25rem);
+        color: var(--text);
+        box-shadow: inset 0 1px 0 color-mix(in srgb, var(--bg) 40%, transparent);
     }
 
     :is(.soft-panel, .soft-card) .choices__inner,
     :is(.soft-panel, .soft-card) .flatpickr-input {
-        background: rgba(0, 0, 0, 0.8);
-        color: #d7ffe4;
-        border-color: rgba(0, 255, 117, 0.35);
-        box-shadow: var(--shadow-ember-soft);
+        background: var(--input-surface-strong);
+        border-color: var(--border);
+        box-shadow: var(--shadow-soft);
+        color: var(--text);
     }
 
     :is(.soft-panel, .soft-card) .choices__list--dropdown {
-        background: rgba(0, 0, 0, 0.95);
-        border-color: rgba(0, 255, 117, 0.25);
-        color: #d7ffe4;
-        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+        background: var(--input-surface-muted);
+        border-color: var(--border-soft);
+        box-shadow: 0 18px 45px color-mix(in srgb, var(--bg) 70%, transparent);
+        color: var(--text);
     }
 
     :is(.soft-panel, .soft-card) .choices__list--single .choices__item,
     :is(.soft-panel, .soft-card) .choices__list--dropdown .choices__item--selectable {
-        color: #d7ffe4;
+        color: var(--text);
     }
 }
 

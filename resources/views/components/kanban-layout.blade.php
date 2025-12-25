@@ -13,7 +13,7 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-emerald-100">
+    <body class="font-sans antialiased" data-theme="glass" data-density="comfortable" data-motion="1">
         <div class="app-shell">
             <div class="mx-auto flex min-h-screen max-w-7xl flex-col gap-8 px-6 py-8">
                 <header class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">

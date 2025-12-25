@@ -15,7 +15,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-emerald-100">
+    <body class="font-sans antialiased" data-theme="glass" data-density="comfortable" data-motion="1">
         <div class="app-shell">
             <div class="mx-auto flex min-h-screen max-w-7xl flex-col gap-12 px-6 py-10 lg:flex-row lg:items-center lg:gap-16 lg:px-12">
                 <div class="flex w-full flex-col gap-10 lg:w-1/2 motion-safe:animate-rise">

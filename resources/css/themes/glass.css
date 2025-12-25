@@ -1,0 +1,19 @@
+[data-theme="glass"] {
+    --bg: #030504;
+    --surface: rgba(0, 0, 0, 0.7);
+    --surface-2: rgba(0, 0, 0, 0.55);
+    --text: #d7ffe4;
+    --muted: #9ae8c3;
+    --border: rgba(0, 255, 117, 0.35);
+    --shadow: 0 18px 50px rgba(0, 255, 117, 0.35);
+    --radius: 1.5rem;
+    --accent: #00ff75;
+    --accent-2: #7cff9c;
+    --focus: rgba(0, 255, 117, 0.5);
+    --danger: #ff6b6b;
+    --success: #2ee59d;
+    --warning: #f6c453;
+    --blur: 32px;
+    --noise: none;
+    --glow: 0 0 24px rgba(0, 255, 117, 0.35);
+}
