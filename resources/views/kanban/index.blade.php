@@ -1,3 +1,10 @@
+@push('css')
+    @vite(['resources/css/app.css'])
+@endpush
+
+@push('js')
+    @vite(['resources/js/app.js'])
+@endpush
 <x-app-layout bodyClass="kanban-admin">
     <x-slot name="header">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">

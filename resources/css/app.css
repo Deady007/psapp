@@ -65,6 +65,22 @@
         caret-color: #00ff75 !important;
     }
 
+    body.kanban-admin {
+        font-family: var(--jarvis-font-mono);
+        letter-spacing: 0.04em;
+        color: #d7ffe4;
+    }
+
+    body.kanban-admin h1,
+    body.kanban-admin h2,
+    body.kanban-admin h3,
+    body.kanban-admin h4,
+    body.kanban-admin h5,
+    body.kanban-admin h6 {
+        font-family: var(--jarvis-font-display);
+        letter-spacing: 0.08em;
+    }
+
     body.kanban-admin::before,
     body.kanban-admin::after {
         content: none;

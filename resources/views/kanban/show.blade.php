@@ -1,3 +1,11 @@
+@push('css')
+    @vite(['resources/css/app.css'])
+@endpush
+
+@push('js')
+    @vite(['resources/js/app.js'])
+@endpush
+
 @php
     use App\Models\BoardDocument;
     use App\Models\Bug;
@@ -87,11 +95,7 @@
     >
         @include('projects.partials.modules-nav', ['project' => $project])
 
-        <div class="soft-card p-3">
-            <div class="flex flex-wrap gap-2">
-                <span class="kanban-chip kanban-chip-active">{{ __('Kanban') }}</span>
-            </div>
-        </div>
+        
         <div class="soft-card p-4">
             <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div class="flex flex-wrap gap-2">
@@ -331,7 +335,7 @@
                                                     </span>
                                                     <span class="truncate">{{ $assigneeName }}</span>
                                                 </div>
-                                                <span class="text-emerald-300/60">•</span>
+                                                <span class="text-emerald-300/60">ï¿½</span>
                                                 <span>
                                                     {{ __('Due') }}
                                                     {{ $story->due_date ? $story->due_date->format('M d') : __('TBD') }}
@@ -423,7 +427,7 @@
                                                     </span>
                                                     <span class="truncate">{{ $testerName }}</span>
                                                 </div>
-                                                <span class="text-emerald-300/60">•</span>
+                                                <span class="text-emerald-300/60">ï¿½</span>
                                                 <span>
                                                     {{ __('Due') }}
                                                     {{ $story?->due_date ? $story->due_date->format('M d') : __('TBD') }}
