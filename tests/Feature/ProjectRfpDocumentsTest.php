@@ -173,3 +173,87 @@ it('builds rfp documents in the queue job', function () {
 
     Storage::disk('local')->assertExists($rfpDocument->file_path);
 });
+
+it('parses rfp sections when gemini returns raw newlines', function () {
+    config()->set('services.gemini.key', 'test-key');
+    config()->set('services.gemini.endpoint', 'https://generativelanguage.googleapis.com/v1beta');
+    app()->forgetInstance(GeminiClient::class);
+
+    $payload = [
+        'introduction' => [
+            'purpose' => "Line 1\nLine 2",
+            'scope' => 'Scope statement.',
+            'overview' => 'Overview statement.',
+        ],
+        'system_overview' => 'System overview.',
+        'non_functional' => [
+            'performance' => 'Performance target.',
+            'security' => 'Security baseline.',
+            'availability' => 'Availability target.',
+            'compliance' => 'Compliance note.',
+        ],
+        'technical_requirements' => 'Technical notes.',
+        'user_interface' => [
+            'UI line 1',
+            'UI line 2',
+            'UI line 3',
+            'UI line 4',
+            'UI line 5',
+            'UI line 6',
+            'UI line 7',
+            'UI line 8',
+        ],
+        'data_requirements' => [
+            'storage' => 'Storage details.',
+            'backup' => 'Backup details.',
+            'data_privacy' => 'Privacy details.',
+        ],
+        'assumptions' => [
+            'Assumption 1',
+            'Assumption 2',
+            'Assumption 3',
+        ],
+        'acceptance_criteria' => [
+            ['criterion' => 'Criterion 1', 'validation_method' => 'UAT'],
+            ['criterion' => 'Criterion 2', 'validation_method' => 'UAT'],
+            ['criterion' => 'Criterion 3', 'validation_method' => 'UAT'],
+        ],
+        'appendices' => [
+            'Appendix 1',
+            'Appendix 2',
+            'Appendix 3',
+        ],
+    ];
+
+    $json = json_encode($payload, JSON_UNESCAPED_SLASHES);
+    $invalidJson = str_replace('\\n', "\n", $json ?: '');
+
+    Http::fake([
+        'https://generativelanguage.googleapis.com/*' => Http::response([
+            'candidates' => [
+                [
+                    'content' => [
+                        'parts' => [
+                            ['text' => $invalidJson],
+                        ],
+                    ],
+                ],
+            ],
+        ], 200),
+    ]);
+
+    $requirements = [
+        [
+            'module_name' => 'Projects',
+            'page_name' => 'Requirements',
+            'title' => 'Generate RFP',
+            'details' => 'Create a requirements document.',
+            'priority' => 'high',
+            'status' => 'todo',
+        ],
+    ];
+
+    $sections = app(GeminiClient::class)->generateRfpSections($requirements);
+
+    expect($sections['introduction']['purpose'])->toBe('Line 1 Line 2');
+});

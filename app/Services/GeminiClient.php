@@ -18,6 +18,10 @@ class GeminiClient
         private readonly int $chunkSize,
         private readonly int $maxChunks,
         private readonly int $refinePasses,
+        private readonly int $requirementsOutputTokens,
+        private readonly int $mergeOutputTokens,
+        private readonly int $heavyOutputTokens,
+        private readonly int $singlePassMaxChars,
         private readonly int $heavyMinChars,
         private readonly int $heavyMinRequirements,
         private readonly string $endpoint,
@@ -45,6 +49,19 @@ class GeminiClient
         $transcriptLength = Str::length($transcript);
         $chunkSize = $profile['chunkSize'];
         $maxChunks = max(1, $profile['maxChunks']);
+        $singlePassMaxChars = $profile['singlePassMaxChars'];
+
+        if ($singlePassMaxChars > 0 && $transcriptLength <= $singlePassMaxChars) {
+            $payload = $this->extractFromTranscript(
+                $transcript,
+                $contextBlock,
+                $profile['primaryModel'],
+                $profile['timeoutSeconds'],
+                $profile['requirementsOutputTokens']
+            );
+
+            return $this->dedupeRequirements($this->normalizeRequirements($payload));
+        }
 
         if ($transcriptLength > $chunkSize) {
             $chunkSize = max($chunkSize, (int) ceil($transcriptLength / $maxChunks));
@@ -55,10 +72,11 @@ class GeminiClient
                 $transcript,
                 $contextBlock,
                 $profile['primaryModel'],
-                $profile['timeoutSeconds']
+                $profile['timeoutSeconds'],
+                $profile['requirementsOutputTokens']
             );
 
-            return $this->normalizeRequirements($payload);
+            return $this->dedupeRequirements($this->normalizeRequirements($payload));
         }
 
         $chunks = $this->splitTranscript($transcript, $chunkSize);
@@ -67,10 +85,11 @@ class GeminiClient
                 $transcript,
                 $contextBlock,
                 $profile['primaryModel'],
-                $profile['timeoutSeconds']
+                $profile['timeoutSeconds'],
+                $profile['requirementsOutputTokens']
             );
 
-            return $this->normalizeRequirements($payload);
+            return $this->dedupeRequirements($this->normalizeRequirements($payload));
         }
 
         $drafts = [];
@@ -82,7 +101,8 @@ class GeminiClient
                     $chunk,
                     $contextBlock,
                     $profile['chunkModel'],
-                    $profile['timeoutSeconds']
+                    $profile['timeoutSeconds'],
+                    $profile['requirementsOutputTokens']
                 )
             );
         }
@@ -100,7 +120,8 @@ class GeminiClient
                 $contextBlock,
                 $model,
                 false,
-                $profile['timeoutSeconds']
+                $profile['timeoutSeconds'],
+                $profile['mergeOutputTokens']
             );
         }
 
@@ -110,11 +131,12 @@ class GeminiClient
                 $contextBlock,
                 $profile['heavyModel'],
                 true,
-                $profile['heavyTimeoutSeconds']
+                $profile['heavyTimeoutSeconds'],
+                $profile['heavyOutputTokens']
             );
         }
 
-        return $this->normalizeRequirements($refined);
+        return $this->dedupeRequirements($this->normalizeRequirements($refined));
     }
 
     /**
@@ -177,6 +199,10 @@ class GeminiClient
      *   chunkSize: int,
      *   maxChunks: int,
      *   refinePasses: int,
+     *   requirementsOutputTokens: int,
+     *   mergeOutputTokens: int,
+     *   heavyOutputTokens: int,
+     *   singlePassMaxChars: int,
      *   timeoutSeconds: int,
      *   heavyTimeoutSeconds: int,
      *   allowHeavy: bool,
@@ -192,6 +218,10 @@ class GeminiClient
         $mergeModel = $this->mergeModel !== '' ? $this->mergeModel : $fallbackModel;
         $refineModel = $this->refineModel !== '' ? $this->refineModel : $fallbackModel;
         $heavyModel = $this->heavyModel;
+        $requirementsOutputTokens = max(2048, $this->requirementsOutputTokens);
+        $mergeOutputTokens = max($requirementsOutputTokens, $this->mergeOutputTokens);
+        $heavyOutputTokens = max($mergeOutputTokens, $this->heavyOutputTokens);
+        $singlePassMaxChars = max(0, $this->singlePassMaxChars);
 
         if ($mode === 'fast') {
             $timeoutSeconds = max(45, $this->timeoutSeconds);
@@ -205,6 +235,10 @@ class GeminiClient
                 'chunkSize' => max(12000, $this->chunkSize),
                 'maxChunks' => max(1, min(2, $this->maxChunks)),
                 'refinePasses' => 0,
+                'requirementsOutputTokens' => $requirementsOutputTokens,
+                'mergeOutputTokens' => $mergeOutputTokens,
+                'heavyOutputTokens' => $heavyOutputTokens,
+                'singlePassMaxChars' => $singlePassMaxChars,
                 'timeoutSeconds' => $timeoutSeconds,
                 'heavyTimeoutSeconds' => $timeoutSeconds,
                 'allowHeavy' => false,
@@ -224,6 +258,10 @@ class GeminiClient
             'chunkSize' => min($this->chunkSize, 8000),
             'maxChunks' => max(3, $this->maxChunks),
             'refinePasses' => max(1, $this->refinePasses),
+            'requirementsOutputTokens' => $requirementsOutputTokens,
+            'mergeOutputTokens' => $mergeOutputTokens,
+            'heavyOutputTokens' => $heavyOutputTokens,
+            'singlePassMaxChars' => $singlePassMaxChars,
             'timeoutSeconds' => $timeoutSeconds,
             'heavyTimeoutSeconds' => max(120, $timeoutSeconds),
             'allowHeavy' => $heavyModel !== '',
@@ -232,8 +270,13 @@ class GeminiClient
         ];
     }
 
-    private function extractFromTranscript(string $transcript, string $contextBlock, string $model, int $timeoutSeconds): array
-    {
+    private function extractFromTranscript(
+        string $transcript,
+        string $contextBlock,
+        string $model,
+        int $timeoutSeconds,
+        int $maxOutputTokens
+    ): array {
         $prompt = $this->baseExtractionPrompt();
 
         if ($contextBlock !== '') {
@@ -244,7 +287,7 @@ class GeminiClient
 
         $text = $this->generateText(
             prompt: $prompt,
-            maxOutputTokens: 2048,
+            maxOutputTokens: $maxOutputTokens,
             temperature: 0.2,
             model: $model,
             timeoutSeconds: $timeoutSeconds,
@@ -263,8 +306,13 @@ class GeminiClient
         return $payload;
     }
 
-    private function extractFromChunk(string $chunk, string $contextBlock, string $model, int $timeoutSeconds): array
-    {
+    private function extractFromChunk(
+        string $chunk,
+        string $contextBlock,
+        string $model,
+        int $timeoutSeconds,
+        int $maxOutputTokens
+    ): array {
         $prompt = $this->chunkExtractionPrompt();
 
         if ($contextBlock !== '') {
@@ -275,7 +323,7 @@ class GeminiClient
 
         $text = $this->generateText(
             prompt: $prompt,
-            maxOutputTokens: 1536,
+            maxOutputTokens: $maxOutputTokens,
             temperature: 0.2,
             model: $model,
             timeoutSeconds: $timeoutSeconds,
@@ -299,7 +347,8 @@ class GeminiClient
         string $contextBlock,
         string $model,
         bool $heavy,
-        int $timeoutSeconds
+        int $timeoutSeconds,
+        int $maxOutputTokens
     ): array {
         if ($requirements === []) {
             return [];
@@ -321,7 +370,7 @@ class GeminiClient
 
         $text = $this->generateText(
             prompt: $prompt,
-            maxOutputTokens: $heavy ? 4096 : 2048,
+            maxOutputTokens: $maxOutputTokens,
             temperature: $heavy ? 0.2 : 0.15,
             model: $model,
             timeoutSeconds: $timeoutSeconds,
@@ -445,6 +494,8 @@ Guidelines:
 - Use module_name for the functional area and page_name for the screen/subpage.
 - If a field is unknown, use null. Do not invent IDs or dates.
 - Remove duplicates and near-duplicates.
+- If more than 100 requirements exist, include them all and keep each entry short.
+- Keep titles under 12 words and details to one short sentence (or null).
 PROMPT;
     }
 
@@ -467,6 +518,8 @@ Guidelines:
 - Use module_name for the functional area and page_name for the screen/subpage.
 - If a field is unknown, use null. Do not invent IDs or dates.
 - Avoid duplicates within the chunk.
+- If more than 100 requirements exist, include them all and keep each entry short.
+- Keep titles under 12 words and details to one short sentence (or null).
 PROMPT;
     }
 
@@ -488,6 +541,7 @@ Guidelines:
 - Normalize module_name and page_name for consistency.
 - Drop items that are not requirements.
 - If a field is unknown, use null. Do not invent IDs or dates.
+- Keep each entry concise and do not drop valid requirements to reduce length.
 PROMPT;
         }
 
@@ -505,6 +559,7 @@ Guidelines:
 - Prefer the most specific title and keep concise details.
 - Normalize module_name and page_name for consistency.
 - Drop items that are not requirements.
+- Keep each entry concise and do not drop valid requirements to reduce length.
 PROMPT;
     }
 
@@ -850,6 +905,7 @@ PROMPT;
             ["'", "'", '"', '"'],
             $clean
         );
+        $clean = str_replace(["\r\n", "\r", "\n", "\t"], ' ', $clean);
         $clean = preg_replace('/,\s*(?=[}\]])/', '', $clean) ?? $clean;
 
         return trim($clean);

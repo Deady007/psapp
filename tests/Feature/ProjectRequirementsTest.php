@@ -4,8 +4,10 @@ use App\Models\Project;
 use App\Models\ProjectKickoff;
 use App\Models\ProjectRequirement;
 use App\Models\User;
+use App\Services\GeminiClient;
 use Database\Seeders\RbacSeeder;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
+use Illuminate\Http\Client\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -226,6 +228,62 @@ it('parses requirements from a transcript using gemini', function () {
         ->assertSuccessful()
         ->assertSee('Module A')
         ->assertSee('Track activity');
+});
+
+it('uses a single-pass extraction for larger transcripts within the single-pass limit', function () {
+    $user = createRequirementUser();
+    $project = Project::factory()->create();
+
+    config()->set('services.gemini.key', 'test-key');
+    config()->set('services.gemini.endpoint', 'https://generativelanguage.googleapis.com/v1beta');
+    config()->set('services.gemini.chunk_size', 12000);
+    config()->set('services.gemini.single_pass_max_chars', 20000);
+    config()->set('services.gemini.requirements_output_tokens', 4096);
+    config()->set('services.gemini.merge_output_tokens', 4096);
+    config()->set('services.gemini.heavy_output_tokens', 8192);
+    app()->forgetInstance(GeminiClient::class);
+
+    $requirements = [[
+        'module_name' => 'Module A',
+        'page_name' => 'Dashboard',
+        'title' => 'Track activity',
+        'details' => 'Show summary metrics.',
+        'priority' => 'high',
+        'status' => 'todo',
+    ]];
+
+    $transcript = str_repeat('Requirement detail. ', 700);
+
+    Http::fake(function (Request $request) use ($requirements) {
+        $payload = $request->data();
+
+        expect($payload['generationConfig']['maxOutputTokens'])->toBe(4096);
+        expect($payload['contents'][0]['parts'][0]['text'])
+            ->toContain('Transcript:')
+            ->not->toContain('Chunk:');
+
+        return Http::response([
+            'candidates' => [
+                [
+                    'content' => [
+                        'parts' => [
+                            ['text' => json_encode($requirements)],
+                        ],
+                    ],
+                ],
+            ],
+        ], 200);
+    });
+
+    $this->actingAs($user)
+        ->post(route('projects.requirements.import.preview', $project), [
+            'analysis_mode' => 'fast',
+            'transcript' => UploadedFile::fake()->createWithContent('transcript.txt', $transcript),
+        ])
+        ->assertSuccessful()
+        ->assertSee('Module A');
+
+    Http::assertSentCount(1);
 });
 
 it('stores kickoff transcript when importing from kickoff', function () {
