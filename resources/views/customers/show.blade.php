@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">
         <div class="row mb-2 align-items-center">
             <div class="col-lg-8">
@@ -22,7 +22,7 @@
                     <i class="fas fa-edit mr-1"></i>
                     {{ __('Edit') }}
                 </button>
-                <form method="POST" action="{{ route('customers.destroy', $customer) }}" class="d-inline" onsubmit="return confirm('{{ __('Delete this customer?') }}')">
+                <form method="POST" action="{{ route('customers.destroy', $customer) }}" class="d-inline" data-confirm="{{ __('Delete this customer?') }}" data-confirm-button="{{ __('Yes, delete it') }}" data-cancel-button="{{ __('Cancel') }}">
                     @csrf
                     @method('DELETE')
                     <x-danger-button>{{ __('Delete') }}</x-danger-button>
@@ -153,7 +153,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <x-input-label for="edit_status" :value="__('Status')" />
-                                            <select id="edit_status" name="status" data-enhance="choices" class="form-control" required>
+                                            <select id="edit_status" name="status" data-control="select2" class="form-control" required>
                                                 @foreach ($statuses as $status)
                                                     <option value="{{ $status }}" @selected($customer->status === $status)>{{ $status }}</option>
                                                 @endforeach
@@ -161,7 +161,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <x-input-label for="edit_notes" :value="__('Notes')" />
-                                            <textarea id="edit_notes" name="notes" rows="3" class="form-control">{{ $customer->notes }}</textarea>
+                                            <textarea id="edit_notes" name="notes" rows="3" class="form-control" data-richtext="summernote">{{ $customer->notes }}</textarea>
                                         </div>
                                     </div>
 
@@ -369,26 +369,47 @@
                     e.preventDefault();
                     const $formDel = $(this);
                     const targetRow = $formDel.data('row');
-                    if (!confirm('{{ __('Delete this contact?') }}')) {
-                        return;
-                    }
+                    const confirmText = '{{ __('Delete this contact?') }}';
+                    const confirmButtonText = '{{ __('Yes, delete it') }}';
+                    const cancelButtonText = '{{ __('Cancel') }}';
 
-                    $.ajax({
-                        url: $formDel.attr('action'),
-                        method: 'POST',
-                        data: $formDel.serialize(),
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function () {
-                            $('[data-row-id="' + targetRow + '"]').fadeOut(200, function () {
-                                $(this).remove();
-                            });
-                        },
-                        error: function () {
-                            alert('Unable to delete contact right now. Please try again.');
-                        }
-                    });
+                    const performDelete = () => {
+                        $.ajax({
+                            url: $formDel.attr('action'),
+                            method: 'POST',
+                            data: $formDel.serialize(),
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function () {
+                                $('[data-row-id="' + targetRow + '"]').fadeOut(200, function () {
+                                    $(this).remove();
+                                });
+                            },
+                            error: function () {
+                                alert('Unable to delete contact right now. Please try again.');
+                            }
+                        });
+                    };
+
+                    if (window.Swal) {
+                        window.Swal.fire({
+                            title: confirmText,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#dc3545',
+                            cancelButtonColor: '#6c757d',
+                            confirmButtonText,
+                            cancelButtonText,
+                            focusCancel: true,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                performDelete();
+                            }
+                        });
+                    } else if (confirm(confirmText)) {
+                        performDelete();
+                    }
                 });
 
                 const $modal = $('#contact-modal');

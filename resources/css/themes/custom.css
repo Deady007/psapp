@@ -1,19 +1,92 @@
+:root[data-theme="custom"],
 [data-theme="custom"] {
-    --bg: #0f1115;
-    --surface: rgba(15, 17, 21, 0.88);
-    --surface-2: rgba(20, 22, 28, 0.76);
-    --text: #e6e8ed;
-    --muted: #c5c9d0;
-    --border: rgba(128, 128, 128, 0.36);
-    --shadow: 0 18px 50px rgba(12, 13, 16, 0.4);
-    --radius: 1.5rem;
-    --accent: #c5c9d0;
-    --accent-2: #e6e8ed;
-    --focus: rgba(197, 201, 208, 0.5);
-    --danger: #ff6b6b;
-    --success: #2ee59d;
-    --warning: #f6c453;
-    --blur: 30px;
-    --noise: none;
-    --glow: 0 0 24px rgba(12, 13, 16, 0.35);
+    --bg: var(--custom-bg, #0b0f15);
+    --surface: var(--custom-surface, rgba(12, 14, 20, 0.86));
+    --surface-2: var(--custom-surface-2, rgba(255, 255, 255, 0.06));
+    --text: var(--custom-text, #e2e8f0);
+    --muted: var(--custom-muted, rgba(226, 232, 240, 0.7));
+    --border: var(--custom-border, rgba(255, 255, 255, 0.08));
+    --shadow: var(--custom-shadow, 0 16px 36px rgba(0, 0, 0, 0.45));
+    --radius: var(--custom-radius, 18px);
+    --accent: var(--custom-accent, #22d3ee);
+    --accent-2: var(--custom-accent-2, #38bdf8);
+    --focus: var(--custom-focus, var(--custom-accent, #22d3ee));
+    --danger: var(--custom-danger, #f43f5e);
+    --success: var(--custom-success, #22c55e);
+    --warning: var(--custom-warning, #f59e0b);
+    --blur: var(--custom-blur, 12px);
+    --noise: var(--custom-noise, rgba(255, 255, 255, 0.02));
+    --glow: var(--custom-glow, 0 0 20px rgba(34, 211, 238, 0.28));
+    --custom-app-radial-1: var(--custom-radial-1, rgba(0, 255, 117, 0.18));
+    --custom-app-radial-2: var(--custom-radial-2, rgba(124, 255, 156, 0.14));
+    --custom-app-radial-3: var(--custom-radial-3, rgba(45, 212, 191, 0.12));
+    --custom-app-before-1: var(--custom-before-1, rgba(0, 255, 117, 0.25));
+    --custom-app-before-2: var(--custom-before-2, rgba(124, 255, 156, 0.2));
+    --custom-app-before-3: var(--custom-before-3, rgba(0, 255, 117, 0.18));
+    --custom-grid-color: var(--custom-grid, color-mix(in srgb, var(--text) 12%, transparent));
+    --custom-grid-opacity: var(--custom-grid-opacity, 0.25);
+    --custom-particles-opacity: var(--custom-particles, 0.55);
+    --custom-earth-color: var(--custom-earth, var(--accent));
+    --custom-earth-opacity: var(--custom-earth-opacity-val, 0.6);
+    --custom-earth-scale: var(--custom-earth-scale-val, 1);
+    --custom-earth-visible: var(--custom-earth-visible-val, 1);
+    --motion-fast: var(--custom-motion-fast, 120ms);
+    --motion-base: var(--custom-motion-base, 180ms);
+    --motion-slow: var(--custom-motion-slow, 260ms);
+
+    /* Map custom theme vars into base tokens used across the app */
+    --bg-app: var(--bg);
+    --bg-surface: var(--surface);
+    --bg-surface-2: var(--surface-2);
+    --bg-elevated: var(--surface);
+
+    --text-primary: var(--text);
+    --text-secondary: color-mix(in srgb, var(--text) 80%, transparent);
+    --text-muted: var(--muted);
+    --text-inverse: #000000;
+
+    --border-subtle: color-mix(in srgb, var(--border) 70%, transparent);
+    --border-strong: color-mix(in srgb, var(--border) 100%, var(--text) 15%);
+
+    --primary: var(--accent);
+    --primary-hover: color-mix(in srgb, var(--accent) 80%, #ffffff);
+    --primary-active: color-mix(in srgb, var(--accent) 70%, #000000);
+    --primary-soft: color-mix(in srgb, var(--accent) 16%, var(--surface));
+
+    --secondary: var(--accent-2);
+    --secondary-hover: color-mix(in srgb, var(--accent-2) 80%, #ffffff);
+
+    --info: var(--accent);
+    --success: var(--custom-success, #22c55e);
+    --warning: var(--custom-warning, #f59e0b);
+    --error: var(--custom-danger, #f43f5e);
+
+    --card-bg: color-mix(in srgb, var(--surface) 90%, #000000 10%);
+    --card-border: var(--border-subtle);
+    --card-shadow: var(--shadow);
+
+    --control-bg: var(--surface-2);
+    --control-border: var(--border-subtle);
+    --control-text: var(--text);
+    --control-placeholder: var(--muted);
+    --control-focus-border: color-mix(in srgb, var(--accent) 60%, var(--border-subtle));
+    --control-focus-ring: 0 0 0 var(--focus-ring-width, 3px) color-mix(in srgb, var(--accent) 25%, transparent);
+
+    --table-header-bg: color-mix(in srgb, var(--surface-2) 92%, transparent);
+    --table-header-text: var(--muted);
+    --table-row-hover: color-mix(in srgb, var(--accent) 10%, transparent);
+    --table-row-zebra: color-mix(in srgb, var(--accent) 6%, transparent);
+    --table-border: var(--border-subtle);
+
+    --modal-bg: color-mix(in srgb, var(--surface) 95%, transparent);
+    --modal-shadow: var(--shadow);
+    --modal-backdrop: color-mix(in srgb, #000000 65%, var(--surface));
+
+    --nav-sidebar-bg: color-mix(in srgb, var(--surface) 85%, #000000 15%);
+    --nav-sidebar-text: var(--muted);
+    --nav-sidebar-active-bg: color-mix(in srgb, var(--accent) 18%, var(--surface));
+    --nav-sidebar-active-text: var(--accent);
+    --nav-topnav-bg: color-mix(in srgb, var(--surface) 80%, #000000 20%);
+    --nav-topnav-text: var(--text);
+    --nav-active-indicator: var(--accent);
 }

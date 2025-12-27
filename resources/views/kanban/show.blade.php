@@ -1,11 +1,3 @@
-@push('css')
-    @vite(['resources/css/app.css'])
-@endpush
-
-@push('js')
-    @vite(['resources/js/app.js'])
-@endpush
-
 @php
     use App\Models\BoardDocument;
     use App\Models\Bug;
@@ -685,8 +677,8 @@
         @endif
 
         <div x-cloak x-show="drawerOpen" class="fixed inset-0 z-50 flex items-stretch justify-end">
-            <div class="absolute inset-0 bg-black/80" x-on:click="drawerOpen = false"></div>
-            <div class="relative h-full w-full max-w-lg overflow-y-auto border-l border-emerald-400/30 bg-black/95 p-6 shadow-[0_0_40px_rgba(0,0,0,0.8)]">
+            <div class="drawer-backdrop absolute inset-0 bg-black/80" x-on:click="drawerOpen = false"></div>
+            <div class="drawer-sheet relative h-full w-full max-w-lg overflow-y-auto border-l border-emerald-400/30 bg-black/95 p-6 shadow-[0_0_40px_rgba(0,0,0,0.8)]">
                 <div class="flex items-start justify-between gap-4">
                     <div class="flex flex-col gap-2">
                         <span class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-300/70" x-text="drawerItem?.issue_key || drawerItem?.story_issue_key || '{{ __('Item') }}'"></span>

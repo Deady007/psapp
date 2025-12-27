@@ -5,5 +5,5 @@ test('landing page can be rendered', function () {
 
     $response
         ->assertSuccessful()
-        ->assertSeeText('Operational clarity for project teams.');
+        ->assertSeeText('Plan, track, and deliver with confidence.');
 });

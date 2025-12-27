@@ -1,10 +1,3 @@
-@push('css')
-    @vite(['resources/css/app.css'])
-@endpush
-
-@push('js')
-    @vite(['resources/js/app.js'])
-@endpush
 <x-app-layout bodyClass="kanban-admin">
     <x-slot name="header">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -32,7 +25,7 @@
 
         <div class="grid gap-6 md:grid-cols-2">
             @foreach ($boards as $board)
-                <div class="soft-card p-6">
+                <div class="soft-card workspace-card p-6">
                     <div class="flex h-full flex-col gap-4">
                         <div class="flex items-center justify-between">
                             <span class="soft-badge">{{ $board->type }}</span>

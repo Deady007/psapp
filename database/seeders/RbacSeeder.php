@@ -101,22 +101,41 @@ class RbacSeeder extends Seeder
         $developerRole->syncPermissions($userPermissions->merge($kanbanPermissions));
         $testerRole->syncPermissions($userPermissions->merge($kanbanPermissions));
 
-        $admin = User::updateOrCreate(
-            ['email' => 'parmarviral397@gmail.com'],
+        collect([
             [
                 'name' => 'Admin',
-                'password' => Hash::make('Admin@12345'),
+                'email' => 'parmarviral397@gmail.com',
+                'password' => 'Admin@12345',
+                'role' => $adminRole,
             ],
-        );
-        $admin->syncRoles([$adminRole]);
-
-        $user = User::updateOrCreate(
-            ['email' => 'user@example.com'],
             [
                 'name' => 'User',
-                'password' => Hash::make('User@12345'),
+                'email' => 'user@example.com',
+                'password' => 'User@12345',
+                'role' => $userRole,
             ],
-        );
-        $user->syncRoles([$userRole]);
+            [
+                'name' => 'Developer',
+                'email' => 'developer@example.com',
+                'password' => 'Developer@12345',
+                'role' => $developerRole,
+            ],
+            [
+                'name' => 'Tester',
+                'email' => 'tester@example.com',
+                'password' => 'Tester@12345',
+                'role' => $testerRole,
+            ],
+        ])->each(function (array $userData): void {
+            $user = User::updateOrCreate(
+                ['email' => $userData['email']],
+                [
+                    'name' => $userData['name'],
+                    'password' => Hash::make($userData['password']),
+                ],
+            );
+
+            $user->syncRoles([$userData['role']]);
+        });
     }
 }

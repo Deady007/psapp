@@ -9,7 +9,7 @@
                 <a href="{{ route('projects.edit', $project) }}" class="btn btn-outline-secondary mr-2">
                     {{ __('Edit') }}
                 </a>
-                <form method="POST" action="{{ route('projects.destroy', $project) }}" class="d-inline" onsubmit="return confirm('{{ __('Delete this project?') }}')">
+                <form method="POST" action="{{ route('projects.destroy', $project) }}" class="d-inline" data-confirm="{{ __('Delete this project?') }}" data-confirm-button="{{ __('Yes, delete it') }}" data-cancel-button="{{ __('Cancel') }}">
                     @csrf
                     @method('DELETE')
                     <x-danger-button>{{ __('Delete') }}</x-danger-button>

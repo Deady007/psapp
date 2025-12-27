@@ -8,7 +8,7 @@
                 <a href="{{ route('admin.permissions.edit', $permission) }}" class="btn btn-outline-secondary mr-2">
                     {{ __('Edit') }}
                 </a>
-                <form method="POST" action="{{ route('admin.permissions.destroy', $permission) }}" class="d-inline" onsubmit="return confirm('{{ __('Delete this permission?') }}')">
+                <form method="POST" action="{{ route('admin.permissions.destroy', $permission) }}" class="d-inline" data-confirm="{{ __('Delete this permission?') }}" data-confirm-button="{{ __('Yes, delete it') }}" data-cancel-button="{{ __('Cancel') }}">
                     @csrf
                     @method('DELETE')
                     <x-danger-button>{{ __('Delete') }}</x-danger-button>

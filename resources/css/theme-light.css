@@ -1,0 +1,23 @@
+:root[data-theme="softui"],
+[data-theme="softui"] {
+  --bg: var(--bg-app);
+  --surface: var(--bg-surface);
+  --surface-2: var(--bg-surface-2);
+  --text: var(--text-primary);
+  --muted: var(--text-muted);
+  --border: var(--border-subtle);
+  --shadow: var(--shadow-lg);
+  --shadow-soft: var(--shadow-md);
+  --shadow-inset: var(--shadow-inset);
+  --shadow-pressed: var(--shadow-pressed);
+  --radius: var(--radius-xl);
+  --accent: var(--secondary);
+  --accent-2: var(--primary);
+  --focus: var(--focus-ring-color);
+  --danger: var(--error);
+  --success: var(--success);
+  --warning: var(--warning);
+  --blur: var(--surface-blur);
+  --noise: var(--surface-noise);
+  --glow: var(--shadow-glow);
+}

@@ -14,6 +14,7 @@
 @stop
 
 @section('classes_body'){{ 'terminal-auth ' . ($auth_type ?? 'login') . '-page' }}@stop
+@section('body_data', 'data-theme="softui" data-density="comfortable" data-motion="1" data-particles-intensity="med"')
 
 @section('body')
     <div class="{{ $auth_type ?? 'login' }}-box terminal-auth-box">

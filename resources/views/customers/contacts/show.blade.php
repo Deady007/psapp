@@ -11,7 +11,7 @@
                 <a href="{{ route('customers.contacts.edit', [$customer, $contact]) }}" class="btn btn-outline-secondary mr-2">
                     {{ __('Edit') }}
                 </a>
-                <form method="POST" action="{{ route('customers.contacts.destroy', [$customer, $contact]) }}" class="d-inline" onsubmit="return confirm('{{ __('Delete this contact?') }}')">
+                <form method="POST" action="{{ route('customers.contacts.destroy', [$customer, $contact]) }}" class="d-inline" data-confirm="{{ __('Delete this contact?') }}" data-confirm-button="{{ __('Yes, delete it') }}" data-cancel-button="{{ __('Cancel') }}">
                     @csrf
                     @method('DELETE')
                     <x-danger-button>{{ __('Delete') }}</x-danger-button>

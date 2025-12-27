@@ -18,6 +18,11 @@
 
     {{-- Navbar right links --}}
     <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('settings.application') }}">
+                {{ __('Settings') }}
+            </a>
+        </li>
         {{-- Custom right links --}}
         @yield('content_top_nav_right')
 

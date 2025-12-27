@@ -10,12 +10,12 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Share+Tech+Mono&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased" data-theme="glass" data-density="comfortable" data-motion="1">
+    <body class="font-sans antialiased" data-theme="softui" data-density="comfortable" data-motion="1" data-particles-intensity="med">
         <div class="app-shell">
             <div class="mx-auto flex min-h-screen max-w-7xl flex-col gap-12 px-6 py-10 lg:flex-row lg:items-center lg:gap-16 lg:px-12">
                 <div class="flex w-full flex-col gap-10 lg:w-1/2 motion-safe:animate-rise">

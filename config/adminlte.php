@@ -315,34 +315,72 @@ return [
             'text' => 'Dashboard',
             'route' => 'dashboard',
             'icon' => 'fas fa-fw fa-tachometer-alt',
+            'classes' => 'app-nav',
         ],
         [
             'text' => 'Customers',
             'route' => 'customers.index',
             'icon' => 'far fa-fw fa-address-book',
+            'classes' => 'app-nav',
         ],
         [
             'text' => 'Projects',
             'route' => 'projects.index',
             'icon' => 'fas fa-fw fa-briefcase',
+            'classes' => 'app-nav',
         ],
-        ['header' => 'Admin'],
+        [
+            'header' => 'Settings',
+            'classes' => 'settings-nav-header',
+        ],
+        [
+            'text' => 'UI Theme',
+            'url' => 'settings/application#ui-theme',
+            'icon' => 'fas fa-fw fa-palette',
+            'classes' => 'settings-nav',
+        ],
+        [
+            'text' => 'Particles',
+            'url' => 'settings/application#particles',
+            'icon' => 'fas fa-fw fa-asterisk',
+            'classes' => 'settings-nav',
+        ],
+        [
+            'text' => 'Custom UI',
+            'url' => 'settings/application#custom-ui',
+            'icon' => 'fas fa-fw fa-sliders-h',
+            'classes' => 'settings-nav',
+        ],
+        [
+            'text' => 'Profile',
+            'route' => 'profile.edit',
+            'icon' => 'fas fa-fw fa-user',
+            'classes' => 'settings-nav',
+        ],
+        [
+            'header' => 'Admin',
+            'classes' => 'admin-nav-header',
+            'can' => 'view-admin',
+        ],
         [
             'text' => 'Users',
             'route' => 'admin.users.index',
             'icon' => 'fas fa-fw fa-users',
+            'classes' => 'admin-nav',
             'can' => 'view-admin',
         ],
         [
             'text' => 'Roles',
             'route' => 'admin.roles.index',
-            'icon' => 'fas fa-fw fa-user-shield',
+            'icon' => 'fas fa-fw fa-user-tag',
+            'classes' => 'admin-nav',
             'can' => 'view-admin',
         ],
         [
             'text' => 'Permissions',
             'route' => 'admin.permissions.index',
             'icon' => 'fas fa-fw fa-key',
+            'classes' => 'admin-nav',
             'can' => 'view-admin',
         ],
     ],
@@ -383,7 +421,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -403,7 +441,7 @@ return [
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -428,12 +466,57 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                ],
+            ],
+        ],
+        'Flatpickr' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js',
+                ],
+            ],
+        ],
+        'Summernote' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.js',
+                ],
+            ],
+        ],
+        'Trix' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/trix/2.0.0/trix.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/trix/2.0.0/trix.umd.min.js',
                 ],
             ],
         ],

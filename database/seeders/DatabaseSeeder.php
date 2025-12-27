@@ -17,8 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProductSeeder::class,
             RbacSeeder::class,
-            DemoCustomerProjectSeeder::class,
-            KanbanSeeder::class,
+            WorkflowSeeder::class,
         ]);
     }
 }

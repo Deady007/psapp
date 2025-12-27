@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">
         <div class="row mb-2">
             <div class="col-sm-7">
@@ -198,7 +198,7 @@
                                                 {{ __('Copy') }}
                                             </button>
                                             <div class="dropdown-divider"></div>
-                                            <form method="POST" action="{{ route('projects.drive-documents.destroy', [$project, $document]) }}" onsubmit="return confirm('{{ __('Move this document to trash?') }}')">
+                                            <form method="POST" action="{{ route('projects.drive-documents.destroy', [$project, $document]) }}" data-confirm="{{ __('Move this document to trash?') }}" data-confirm-button="{{ __('Yes, move to trash') }}" data-cancel-button="{{ __('Cancel') }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="dropdown-item text-danger">
@@ -279,7 +279,7 @@
                             @if ($driveReady && $rootFolder)
                                 <div class="form-group">
                                     <x-input-label for="modal_parent_id" :value="__('Parent Folder')" />
-                                    <select id="modal_parent_id" name="parent_id" class="form-control" data-enhance="choices">
+                                    <select id="modal_parent_id" name="parent_id" class="form-control" data-control="select2">
                                         <option value="{{ $rootFolder->id }}" @selected((string) $parentId === (string) $rootFolder->id)>{{ __('Project Root') }}</option>
                                         @foreach ($folderOptions as $folderId => $folderName)
                                             <option value="{{ $folderId }}" @selected((string) $parentId === (string) $folderId)>{{ $folderName }}</option>
@@ -330,7 +330,7 @@
                             @endif
                             <div class="form-group">
                                 <x-input-label for="folder_id" :value="__('Folder')" />
-                                <select id="folder_id" name="folder_id" class="form-control" data-enhance="choices" @disabled(! $driveReady)>
+                                <select id="folder_id" name="folder_id" class="form-control" data-control="select2" @disabled(! $driveReady)>
                                     <option value="" @selected($selectedFolder === null || $selectedFolder === '')>{{ __('Project Root') }}</option>
                                     @foreach ($folderOptions as $folderId => $folderName)
                                         <option value="{{ $folderId }}" @selected((string) $selectedFolder === (string) $folderId)>{{ $folderName }}</option>

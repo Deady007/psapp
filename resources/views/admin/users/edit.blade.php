@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">
         <div class="row mb-2">
             <div class="col-sm-7">
@@ -32,7 +32,7 @@
 
                 <div class="form-group">
                     <x-input-label for="role" :value="__('Role')" />
-                    <select id="role" name="role" data-enhance="choices" class="form-control" required>
+                    <select id="role" name="role" data-control="select2" class="form-control" required>
                         @foreach ($roles as $role)
                             <option value="{{ $role }}" @selected(old('role', $user->roles->pluck('name')->first() ?? 'user') === $role)>
                                 {{ $role }}

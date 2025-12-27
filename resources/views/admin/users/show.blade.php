@@ -8,7 +8,7 @@
                 <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-outline-secondary mr-2">
                     {{ __('Edit') }}
                 </a>
-                <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="d-inline" onsubmit="return confirm('{{ __('Delete this user?') }}')">
+                <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="d-inline" data-confirm="{{ __('Delete this user?') }}" data-confirm-button="{{ __('Yes, delete it') }}" data-cancel-button="{{ __('Cancel') }}">
                     @csrf
                     @method('DELETE')
                     <x-danger-button>{{ __('Delete') }}</x-danger-button>

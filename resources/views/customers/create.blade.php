@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">
         <div class="row mb-2">
             <div class="col-sm-7">
@@ -53,7 +53,7 @@
 
                 <div class="form-group">
                     <x-input-label for="status" :value="__('Status')" />
-                    <select id="status" name="status" data-enhance="choices" class="form-control" required>
+                    <select id="status" name="status" data-control="select2" class="form-control" required>
                         @foreach ($statuses as $status)
                             <option value="{{ $status }}" @selected(old('status', 'active') === $status)>
                                 {{ __($status) }}
@@ -65,7 +65,7 @@
 
                 <div class="form-group">
                     <x-input-label for="notes" :value="__('Notes')" />
-                    <textarea id="notes" name="notes" rows="4" class="form-control">{{ old('notes') }}</textarea>
+                    <textarea id="notes" name="notes" rows="4" class="form-control" data-richtext="summernote">{{ old('notes') }}</textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('notes')" />
                 </div>
 

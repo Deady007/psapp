@@ -9,7 +9,7 @@
                     {{ __('Edit') }}
                 </a>
                 @if (! in_array($role->name, ['admin', 'user'], true))
-                    <form method="POST" action="{{ route('admin.roles.destroy', $role) }}" class="d-inline" onsubmit="return confirm('{{ __('Delete this role?') }}')">
+                    <form method="POST" action="{{ route('admin.roles.destroy', $role) }}" class="d-inline" data-confirm="{{ __('Delete this role?') }}" data-confirm-button="{{ __('Yes, delete it') }}" data-cancel-button="{{ __('Cancel') }}">
                         @csrf
                         @method('DELETE')
                         <x-danger-button>{{ __('Delete') }}</x-danger-button>

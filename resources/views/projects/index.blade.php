@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">
         <div class="row mb-2">
             <div class="col-sm-7">
@@ -23,7 +23,7 @@
                 <div class="form-row">
                     <div class="form-group col-lg-4">
                         <x-input-label for="customer_id" :value="__('Customer')" />
-                        <select id="customer_id" name="customer_id" data-enhance="choices" class="form-control">
+                        <select id="customer_id" name="customer_id" data-control="select2" class="form-control">
                             <option value="">{{ __('All') }}</option>
                             @foreach ($customers as $customer)
                                 <option value="{{ $customer->id }}" @selected(($filters['customer_id'] ?? null) === $customer->id)>
@@ -35,7 +35,7 @@
 
                     <div class="form-group col-lg-4">
                         <x-input-label for="status" :value="__('Status')" />
-                        <select id="status" name="status" data-enhance="choices" class="form-control">
+                        <select id="status" name="status" data-control="select2" class="form-control">
                             <option value="">{{ __('All') }}</option>
                             @foreach ($statuses as $status)
                                 <option value="{{ $status }}" @selected(($filters['status'] ?? null) === $status)>
@@ -70,7 +70,7 @@
             </div>
         @else
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+                <table class="table table-hover text-nowrap" data-table="datatable">
                     <thead>
                         <tr>
                             <th>{{ __('Name') }}</th>
@@ -114,7 +114,7 @@
                                     <a href="{{ route('projects.edit', $project) }}" class="btn btn-sm btn-outline-secondary">
                                         {{ __('Edit') }}
                                     </a>
-                                    <form method="POST" action="{{ route('projects.destroy', $project) }}" class="d-inline" onsubmit="return confirm('{{ __('Delete this project?') }}')">
+                                    <form method="POST" action="{{ route('projects.destroy', $project) }}" class="d-inline" data-confirm="{{ __('Delete this project?') }}" data-confirm-button="{{ __('Yes, delete it') }}" data-cancel-button="{{ __('Cancel') }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger">

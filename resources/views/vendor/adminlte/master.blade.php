@@ -12,6 +12,12 @@
     {{-- Custom Meta Tags --}}
     @yield('meta_tags')
 
+    @if(config('adminlte.google_fonts.allowed', true))
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap">
+    @endif
+
     {{-- Title --}}
     <title>
         @yield('title_prefix', config('adminlte.title_prefix', ''))
@@ -65,6 +71,9 @@
     {{-- Custom Stylesheets (post AdminLTE) --}}
     @yield('adminlte_css')
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/jarvis.css') }}">
+    @if (!config('adminlte.laravel_asset_bundling'))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
 
     {{-- Favicon --}}
     @if(config('adminlte.use_ico_only'))

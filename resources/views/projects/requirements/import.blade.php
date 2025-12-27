@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">
         <div class="row mb-2">
             <div class="col-sm-7">
@@ -137,7 +137,7 @@
                                             <x-input-error class="mt-2" :messages="$errors->get('requirements.' . $index . '.details')" />
                                         </td>
                                         <td>
-                                            <select name="requirements[{{ $index }}][priority]" data-enhance="choices" class="form-control" required>
+                                            <select name="requirements[{{ $index }}][priority]" data-control="select2" class="form-control" required>
                                                 @foreach ($priorities as $priorityOption)
                                                     <option value="{{ $priorityOption }}" @selected($priority === $priorityOption)>
                                                         {{ __($priorityOption) }}
@@ -147,7 +147,7 @@
                                             <x-input-error class="mt-2" :messages="$errors->get('requirements.' . $index . '.priority')" />
                                         </td>
                                         <td>
-                                            <select name="requirements[{{ $index }}][status]" data-enhance="choices" class="form-control" required>
+                                            <select name="requirements[{{ $index }}][status]" data-control="select2" class="form-control" required>
                                                 @foreach ($statuses as $statusOption)
                                                     <option value="{{ $statusOption }}" @selected($status === $statusOption)>
                                                         {{ __($statusOption) }}

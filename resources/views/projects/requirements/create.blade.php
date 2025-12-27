@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">
         <div class="row mb-2">
             <div class="col-sm-7">
@@ -82,7 +82,7 @@
 
                                 <div class="form-group col-md-3">
                                     <x-input-label for="requirements_{{ $index }}_priority" :value="__('Priority')" />
-                                    <select id="requirements_{{ $index }}_priority" name="requirements[{{ $index }}][priority]" data-enhance="choices" class="form-control" required data-field="priority">
+                                    <select id="requirements_{{ $index }}_priority" name="requirements[{{ $index }}][priority]" data-control="select2" class="form-control" required data-field="priority">
                                         @foreach ($priorities as $priorityOption)
                                             <option value="{{ $priorityOption }}" @selected($priority === $priorityOption)>
                                                 {{ __($priorityOption) }}
@@ -94,7 +94,7 @@
 
                                 <div class="form-group col-md-3">
                                     <x-input-label for="requirements_{{ $index }}_status" :value="__('Status')" />
-                                    <select id="requirements_{{ $index }}_status" name="requirements[{{ $index }}][status]" data-enhance="choices" class="form-control" required data-field="status">
+                                    <select id="requirements_{{ $index }}_status" name="requirements[{{ $index }}][status]" data-control="select2" class="form-control" required data-field="status">
                                         @foreach ($statuses as $statusOption)
                                             <option value="{{ $statusOption }}" @selected($status === $statusOption)>
                                                 {{ __($statusOption) }}
@@ -114,7 +114,7 @@
 
                                 <div class="form-group col-md-8">
                                     <x-input-label for="requirements_{{ $index }}_details" :value="__('Details')" />
-                                    <textarea id="requirements_{{ $index }}_details" name="requirements[{{ $index }}][details]" rows="2" class="form-control" data-field="details">{{ $details }}</textarea>
+                                    <textarea id="requirements_{{ $index }}_details" name="requirements[{{ $index }}][details]" rows="2" class="form-control" data-field="details" data-richtext="summernote">{{ $details }}</textarea>
                                     <x-input-error class="mt-2" :messages="$errors->get('requirements.' . $index . '.details')" />
                                 </div>
                             </div>
@@ -166,7 +166,7 @@
 
                 <div class="form-group col-md-3">
                     <x-input-label for="requirements___INDEX___priority" :value="__('Priority')" />
-                    <select id="requirements___INDEX___priority" name="requirements[__INDEX__][priority]" data-enhance="choices" class="form-control" required data-field="priority">
+                    <select id="requirements___INDEX___priority" name="requirements[__INDEX__][priority]" data-control="select2" class="form-control" required data-field="priority">
                         @foreach ($priorities as $priorityOption)
                             <option value="{{ $priorityOption }}" @selected($priorityOption === 'medium')>
                                 {{ __($priorityOption) }}
@@ -177,7 +177,7 @@
 
                 <div class="form-group col-md-3">
                     <x-input-label for="requirements___INDEX___status" :value="__('Status')" />
-                    <select id="requirements___INDEX___status" name="requirements[__INDEX__][status]" data-enhance="choices" class="form-control" required data-field="status">
+                    <select id="requirements___INDEX___status" name="requirements[__INDEX__][status]" data-control="select2" class="form-control" required data-field="status">
                         @foreach ($statuses as $statusOption)
                             <option value="{{ $statusOption }}" @selected($statusOption === 'todo')>
                                 {{ __($statusOption) }}
@@ -195,7 +195,7 @@
 
                 <div class="form-group col-md-8">
                     <x-input-label for="requirements___INDEX___details" :value="__('Details')" />
-                    <textarea id="requirements___INDEX___details" name="requirements[__INDEX__][details]" rows="2" class="form-control" data-field="details"></textarea>
+                    <textarea id="requirements___INDEX___details" name="requirements[__INDEX__][details]" rows="2" class="form-control" data-field="details" data-richtext="summernote"></textarea>
                 </div>
             </div>
         </div>
@@ -208,26 +208,11 @@
                 const templateHtml = $('#requirement-row-template').html();
                 let nextIndex = parseInt($rows.data('next-index'), 10) || 0;
 
-                const initializeChoices = (scope) => {
-                    if (!window.Choices) {
-                        return;
+                const enhanceControls = (scope) => {
+                    const target = scope && scope[0] ? scope[0] : scope || document;
+                    if (window.appUi && target) {
+                        window.appUi.enhance(target);
                     }
-
-                    $(scope).find('select[data-enhance="choices"]').each(function () {
-                        const selectEl = this;
-                        if (selectEl.dataset.choicesAttached === '1') {
-                            return;
-                        }
-
-                        new Choices(selectEl, {
-                            searchEnabled: true,
-                            shouldSort: false,
-                            itemSelectText: '',
-                            removeItemButton: false,
-                        });
-
-                        selectEl.dataset.choicesAttached = '1';
-                    });
                 };
 
                 const syncRowNumbers = () => {
@@ -262,7 +247,7 @@
                     const $row = $(templateHtml.replace(/__INDEX__/g, index));
                     copyPreviousValues($row);
                     $rows.append($row);
-                    initializeChoices($row);
+                    enhanceControls($row);
                     syncRowNumbers();
                 };
 
@@ -280,6 +265,7 @@
                 });
 
                 syncRowNumbers();
+                enhanceControls($rows);
             });
         </script>
     @endpush

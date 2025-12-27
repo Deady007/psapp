@@ -15,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectKickoffController;
 use App\Http\Controllers\ProjectRequirementController;
+use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,6 +35,11 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:admin|user|developer|tester'])
     ->scopeBindings()
     ->group(function () {
+        Route::get('/settings/application', [SettingsController::class, 'application'])->name('settings.application');
+        Route::get('/settings', function () {
+            return redirect()->to(route('settings.application').'#ui-theme');
+        })->name('settings');
+
         Route::resource('customers', CustomerController::class);
         Route::resource('customers.contacts', CustomerContactController::class);
         Route::resource('projects', ProjectController::class);

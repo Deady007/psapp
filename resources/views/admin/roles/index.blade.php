@@ -28,7 +28,7 @@
             </div>
         @else
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+                <table class="table table-hover text-nowrap" data-table="datatable">
                     <thead>
                         <tr>
                             <th>{{ __('Name') }}</th>
@@ -58,7 +58,7 @@
                                         {{ __('Edit') }}
                                     </a>
                                     @if (! in_array($role->name, ['admin', 'user'], true))
-                                        <form method="POST" action="{{ route('admin.roles.destroy', $role) }}" class="d-inline" onsubmit="return confirm('{{ __('Delete this role?') }}')">
+                                        <form method="POST" action="{{ route('admin.roles.destroy', $role) }}" class="d-inline" data-confirm="{{ __('Delete this role?') }}" data-confirm-button="{{ __('Yes, delete it') }}" data-cancel-button="{{ __('Cancel') }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger">

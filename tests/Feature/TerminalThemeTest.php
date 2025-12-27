@@ -10,6 +10,7 @@ it('shows terminal auth styling on the login page', function () {
     $response->assertSee('terminal-auth-card', false);
     $response->assertSee('terminal-btn', false);
     $response->assertSee('terminal-auth-description', false);
+    $response->assertSee('data-theme="softui"', false);
 });
 
 it('applies terminal classes on the dashboard layout', function () {

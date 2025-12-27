@@ -1,8 +1,8 @@
-@php($selectedStakeholders = $selectedStakeholders ?? [])
+﻿@php($selectedStakeholders = $selectedStakeholders ?? [])
 
 <div class="form-group">
     <x-input-label for="stakeholders" :value="__('Stakeholders (@)')" />
-    <select id="stakeholders" name="stakeholders[]" data-enhance="choices" class="form-control" multiple>
+    <select id="stakeholders" name="stakeholders[]" data-control="select2" class="form-control" multiple>
         @if (($stakeholderOptions['customers'] ?? collect())->isNotEmpty())
             <optgroup label="{{ __('Customers') }}">
                 @foreach ($stakeholderOptions['customers'] as $customer)

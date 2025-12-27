@@ -27,7 +27,7 @@
                             {{ __('Complete Call') }}
                         </a>
                     @endif
-                    <form method="POST" action="{{ route('projects.kickoffs.destroy', $project) }}" class="d-inline" onsubmit="return confirm('{{ __('Delete this kick-off?') }}')">
+                    <form method="POST" action="{{ route('projects.kickoffs.destroy', $project) }}" class="d-inline" data-confirm="{{ __('Delete this kick-off?') }}" data-confirm-button="{{ __('Yes, delete it') }}" data-cancel-button="{{ __('Cancel') }}">
                         @csrf
                         @method('DELETE')
                         <x-danger-button>{{ __('Delete') }}</x-danger-button>

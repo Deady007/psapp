@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">
         <div class="row mb-2">
             <div class="col-sm-7">
@@ -19,7 +19,7 @@
 
                 <div class="form-group">
                     <x-input-label for="customer_id" :value="__('Customer')" />
-                    <select id="customer_id" name="customer_id" data-enhance="choices" class="form-control" required>
+                    <select id="customer_id" name="customer_id" data-control="select2" class="form-control" required>
                         <option value="">{{ __('Select a customer') }}</option>
                         @foreach ($customers as $customer)
                             <option value="{{ $customer->id }}" @selected((int) old('customer_id') === $customer->id)>
@@ -33,7 +33,7 @@
                 @php($selectedProducts = collect(old('products', []))->map(fn ($value) => (int) $value)->all())
                 <div class="form-group">
                     <x-input-label for="products" :value="__('Products')" />
-                    <select id="products" name="products[]" data-enhance="choices" class="form-control" multiple>
+                    <select id="products" name="products[]" data-control="select2" class="form-control" multiple>
                         @foreach ($products as $product)
                             <option value="{{ $product->id }}" @selected(in_array($product->id, $selectedProducts, true))>
                                 {{ $product->name }}
@@ -58,7 +58,7 @@
 
                 <div class="form-group">
                     <x-input-label for="status" :value="__('Status')" />
-                    <select id="status" name="status" data-enhance="choices" class="form-control" required>
+                    <select id="status" name="status" data-control="select2" class="form-control" required>
                         @foreach ($statuses as $status)
                             <option value="{{ $status }}" @selected(old('status', 'draft') === $status)>
                                 {{ __($status) }}
@@ -84,7 +84,7 @@
 
                 <div class="form-group">
                     <x-input-label for="description" :value="__('Description')" />
-                    <textarea id="description" name="description" rows="4" class="form-control">{{ old('description') }}</textarea>
+                    <textarea id="description" name="description" rows="4" class="form-control" data-richtext="summernote">{{ old('description') }}</textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('description')" />
                 </div>
 

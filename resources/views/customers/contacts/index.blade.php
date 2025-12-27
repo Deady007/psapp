@@ -31,7 +31,7 @@
             </div>
         @else
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+                <table class="table table-hover text-nowrap" data-table="datatable">
                     <thead>
                         <tr>
                             <th>{{ __('Name') }}</th>
@@ -56,7 +56,7 @@
                                     <a href="{{ route('customers.contacts.edit', [$customer, $contact]) }}" class="btn btn-sm btn-outline-secondary">
                                         {{ __('Edit') }}
                                     </a>
-                                    <form method="POST" action="{{ route('customers.contacts.destroy', [$customer, $contact]) }}" class="d-inline" onsubmit="return confirm('{{ __('Delete this contact?') }}')">
+                                    <form method="POST" action="{{ route('customers.contacts.destroy', [$customer, $contact]) }}" class="d-inline" data-confirm="{{ __('Delete this contact?') }}" data-confirm-button="{{ __('Yes, delete it') }}" data-cancel-button="{{ __('Cancel') }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger">

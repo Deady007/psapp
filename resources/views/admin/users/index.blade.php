@@ -28,7 +28,7 @@
             </div>
         @else
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+                <table class="table table-hover text-nowrap" data-table="datatable">
                     <thead>
                         <tr>
                             <th>{{ __('Name') }}</th>
@@ -51,7 +51,7 @@
                                     <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-outline-secondary">
                                         {{ __('Edit') }}
                                     </a>
-                                    <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="d-inline" onsubmit="return confirm('{{ __('Delete this user?') }}')">
+                                    <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="d-inline" data-confirm="{{ __('Delete this user?') }}" data-confirm-button="{{ __('Yes, delete it') }}" data-cancel-button="{{ __('Cancel') }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger">

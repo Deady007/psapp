@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">
         <div class="row mb-2">
             <div class="col-sm-7">
@@ -41,14 +41,14 @@
 
                 <div class="form-group">
                     <x-input-label for="details" :value="__('Details')" />
-                    <textarea id="details" name="details" rows="4" class="form-control">{{ old('details', $requirement->details) }}</textarea>
+                    <textarea id="details" name="details" rows="4" class="form-control" data-richtext="summernote">{{ old('details', $requirement->details) }}</textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('details')" />
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <x-input-label for="priority" :value="__('Priority')" />
-                        <select id="priority" name="priority" data-enhance="choices" class="form-control" required>
+                        <select id="priority" name="priority" data-control="select2" class="form-control" required>
                             @foreach ($priorities as $priority)
                                 <option value="{{ $priority }}" @selected(old('priority', $requirement->priority) === $priority)>
                                     {{ __($priority) }}
@@ -60,7 +60,7 @@
 
                     <div class="form-group col-md-6">
                         <x-input-label for="status" :value="__('Status')" />
-                        <select id="status" name="status" data-enhance="choices" class="form-control" required>
+                        <select id="status" name="status" data-control="select2" class="form-control" required>
                             @foreach ($statuses as $status)
                                 <option value="{{ $status }}" @selected(old('status', $requirement->status) === $status)>
                                     {{ __($status) }}
